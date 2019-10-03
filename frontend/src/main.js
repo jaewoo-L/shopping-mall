@@ -5,7 +5,7 @@ import axios from 'axios'
 import { store } from './store/store'
 
 Vue.prototype.$http = axios
-
+//ㅇㅇ
 Vue.config.productionTip = false
 
 new Vue({

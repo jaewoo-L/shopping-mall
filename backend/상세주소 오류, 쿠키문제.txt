@@ -1,14 +1,16 @@
-//vue�� ���� ���� ������ ���� ������ ���� ���� �������̱� ������ ����ڰ� ���� url�� ���ּҸ� �Է��ϸ� ������ ���. 
-//�̶� �̸� �ذ��ϱ� ���� ��Ű���� �Ʒ��� ����.
+//vue¸¦ ÅëÇÑ ¾ÛÀÌ ÀûÀýÇÑ ¼­¹ö ¼³Á¤ÀÌ ¾ø´Â ´ÜÀÏ ÆäÀÌÁöÀÌ±â ¶§¹®¿¡ »ç¿ëÀÚ°¡ Á÷Á¢ url¿¡ »ó¼¼ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ¸é ¿À·ù°¡ ¶á´Ù. 
+//ÀÌ¶§ ÀÌ¸¦ ÇØ°áÇÏ±â À§ÇÑ ÆÐÅ°Áö°¡ ¾Æ·¡¿Í °°´Ù.
 app.use(require('connect-history-api-fallback')());
 
 
-passport�� �̿��� ������Ŀ��� backend�� frontend�� ������ �ּҰ� �ٸ��� ������ ��Ű�� ������� �ʴ´�. �̸� �ذ��ϱ� ���ؼ�
+passport¸¦ ÀÌ¿ëÇÑ ÀÎÁõ¹æ½Ä¿¡¼­ backend¿Í frontendÀÇ µµ¸ÞÀÎ ÁÖ¼Ò°¡ ´Ù¸£±â ¶§¹®¿¡ ÄíÅ°°¡ ¿¬°áµÇÁö ¾Ê´Â´Ù. ÀÌ¸¦ ÇØ°áÇÏ±â À§ÇØ¼­
 
-axios.get�̳� axios.post�� ����Ҷ� ������ ���ڰ��� { withCredentials: true } �� �߰����ָ� �ν��Ѵ�.
+axios.getÀÌ³ª axios.post¸¦ »ç¿ëÇÒ¶§ ¸¶Áö¸· ÀÎÀÚ°ª¿¡ { withCredentials: true } ¸¦ Ãß°¡ÇØÁÖ¸é ÀÎ½ÄÇÑ´Ù.
 
 ex) axios.get('some api url', {withCredentials: true});
 
 	axios.post('/api/login/signUp', { 
    	     user: this.user
    	   }, { withCredentials: true })
+
+   	   ㅇㅇㅇ
