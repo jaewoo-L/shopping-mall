@@ -12,6 +12,8 @@ import EditProduct from './components/products/EditProductPage'
 import Login from './components/LoginPage'
 import Logout from './components/LogoutPage'
 import SignUp from './components/SignUpPage'
+import Forgot from './components/ForgotPage'
+import Reset from './components/ResetPage'
 import Basket from './components/users/BasketPage'
 import Orders from './components/users/OrdersPage'
 import NewComments from './components/comments/NewPage'
@@ -130,6 +132,27 @@ export default new Router({
       }
   
     },
+    //forgot page
+    {
+      path: '/forgot',
+      name: 'forgot',
+      components: {
+        'header': Header,
+        default: Forgot
+      }
+  
+    },
+    //reset page
+    {
+      path: '/reset/:token',
+      name: 'reset',
+      components: {
+        'header': Header,
+        default: Reset
+      }
+  
+    },
+    
     //shopping Basket
     {
       path: '/basket',

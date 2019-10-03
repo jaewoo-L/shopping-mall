@@ -3,9 +3,12 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import { store } from './store/store'
+import Vuelidate from 'vuelidate'
+//
+Vue.use(Vuelidate)
 
 Vue.prototype.$http = axios
-//ㅇㅇ
+
 Vue.config.productionTip = false
 
 new Vue({

@@ -1,11 +1,12 @@
 <template>
   <div id="login">
     <div> Login </div>
-    <input v-model="username" name="username" placeholder="ID"> <br/>
-    <input v-model="password" type="password" name="password" placeholder="password">
+    ID : <input v-model="username" name="username" placeholder="ID"> <br/>
+    Password : <input v-model="password" type="password" name="password" placeholder="password">
     <button v-on:click="login" >login</button>
     <hr>
     <a :href="url.signUpUrl" > Sign up </a>
+    <a :href="url.forgotUrl" > Did you forget your password? </a>
   </div>
 </template>
 
@@ -16,7 +17,8 @@ export default {
         username: '',
         password: '',
         url: {
-           signUpUrl: '/signUp'
+           signUpUrl: '/signUp',
+           forgotUrl: '/forgot'
         }
     }
   },
