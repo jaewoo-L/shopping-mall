@@ -31,7 +31,7 @@
 					<div class="form-group">
 					<input type="text" class="form-control" placeholder="Search">
 					</div>
-					<button type="submit" class="btn btn-default">Search</button>
+					<button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
 				</form>
 			</div>
 		</div><!-- /.container-fluid -->

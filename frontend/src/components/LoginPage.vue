@@ -1,12 +1,20 @@
 <template>
   <div id="login">
-    <div> Login </div>
-    ID : <input v-model="username" name="username" placeholder="ID"> <br/>
-    Password : <input v-model="password" type="password" name="password" placeholder="password">
-    <button v-on:click="login" >login</button>
-    <hr>
-    <a :href="url.signUpUrl" > Sign up </a>
-    <a :href="url.forgotUrl" > Did you forget your password? </a>
+    <div class="login-box">
+      <h1> Login </h1>
+      <div class="text-box">
+        <i class="fas fa-user-alt"></i> 
+        <input v-model="username" name="username" placeholder="E-mail"> 
+      </div>
+      
+      <div class="text-box">
+        <i class="fas fa-lock"></i>
+        <input v-model="password" type="password" name="password" placeholder="Password">
+      </div>      
+      <a :href="url.signUpUrl" >회원가입</a> 
+      <a style="float:right;" :href="url.forgotUrl" > 비밀번호가 기억나지 않나요? </a>
+      <button class="btn" v-on:click="login">login</button>
+    </div>
   </div>
 </template>
 
@@ -51,3 +59,67 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  #login {
+    //position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  
+    //background: url(https://images.unsplash.com/photo-1492660206837-de783f9fdced?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80) no-repeat;
+    //background-size: cover;
+  }
+
+  .login-box {
+    position: absolute;
+    width:280px;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .login-box h1 {
+    float: left;
+    font-size: 40px;
+    border-bottom: 6px solid #050c30;
+    margin-bottom: 30px;
+    padding: 10px 0;
+  }
+
+  .text-box {
+    width: 100%;
+    overflow: hidden;
+    font-size: 20px;
+    padding: 8px 0;
+    margin: 8px 0;
+    border-bottom: 1px solid #050c30; 
+  }
+
+  .text-box i {
+    width: 26px;
+    float: left;
+    text-align: center;
+  }
+
+  .text-box input {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 18px;
+    width: 80%;
+    margin: 0 10px;
+    float: left;
+  }
+
+  .btn {
+    width: 100%;
+    background: none;
+    border: 2px solid #050c30;
+    padding: 5px;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 10px 0;
+  }
+</style>
