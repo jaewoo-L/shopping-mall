@@ -17,6 +17,7 @@ var	passportLocalMongoose = require('passport-local-mongoose');
 var moviesRouter = require('./routes/movies'); 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
+var productsRouter = require('./routes/products');
 require('dotenv').config();
 
 var app = express();
@@ -25,7 +26,7 @@ app.use(cors({credentials: true, origin: 'http://localhost:8080'}))
 //vue를 통한 앱이 적절한 서버 설정이 없는 단일 페이지이기 때문에 사용자가 직접 url에 상세주소를 입력하면 오류가 뜬다. 
 //이때 이를 해결하기 위한 패키지가 아래와 같다.
 app.use(require('connect-history-api-fallback')());
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 mongoose.connect(process.env.DB_HOST, {
 	useNewUrlParser: true,
@@ -49,8 +50,8 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser("rtyhsx2"));
+
 
 app.use(session({
 	secret:"rtyhsx2",
@@ -72,6 +73,7 @@ app.all('/*', function(req, res, next) {
 app.use('/', indexRouter);
 app.use('/api/movies', moviesRouter);
 app.use('/api/login', loginRouter);
+app.use('/api/products', productsRouter);
 app.get('/exercise', async (req, res) => {
 	let post = await Post.create({title:'Test', description:'This is a Test'})
 	res.json(post);

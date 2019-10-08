@@ -10,7 +10,8 @@ export const store = new Vuex.Store({
 	//응용 프로그램의 모든 속성을 저장할 수 있는 객체입니다.
 	state: {
 		username: null,
-		token:null
+		token:null,
+		isAdmin: false
 	},
 	//데이터 중복을 막기위해 함수를 한곳에 모으고 중복을 최소화한다.
 	getters: {
@@ -19,6 +20,12 @@ export const store = new Vuex.Store({
 		},
 		isAuthenticated: state => {
 			return state.token !== null
+		},
+		isAdmin: state => {
+			return state.isAdmin;
+		},
+		token: state => {
+			return state.token;
 		}
 	},
 	//state 를 변경할 때도 동일한 문제가 생길 수 있다. 그래서 Mutations 를 이용할 수 있다. 상태(state)를 변경하고 저장한다.
@@ -28,12 +35,14 @@ export const store = new Vuex.Store({
 		clearAuthData (state) {
 	    	state.username = null;
 	    	state.token = null;
+	    	state.isAdmin = false;
 	    },
 		authUser(state, userData) {
       //토큰을 vuex에 저장하지만 vuex역시 js파일이기 때문에 새로고침하면 손실된다. 그래서 로그인 유지가 불가능하다.
       //우리는 브라우저 API를 통해 토큰을 저장하여 로그인을 유지한다. localStorage 이다.
   			state.token = userData.token
   			state.username = userData.username
+  			state.isAdmin = userData.isAdmin
   		},
 	},
 	//Actions 이용 ./actioins.js 에서 내보낸 값들.
@@ -41,15 +50,17 @@ export const store = new Vuex.Store({
 		 tryAutoLogin({commit}) {
 		  const token = localStorage.getItem("access_token")
 	      const username = localStorage.getItem("username")
+	      const isAdmin = localStorage.getItem("isAdmin")
 	      if (!token) {
 	        return
 	      }   
-	      commit('authUser',{token: token, username: username})
+	      commit('authUser',{token: token, username: username, isAdmin: isAdmin})
 	    },
 	    logout({commit}) {
 	      commit('clearAuthData')
 	      localStorage.removeItem("access_token")
 	      localStorage.removeItem("username")
+	      localStorage.removeItem("isAdmin")
 	    }
 	}
 });

@@ -5,7 +5,7 @@
         <div class="text-box" :class="{invalid: $v.username.$error}">
           <label for="username">ID : </label>
           <input
-                    @input="$v.username.$touch()" 
+                    @blur="$v.username.$touch()" 
                     v-model="username" 
                     id="username"
                     name="username" 
@@ -21,7 +21,8 @@
                           type="password"
                           @blur="$v.password.$touch()" 
                           v-model="password" 
-                          placeholder="password"> 
+                          maxlength="15"
+                          placeholder="Password"> 
           <p v-if="$v.password.$error">최소 6자 이상 최대 15자 이하로 작성하세요.</p>                    
         </div>                
 
@@ -33,6 +34,7 @@
                               type="password"  
                               @blur="$v.confirmPassword.$touch()" 
                               v-model="confirmPassword" 
+                              maxlength="15"
                               placeholder="ConfirmPassword">
           <p v-if="$v.confirmPassword.$error">패스워드가 일치하지 않습니다.</p>
         </div>
@@ -69,13 +71,16 @@
                       v-model="gender"> Female  
         </div>
 
-        <div class="text-box">
+        <div class="text-box" :class="{invalid: $v.age.$error}">
           <label for="age">나이 : </label>
           <input 
-                    v-model="age" 
+                    @input="$v.age.$touch()"
+                    v-model.number="age" 
                     id="age"
                     name="age" 
+                    maxlength="2"
                     placeholder="20">
+          <p v-if="$v.age.$error">숫자를 입력하세요.</p>             
         </div>
 
         <div class="text-box">
@@ -92,18 +97,21 @@
           <label>핸드폰 : </label>
           <input
                         @input="$v.phone_first.$touch()" 
-                        v-model.number="phone_first" 
+                        v-model="phone_first" 
                         name="phone_first"
+                        maxlength="3"
                         class="phone" 
                         placeholder="010"> - <input
                                                   @input="$v.phone_middle.$touch()" 
-                                                  v-model.number="phone_middle" 
+                                                  v-model="phone_middle" 
                                                   name="phone_middle" 
+                                                  maxlength="4"
                                                   class="phone"
                                                   placeholder="3333"> - <input
                                                                               @input="$v.phone_last.$touch()" 
-                                                                              v-model.number="phone_last" 
+                                                                              v-model="phone_last" 
                                                                               name="phone_last"
+                                                                              maxlength="4"
                                                                               class="phone" 
                                                                               placeholder="8888">
         </div>
@@ -133,38 +141,44 @@ export default {
         phone_first: '',
         phone_middle: '',
         phone_last: '',
-        currentUser:[]
+        currentUser:[],
+        doubleCheckVariable: false
     }
   },
   methods: {
     signUp: function (event) {
-      this.$http.post('/api/login/signUp', { 
-        username: this.username,
-        password: this.password,
-        lastName: this.lastName,
-        firstName: this.firstName,
-        gender: this.gender,
-        age: this.age,
-        address: this.address,
-        phone_first: this.phone_first,
-        phone_middle: this.phone_middle,
-        phone_last: this.phone_last
-      })
-      .then((response) => {
-        console.log('response');
-        console.log(response.data);
-        if (response.data.result == 0) {
-          alert('Error, please, try again');
-        }
-        if (response.data.result == 1) {
-          alert('Success');
-          this.$router.push('/login');
-        }
-      })
-      .catch(function (error) {
-        alert('frontend error');
-        console.log(error);
-      })
+      if(this.doubleCheckVariable){
+          this.$http.post('/api/login/signUp', { 
+            username: this.username,
+            password: this.password,
+            lastName: this.lastName,
+            firstName: this.firstName,
+            gender: this.gender,
+            age: this.age,
+            address: this.address,
+            phone_first: this.phone_first,
+            phone_middle: this.phone_middle,
+            phone_last: this.phone_last
+          })
+          .then((response) => {
+            console.log('response');
+            console.log(response.data);
+            if (response.data.result == 0) {
+              alert('Error, please, try again');
+            }
+            if (response.data.result == 1) {
+              alert('Success');
+              this.$router.push('/login');
+            }
+          })
+          .catch(function (error) {
+            alert('frontend error');
+            console.log(error);
+          })
+      } else {
+          alert('E-mail 중복확인이 필요합니다.');
+      }
+      
     },
 
     doubleCheck: function() {
@@ -175,8 +189,10 @@ export default {
           }
         }
         alert('사용가능한 아이디 입니다.');
+        this.doubleCheckVariable = true;
     }
   },
+
   validations: {
       username: {
         required: required,
@@ -190,22 +206,22 @@ export default {
       confirmPassword: {
         sameAs: sameAs('password')
       },
+      age: {
+        numeric
+      },
       address: {
         required
       },
       phone_first: {
         required,
-        numeric,
         maxLength: maxLength(3)
       },
       phone_middle: {
         required,
-        numeric,
         maxLength: maxLength(4)
       },
       phone_last: {
         required,
-        numeric,
         maxLength: maxLength(4)
       }
   },

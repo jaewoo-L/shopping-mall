@@ -52,6 +52,7 @@ router.post('/', passport.authenticate('local') ,function(req, res) {
 	console.log('user ');
 	console.log(req.user);
 	req.session._id = req.user._id;
+	sendmsg.isAdmin = req.user.isAdmin;
 	sendmsg.username = req.user.username;
 	sendmsg.session = req.session._id;
 	console.log('sendmsg object!!!');
@@ -131,14 +132,12 @@ router.post('/forgot', function(req, res, next) {
 // });
 
 router.post('/reset/:token', function(req, res) {
-	console.log('비밀번호 변경 waterfall 입성전.');
 	async.waterfall([
 		function(done) {
 			User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
 				if(!user) {
 					res.json('존재하지 않는 유저입니다.')
 				}
-				console.log('비밀번호 변경 waterfall 입성후.');
 				user.setPassword(req.body.password, function(err) {
 					user.resetPasswordToken = undefined;
 					user.resetPasswordExpires = undefined;

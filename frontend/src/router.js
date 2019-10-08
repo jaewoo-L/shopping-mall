@@ -72,6 +72,17 @@ export default new Router({
        default: Accs
       },
     },  
+
+    //Create New Product
+    {
+      path: '/products/new',
+      name: 'createProduct',
+      components: {
+        'header': Header,
+        default: CreateProduct
+      }
+    },
+
     //Details Product
     {
       path: '/products/:id',
@@ -89,16 +100,6 @@ export default new Router({
       components: {
         'header': Header,
         default: EditProduct
-      }
-    },
-
-    //Create New Product
-    {
-      path: '/products/new',
-      name: 'createProduct',
-      components: {
-        'header': Header,
-        default: CreateProduct
       }
     },
     

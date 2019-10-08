@@ -7,11 +7,11 @@ var userSchema  = new mongoose.Schema({
 	firstName: String,
 	lastName: String,
 	avatar: String,
-	age: String,
+	age: Number,
 	address: String,
-	phone_first: Number,
-	phone_middle: Number,
-	phone_last: Number,
+	phone_first: String,
+	phone_middle: String,
+	phone_last: String,
 	resetPasswordToken: String,
 	resetPasswordExpires: Date,
 	orders: [{
@@ -28,3 +28,7 @@ var userSchema  = new mongoose.Schema({
 userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User',userSchema);
+
+
+//admin@admin.com
+//adminadmin
