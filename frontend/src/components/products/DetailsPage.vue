@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Details page</p>
+    <h1>Details page</h1>
     <button v-if="isAdmin" @click="editProduct">수정</button>
     <button v-if="isAdmin" @click="deleteProduct">삭제</button>
     <hr>
@@ -17,23 +17,36 @@ export default {
 	    return {
 	      product: {},
 	      likes: [],
-	      istrue: null
+	      istrue: null,
 	    }
 	},
 	computed: {
     	isAdmin() {
+          console.log('isAmin 변경');
+          console.log(this.$store.getters.isAdmin);
       		return this.$store.getters.isAdmin;
     	},
     	token() {
     		return this.$store.getters.token;
     	}
-  	},
+  },
   	methods: {
   		editProduct() {
-
+        this.$router.push('/products/' + this.$route.params.id + '/edit');
   		},
   		deleteProduct() {
-
+        this.$http.delete('/api/products/' + this.$route.params.id)
+        .then((response) => {
+          if(response.data.result == 'success') {
+            alert('삭제 성공했습니다.');
+            this.$router.push('/products');
+          } else if(response.data.result == 'fail') {
+            alert('삭제 실패했습니다.')
+          }
+        })
+        .catch(error => {
+          alert(error)
+        })
   		},
   		likeProduct() {
   			this.$http.post('/api/products/' + this.$route.params.id + '/like', {userid: this.$store.getters.token})
@@ -43,14 +56,6 @@ export default {
   				this.istrue = !this.istrue;
   				console.log(this.likes);
   				console.log(token);
-  				
-  				//for(var i in this.likes) {
-		        //  if(this.likes[i] == token) {
-		        //    this.istrue = true;
-		        //  } else {
-		        //  	this.istrue = false;
-		        //  }
-		       // }
   			})
   		}
   	},
@@ -70,8 +75,7 @@ export default {
   				}
   				
   			}
-  		});
-  		
+  		})
   	}
 }
 </script>

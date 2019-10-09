@@ -18,7 +18,11 @@
 <script>
   export default {
     created() {
-      this.$store.dispatch('tryAutoLogin');
+      this.$store.dispatch('tryAutoLogin')
+      .then((response) => {
+        console.log('tryAutoLogin');
+        console.log(typeof this.$store.getters.isAdmin);
+      });
     }
   }
 

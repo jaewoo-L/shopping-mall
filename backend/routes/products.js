@@ -15,6 +15,42 @@ router.get('/', function(req,res){
 	});
 });
 
+//INDEX Display a list of tops products
+router.get('/tops', function(req,res){
+	//Get all products from DB
+	Product.find().where('kinds').equals('tops').exec(function(err,topsProducts){
+		if(err){
+			console.log(err);
+		}else{
+			res.json(topsProducts);
+		}
+	});
+});
+
+//INDEX Display a list of bottoms products
+router.get('/bottoms', function(req,res){
+	//Get all products from DB
+	Product.find().where('kinds').equals('bottoms').exec(function(err,bottomsProducts){
+		if(err){
+			console.log(err);
+		}else{
+			res.json(bottomsProducts);
+		}
+	});
+});
+
+//INDEX Display a list of accs products
+router.get('/accs', function(req,res){
+	//Get all products from DB
+	Product.find().where('kinds').equals('accs').exec(function(err,accsProducts){
+		if(err){
+			console.log(err);
+		}else{
+			res.json(accsProducts);
+		}
+	});
+});
+
 //CREATE Add new products to DB
 //router.post('/', middleware.isLogedIn, function(req,res){ 보류
 router.post('/', function(req,res){	
@@ -50,6 +86,37 @@ router.get('/:id', function(req,res){
 	}); 
 });
 
+//EDIT Product ROUTE
+router.get("/:id/edit" ,function(req,res){
+	Product.findById(req.params.id, function(err, foundProduct) {
+		console.log(foundProduct);
+		res.json(foundProduct);		
+	});
+});
+
+//UPDATE Product ROUTE
+router.put("/:id" ,function(req,res){
+	//find and update the product
+	Product.findByIdAndUpdate(req.params.id, req.body.product , function(err, editProduct){
+		if(err){
+			res.json({result: 'fail'})
+		}else{
+			res.json(editProduct)
+		}
+	});
+});
+
+//DESTROY Product ROUTE
+router.delete("/:id" ,function(req,res){
+	Product.findByIdAndRemove(req.params.id, function(err){
+		if(err){
+			res.json({result: 'fail'})
+		}else{
+			res.json({result: 'success'})
+		}
+	});
+});
+
 //Product Like Route
 router.post("/:id/like", function(req,res){
 	Product.findById(req.params.id, function(err, foundProduct) {
@@ -58,22 +125,15 @@ router.post("/:id/like", function(req,res){
 		}
 		console.log(foundProduct);
 		var foundLikeUser = foundProduct.likes.some(function(like) {
-				console.log(like);
 				return like.equals(req.body.userid);
 			
 		});
 		if(foundLikeUser) {
 			//already likded, removing like
-			console.log(req.user);
 			foundProduct.likes.pull(req.body.userid);
-			console.log('이제 안좋아해');
-			console.log(foundProduct.likes);
-
 		}else { 
 			console.log(req.user);
 			foundProduct.likes.push(req.body.userid);
-			console.log('이제 좋아해');
-			console.log(foundProduct.likes);
 		}
 		
 		foundProduct.save(function(err) {

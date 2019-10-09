@@ -1,6 +1,6 @@
 <template>
    <div>
-      <h1> all products </h1>
+      <h1> All products </h1>
       <button v-if="isAdmin" @click="createProduct">등록</button>
       <hr>
       <div v-for="product in products" class="col-sm-4 col-md-3">
@@ -29,6 +29,7 @@ export default {
   },
   computed: {
     isAdmin(){
+      console.log(this.$store.getters.isAdmin)
       return this.$store.getters.isAdmin;
     }
   },
@@ -38,7 +39,6 @@ export default {
     }
   },
   created() {
-      this.isAdmin = this.$store.state.isAdmin;
       this.$http.get('/api/products')
       .then((response) => {
           this.products = response.data

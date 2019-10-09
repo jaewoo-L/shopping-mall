@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var methodOverride = require('method-override');
 var session = require('express-session');
 var User 				  = require('./models/user');
 var	localStrategy         = require('passport-local');

@@ -11,7 +11,7 @@ export const store = new Vuex.Store({
 	state: {
 		username: null,
 		token:null,
-		isAdmin: false
+		isAdmin: null
 	},
 	//데이터 중복을 막기위해 함수를 한곳에 모으고 중복을 최소화한다.
 	getters: {
@@ -21,8 +21,8 @@ export const store = new Vuex.Store({
 		isAuthenticated: state => {
 			return state.token !== null
 		},
-		isAdmin: state => {
-			return state.isAdmin;
+		isAdmin: state => { 
+			return state.isAdmin == 'true'
 		},
 		token: state => {
 			return state.token;
@@ -35,7 +35,7 @@ export const store = new Vuex.Store({
 		clearAuthData (state) {
 	    	state.username = null;
 	    	state.token = null;
-	    	state.isAdmin = false;
+	    	state.isAdmin = null;
 	    },
 		authUser(state, userData) {
       //토큰을 vuex에 저장하지만 vuex역시 js파일이기 때문에 새로고침하면 손실된다. 그래서 로그인 유지가 불가능하다.
