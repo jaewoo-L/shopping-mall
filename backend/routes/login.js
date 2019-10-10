@@ -179,4 +179,42 @@ router.post('/reset/:token', function(req, res) {
 	});
 });
 
+router.get('/:id/basket', function(req, res) {
+	User.findById(req.params.id).where('basket').populate('basket').exec(function(err, foundUserBasket) {
+		console.log('user basket');
+		console.log(foundUserBasket);
+
+		res.json(foundUserBasket);
+	});
+});
+
+//User's item in shopping basket Route
+router.post("/:id/basket", function(req,res){
+	User.findById(req.body.userid, function(err, foundUser) {
+		if(err) {
+			
+		}
+		console.log(foundUser);
+		var foundBasketUser = foundUser.basket.some(function(basket) {
+				return basket.equals(req.params.id);
+			
+		});
+		if(foundBasketUser) {
+			//already have, removing product
+			foundUser.basket.pull(req.params.id);
+		}else { 
+			foundUser.basket.push(req.params.id);
+		}
+		
+		foundUser.save(function(err) {
+			if(err) {
+				
+			}
+			console.log('저장합니다.')
+			console.log(foundUser.basket);
+			res.json(foundUser.basket);
+		});
+	});
+});
+
 module.exports = router;

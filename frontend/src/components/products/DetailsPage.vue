@@ -8,6 +8,7 @@
     <img v-bind:src="product.detailed_image">
     <p>{{product.price}}￦</p>
     <button :disabled="!token" @click="likeProduct" :class="{likeBtn: istrue}">like({{likes.length}})</button>
+    <button :disabled="!token" @click="basketProduct">장바구니 담기</button>
   </div>
 </template>
 
@@ -17,6 +18,7 @@ export default {
 	    return {
 	      product: {},
 	      likes: [],
+        basket: [],
 	      istrue: null,
 	    }
 	},
@@ -52,15 +54,28 @@ export default {
   			this.$http.post('/api/products/' + this.$route.params.id + '/like', {userid: this.$store.getters.token})
   			.then((response) => {
   				this.likes = response.data;
-  				let token = this.token;
+  				//let token = this.token;
   				this.istrue = !this.istrue;
   				console.log(this.likes);
-  				console.log(token);
+  				//console.log(token);
   			})
-  		}
+  		},
+      basketProduct() {
+        this.$http.post('/api/login/' + this.$route.params.id + '/basket', {userid: this.$store.getters.token})
+        .then((response) => {
+          for(var i in response.data){
+            if(response.data[i] == this.$route.params.id) {
+              alert("장바구니에 추가합니다.");
+              return;
+            }
+          }
+          alert("장바구니에서 삭제합니다.");
+          
+        })
+      }
   	},
   	created() {
-  		this.isAdmin = this.$store.state.isAdmin;
+  		//this.isAdmin = this.$store.state.isAdmin;
   		this.$http.get('/api/products/'+ this.$route.params.id)
   		.then((response) => {
   			this.product = response.data;

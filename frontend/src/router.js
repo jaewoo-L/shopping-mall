@@ -156,21 +156,12 @@ export default new Router({
     
     //shopping Basket
     {
-      path: '/basket',
+      path: '/:id/basket',
       name: 'basket',
       components: {
         'header': Header,
         default: Basket
-      },
-      beforeEnter(to, from, next) {
-          if(store.state.token) {
-            next();
-          } else {
-            alert("login first please");
-            next('/login');
-          }
-      }
-  
+      }  
     },
     //Order Inquiry
     {
@@ -179,14 +170,6 @@ export default new Router({
       components: {
         'header': Header,
         default: Orders
-      },
-      beforeEnter(to, from, next) {
-          if(store.state.token) {
-            next();
-          } else {
-            alert("login first please");
-            next('/login');
-          }
       }
     },
 
