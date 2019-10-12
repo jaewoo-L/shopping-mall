@@ -25,7 +25,10 @@
                               placeholder="ConfirmPassword">
           <p v-if="$v.confirmPassword.$error">패스워드가 일치하지 않습니다.</p>
         </div>      
-      <button class="btn" @click="updatePassword" :disabled="$v.$invalid">비밀번호 변경</button>  
+        
+      <div class="submit">
+          <button class="btn" @click="updatePassword" :disabled="$v.$invalid">비밀번호 변경</button>
+      </div>
     </div>
   </div>
 </template>
@@ -91,51 +94,11 @@ export default {
   }
 
   .text-box {
-    width: 100%;
-    overflow: hidden;
     font-size: 20px;
-    padding: 8px 0;
-    margin: 8px 0;
-    border-bottom: 1px solid #050c30; 
-  }
-
-  .text-box i {
-    width: 26px;
-    float: left;
-    text-align: center;
   }
 
   .text-box input {
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 18px;
     width: 100%;
     float: left;
-  }
-
-  .btn {
-    width: 100%;
-    background: none;
-    border: 2px solid #050c30;
-    padding: 5px;
-    font-size: 20px;
-    cursor: pointer;
-    margin: 10px 0;
-  }
-
-  .text-box.invalid label {
-      color: red;
-  }
-
-  .text-box.invalid input {
-    background-color: #ffc9aa;
-  }
-
-  .text-box.invalid p {
-    color:red;
-    margin: 0;
-    margin-top:5px;
-    font-size: 8px;
   }
 </style>

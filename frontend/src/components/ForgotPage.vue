@@ -11,7 +11,9 @@
                   name="username" 
                   placeholder="abc@gmail.com">        
       </div>
-      <button class="btn" @click="sendMail">메일 보내기</button>
+      <div class="submit">
+              <button class="btn" @click="sendMail">메일 보내기</button>
+      </div>
     </div>
   </div>
 </template>
@@ -67,31 +69,11 @@ export default {
   }
 
   .text-box {
-    width: 100%;
-    overflow: hidden;
     font-size: 20px;
-    padding: 8px 0;
-    margin: 8px 0;
-    border-bottom: 1px solid #050c30; 
   }
 
   .text-box input {
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 18px;
     width: 80%;
-    margin: 0 10px;
     float: left;
-  }
-
-  .btn {
-    width: 100%;
-    background: none;
-    border: 2px solid #050c30;
-    padding: 5px;
-    font-size: 20px;
-    cursor: pointer;
-    margin: 10px 0;
   }
 </style>

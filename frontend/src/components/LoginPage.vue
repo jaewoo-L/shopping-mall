@@ -13,7 +13,9 @@
       </div>      
       <a :href="url.signUpUrl" >회원가입</a> 
       <a style="float:right;" :href="url.forgotUrl" > 비밀번호가 기억나지 않나요? </a>
-      <button class="btn" v-on:click="login">login</button>
+      <div class="submit">
+              <button class="btn" v-on:click="login">login</button>
+      </div>
     </div>
   </div>
 </template>
@@ -94,12 +96,9 @@ export default {
   }
 
   .text-box {
-    width: 100%;
-    overflow: hidden;
+
     font-size: 20px;
-    padding: 8px 0;
-    margin: 8px 0;
-    border-bottom: 1px solid #050c30; 
+   
   }
 
   .text-box i {
@@ -109,22 +108,9 @@ export default {
   }
 
   .text-box input {
-    border: none;
-    outline: none;
-    background: none;
-    font-size: 18px;
-    width: 80%;
-    margin: 0 10px;
-    float: left;
-  }
 
-  .btn {
-    width: 100%;
-    background: none;
-    border: 2px solid #050c30;
-    padding: 5px;
-    font-size: 20px;
-    cursor: pointer;
-    margin: 10px 0;
+    width: 80%;
+
+    float: left;
   }
 </style>

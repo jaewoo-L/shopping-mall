@@ -91,7 +91,9 @@
           <p v-if="$v.avatar.$error">성별 등록을 해주세요.</p>
         </div>
 
-        <button @click="createProduct">등록</button>
+        <div class="submit">
+          <button class="btn" @click="createProduct" :disabled="$v.$invalid">등록</button>
+        </div>
     </div>
   </div>
 </template>
@@ -170,25 +172,34 @@ export default {
 }
 </script>
 
-<style>
-  .text-box.invalid label {
-      color: red;
-    }
+<style scoped>
+  #newProduct {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  
+  }
 
-  .text-box.invalid input {
-    background-color: #ffc9aa;
-    }
+  .newProduct-box {
+    position: absolute;
+    width:360px;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -45%);
+    padding-bottom: 70px;
+  }
 
-    .text-box.invalid p {
-      color:red;
-      margin: 0;
-      margin-top:5px;
-      font-size: 8px;
-    }
+  .newProduct-box h1 {
+    float: left;
+    font-size: 40px;
+    border-bottom: 6px solid #050c30;
+    margin-bottom: 30px;
+    padding: 10px 0;
+  }
+
+  .text-box input {  
+    font-size: 17px;
+  }
 </style>
-
-//썸네일
-//https://images.unsplash.com/photo-1536992266094-82847e1fd431?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=799&q=80
-
-//디테일
-//https://images.unsplash.com/photo-1504703395950-b89145a5425b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=651&q=80
