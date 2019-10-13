@@ -96,9 +96,7 @@ export default {
   }
 
   .text-box {
-
     font-size: 20px;
-   
   }
 
   .text-box i {
@@ -108,9 +106,7 @@ export default {
   }
 
   .text-box input {
-
     width: 80%;
-
     float: left;
   }
 </style>

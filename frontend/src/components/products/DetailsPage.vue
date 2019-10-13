@@ -6,6 +6,7 @@
     <hr>
     <p>{{product.name}}</p>
     <img v-bind:src="product.detailed_image">
+   
     <p>{{product.price}}￦</p>
     <button :disabled="!token" @click="likeProduct" :class="{likeBtn: istrue}">like({{likes.length}})</button>
     <button :disabled="!token" @click="basketProduct">장바구니 담기</button>

@@ -1,7 +1,31 @@
 var express = require('express');
 var router = express.Router();
 var Product = require('../models/products');
-//var middleware = require('../middleware'); 보류
+var async = require('async');
+//multer를 이용해 imagefile 저장할 cloud
+var cloudinary = require('cloudinary').v2;
+//file 업로드에 사용되는 module
+var multer = require('multer');
+var storage = multer.diskStorage({
+	//filename: function(req, file, callback) {
+		//callback(null, Date.now() + file.originalname);
+	//}
+});
+//file형식이 이미지가 맞는지 filtering
+var imageFilter = function(req, file, callback) {
+	if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+		return callback(new Error('Only image files are allowed!'), false);
+	}
+	callback(null, true);
+};
+var upload = multer({storage: storage, fileFilter: imageFilter});
+
+cloudinary.config({
+	cloud_name: 'du8m0pgtu',
+	api_key: '912133187682198',
+	api_secret: '2VtyQEbrxPHQLpvx7bTFQY0IFcI'
+});
+
 
 //INDEX Display a list of all products
 router.get('/', function(req,res){
@@ -52,27 +76,48 @@ router.get('/accs', function(req,res){
 });
 
 //CREATE Add new products to DB
-//router.post('/', middleware.isLogedIn, function(req,res){ 보류
-router.post('/', function(req,res){	
-	var newProduct = new Product({
-		name: req.body.name,
-		price: req.body.price,
-		thumbnail: req.body.thumbnail,
-		detailed_image: req.body.detailed_image,
-		kinds: req.body.kinds,
-		brand: req.body.brand,
-		items: req.body.items,
-		avatar: req.body.avatar
-	});
-	
-	Product.create(newProduct ,function(err,newProduct){
-		if(err){
-			console.log(err);
-		}else{
+router.post('/', upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detail', maxCount: 1}]), function(req,res){	
+			console.log(req.files);
+			console.log('------------------------');
+			console.log(req.files['thumbnail'][0]);
+			console.log('------------------------');
+			console.log(req.files['detail'][0]);
+			var newProduct = new Product({
+						name: req.body.name,
+						price: req.body.price,
+						thumbnail: '',
+						detailed_image: '',
+						kinds: req.body.kinds,
+						brand: req.body.brand,
+						items: req.body.items,
+						avatar: req.body.avatar
+					});
 			console.log(newProduct);
-			res.json(newProduct);
-		}
-	});
+
+			cloudinary.uploader.upload(req.files['thumbnail'][0].path , function(err, result){
+				if(err) {
+					console.log(err);
+				}
+				else {
+					newProduct.thumbnail = result.secure_url;
+					cloudinary.uploader.upload(req.files['detail'][0].path , function(err, resultDetail){
+						if(err) {
+							console.log(err);
+						} else {
+							newProduct.detailed_image = resultDetail.secure_url;
+							Product.create(newProduct ,function(err,newProduct){
+								if(err){
+									console.log(err);
+								}else{
+									console.log(newProduct);
+									res.json(newProduct);
+								}
+							});
+						}
+					})
+					
+				}
+			});
 });
 
 //SHOW show more info about one product
