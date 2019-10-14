@@ -27,12 +27,6 @@
 					<router-link tag="li" :to="{name: 'bottoms'}" active-class="active"><a>Bottoms</a></router-link>
 					<router-link tag="li" :to="{name: 'accs'}" active-class="active"><a>Accs</a></router-link>
 				</ul>
-				<form class="navbar-form navbar-right" role="search">
-					<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search">
-					</div>
-					<button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-				</form>
 			</div>
 		</div><!-- /.container-fluid -->
 		</nav>		

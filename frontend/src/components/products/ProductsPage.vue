@@ -1,10 +1,17 @@
 <template>
    <div class="container">
         <h5> All Products ({{products.length}}) </h5>
+        <form @submit.prevent="searchProduct" class="navbar-form navbar-right" role="search" style="margin-top: -35px">
+          <div class="form-group">
+          <input v-model="search" class="form-control" placeholder="Search">
+          </div>
+          <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+        </form>
         <button class="btn btn-default" v-if="isAdmin" @click="createProduct">등록</button>
         <hr>  
-     
-        <div v-for="product in products" class="col-sm-4 col-md-3 product" >
+      
+        <p v-if="noMatch">{{noMatch}}</p>
+        <div v-if="!noMatch" v-for="product in products" class="col-sm-4 col-md-3 product" >
           <div class="thumbnail" >
             <a :href="'/products/' + product._id" v-bind:style="{ 'background-image': 'url(' + product.thumbnail + ')' }"> 
                 <img v-bind:src="product.thumbnail" alt="">
@@ -21,6 +28,48 @@
         
   </div>
 </template>
+
+<script>
+export default {
+  data: function () {
+    return {
+      products: [],
+      search:'',
+      noMatch:null
+    }
+  },
+  computed: {
+    isAdmin(){
+      console.log(this.$store.getters.isAdmin)
+      return this.$store.getters.isAdmin;
+    }
+  },
+  methods: {
+    createProduct: function() {
+      this.$router.push('/products/new');
+    },
+    searchProduct: function() {
+      this.noMatch = null;
+      console.log(this.search);
+      this.$http.get('/api/products?search=' + this.search)
+      .then((response) => {
+          console.log(response.data);
+          if(response.data.noMatch) {
+            this.noMatch = response.data.noMatch;
+          } else {
+            this.products = response.data;
+          }
+      })
+    }
+  },
+  created() {
+      this.$http.get('/api/products')
+      .then((response) => {
+          this.products = response.data
+      })
+  }
+}
+</script>
 
 <style>
   .container .product {
@@ -64,32 +113,5 @@
     }
 </style>
 
-
-<script>
-export default {
-  data: function () {
-    return {
-      products: []
-    }
-  },
-  computed: {
-    isAdmin(){
-      console.log(this.$store.getters.isAdmin)
-      return this.$store.getters.isAdmin;
-    }
-  },
-  methods: {
-    createProduct: function() {
-      this.$router.push('/products/new');
-    }
-  },
-  created() {
-      this.$http.get('/api/products')
-      .then((response) => {
-          this.products = response.data
-      })
-  }
-}
-</script>
 
 

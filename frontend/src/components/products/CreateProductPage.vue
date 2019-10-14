@@ -29,13 +29,13 @@
           <div class="text-box">
             <label for="thumbnail">thumbnail : </label>
             <input 
-                                type="file"
-                                ref="thumbnail"
-                                @change="onSelect"
-                                id="thumbnail"
-                                name="thumbnail"    
-                                placeholder="썸네일"
-                                required>
+                      type="file"
+                      ref="thumbnail"
+                      @change="onSelectThumbnail"
+                      id="thumbnail"
+                      name="thumbnail"    
+                      placeholder="썸네일"
+                      required>
           </div>
 
           <div class="text-box">
@@ -43,7 +43,7 @@
             <input 
                       type="file"
                       ref="detail"
-                      @change="onSelects"
+                      @change="onSelectDetail"
                       id="detailed_image"
                       name="detailed_image" 
                       placeholder="상세 이미지"
@@ -121,11 +121,11 @@ export default {
   },
 
   methods: {
-    onSelect() {
+    onSelectThumbnail() {
       this.thumbnail = this.$refs.thumbnail.files[0];
       console.log(this.thumbnail);
     },
-    onSelects() {
+    onSelectDetail() {
       this.detail = this.$refs.detail.files[0];
       console.log(this.detail);
       
@@ -135,10 +135,6 @@ export default {
       formData.append('name',this.name);
       formData.append('price',this.price);
       formData.append('thumbnail', this.thumbnail);
-      //for(var i=0 ; i < this.files.length; i++) {
-        //let file = this.files[i];
-        //formData.append('files[' + i + ']' , file);
-      //}
       formData.append('detail', this.detail);
       formData.append('kinds',this.kinds);
       formData.append('brand',this.brand);
@@ -171,7 +167,6 @@ export default {
     price: {
       required
     },
-    
     kinds: {
       required
     },

@@ -30,13 +30,29 @@ cloudinary.config({
 //INDEX Display a list of all products
 router.get('/', function(req,res){
 	//Get all products from DB
-	Product.find({},function(err,allProducts){
-		if(err){
-			console.log(err);
-		}else{
-			res.json(allProducts);
-		}
-	});
+	console.log(req.query.search);
+	if(req.query.search) {
+		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+		Product.find({name: regex}, function(err, allProducts){
+           if(err){
+               console.log(err);
+           } else {
+              if(allProducts.length < 1) {
+                res.json({noMatch: '검색내용과 일치하는 상품이 없습니다.'});
+              } else {
+              	res.json(allProducts);
+              }
+           }
+        });
+	} else {
+		Product.find({},function(err,allProducts){
+			if(err){
+				console.log(err);
+			}else{
+				res.json(allProducts);
+			}
+		});
+	}
 });
 
 //INDEX Display a list of tops products
@@ -50,6 +66,7 @@ router.get('/tops', function(req,res){
 		}
 	});
 });
+
 
 //INDEX Display a list of bottoms products
 router.get('/bottoms', function(req,res){
@@ -192,6 +209,8 @@ router.post("/:id/like", function(req,res){
 	});
 });
 
-
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 module.exports = router;
