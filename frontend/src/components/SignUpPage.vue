@@ -39,6 +39,17 @@
           <p v-if="$v.confirmPassword.$error">패스워드가 일치하지 않습니다.</p>
         </div>
 
+        <div class="text-box" :class="{invalid: $v.nickname.$error}">
+          <label for="nickname">닉네임 : </label>
+          <input
+                    @blur="$v.nickname.$touch()" 
+                    v-model="nickname" 
+                    id="nickname"
+                    name="nickname" 
+                    placeholder="nickName">
+          <p v-if="$v.nickname.$error">닉네임을 입력하세요</p>
+        </div>
+
         <div class="text-box">
           <label for="lastName">성 : </label>
           <input 
@@ -133,6 +144,7 @@ export default {
         username: '',
         password: '',
         confirmPassword: '',
+        nickname: '',
         lastName: '',
         firstName: '',
         gender: '',
@@ -151,6 +163,7 @@ export default {
           this.$http.post('/api/login/signUp', { 
             username: this.username,
             password: this.password,
+            nickname: this.nickname,
             lastName: this.lastName,
             firstName: this.firstName,
             gender: this.gender,
@@ -205,6 +218,9 @@ export default {
       },
       confirmPassword: {
         sameAs: sameAs('password')
+      },
+      nickname: {
+        required
       },
       age: {
         numeric

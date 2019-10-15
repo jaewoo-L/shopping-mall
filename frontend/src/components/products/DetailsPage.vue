@@ -10,6 +10,16 @@
     <p>{{product.price}}￦</p>
     <button :disabled="!token" @click="likeProduct" :class="{likeBtn: istrue}">like({{likes.length}})</button>
     <button :disabled="!token" @click="basketProduct">장바구니 담기</button>
+
+
+    <button :disabled="!token" @click="createComment">후기 작성</button>
+    <div v-for="comment in product.comments">
+      <p>{{comment.author.nickname}}</p>
+      <p>{{comment.text}}</p>
+              
+        <button v-if="comment.author.id == token" @click="editComment(comment)">수정</button>
+        <button v-if="comment.author.id == token" @click="deleteComment(comment)">삭제</button>
+    </div>
   </div>
 </template>
 
@@ -73,10 +83,31 @@ export default {
           alert("장바구니에서 삭제합니다.");
           
         })
+      },
+      createComment() {
+        this.$router.push('/products/' + this.$route.params.id + '/comments/new');
+      },
+      editComment(comment) {
+        this.$router.push('/products/' + this.$route.params.id + '/comments/' + comment._id +'/edit')
+      },
+
+      deleteComment(comment) {
+        let id = this.$route.params.id;
+        this.$http.delete('/api/products/'+ this.$route.params.id + '/comments/' + comment._id)
+        .then((response) => {
+          if(response.data.result == 'success') {
+            alert('삭제 성공했습니다.');
+            this.$router.push('/products');
+          } else if(response.data.result == 'fail') {
+            alert('삭제 실패했습니다.')
+          }
+        })
+        .catch(error => {
+          alert(error)
+        })
       }
   	},
   	created() {
-  		//this.isAdmin = this.$store.state.isAdmin;
   		this.$http.get('/api/products/'+ this.$route.params.id)
   		.then((response) => {
   			this.product = response.data;

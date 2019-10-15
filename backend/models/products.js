@@ -24,6 +24,7 @@ var productSchema = new mongoose.Schema({
 			ref: "Comment"
 		}
 	],
+	createdAt:{type:Date, default: Date.now},
 	kinds: String,
 	brand: String,
 	items: Number,

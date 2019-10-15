@@ -139,10 +139,11 @@ router.post('/', upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detail'
 
 //SHOW show more info about one product
 router.get('/:id', function(req,res){
-	Product.findById(req.params.id).populate('likes').exec(function(err, foundProduct){
+	Product.findById(req.params.id).populate('comments likes').exec(function(err, foundProduct){
 		if(err){
 			
 		}else{
+			console.log('--foundProduct--');
 			res.json(foundProduct);
 		}
 	}); 

@@ -18,6 +18,7 @@ router.get('/signUp', function(req, res) {
 router.post('/signUp', function(req, res, next) {
 	var newUser = new User({
 		username: req.body.username,
+		nickname: req.body.nickname,
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
 		avatar: req.body.avatar,
@@ -54,6 +55,7 @@ router.post('/', passport.authenticate('local') ,function(req, res) {
 	req.session._id = req.user._id;
 	sendmsg.isAdmin = req.user.isAdmin;
 	sendmsg.username = req.user.username;
+	sendmsg.nickname = req.user.nickname;
 	sendmsg.session = req.session._id;
 	console.log('sendmsg object!!!');
 	console.log(sendmsg);

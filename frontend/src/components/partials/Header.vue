@@ -17,7 +17,7 @@
 					<li v-if="!auth" class="navbar-text navbar-right"><router-link :to="{name: 'signUp'}" tag="a" class="navbar-link">회원가입</router-link></li>
 					<li v-if="!auth" class="navbar-text navbar-right"><router-link :to="{name: 'login'}" tag="a" class="navbar-link">로그인</router-link></li>
 					<li v-if="auth" class="navbar-text navbar-right"><router-link :to="{name: 'logout'}" tag="a" class="navbar-link">로그아웃</router-link></li>
-					<li v-if="auth" class="navbar-text navbar-right"><router-link to="" tag="a" class="navbar-link">{{username}}</router-link></li>
+					<li v-if="auth" class="navbar-text navbar-right"><router-link to="" tag="a" class="navbar-link">{{nickname}}</router-link></li>
 			</div> 
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -39,8 +39,8 @@
 			auth(){
 				return this.$store.getters.isAuthenticated
 			},
-			username() {
-				return this.$store.getters.username;
+			nickname() {
+				return this.$store.getters.nickname;
 			}
 		}
 	}

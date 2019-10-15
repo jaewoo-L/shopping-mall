@@ -10,6 +10,7 @@ export const store = new Vuex.Store({
 	//응용 프로그램의 모든 속성을 저장할 수 있는 객체입니다.
 	state: {
 		username: null,
+		nickname: null,
 		token:null,
 		isAdmin: null
 	},
@@ -17,6 +18,9 @@ export const store = new Vuex.Store({
 	getters: {
 		username: state => {
 			return state.username;
+		},
+		nickname: state => {
+			return state.nickname;
 		},
 		isAuthenticated: state => {
 			return state.token !== null
@@ -34,6 +38,7 @@ export const store = new Vuex.Store({
 	mutations: {
 		clearAuthData (state) {
 	    	state.username = null;
+	    	state.nickname = null;
 	    	state.token = null;
 	    	state.isAdmin = null;
 	    },
@@ -42,6 +47,7 @@ export const store = new Vuex.Store({
       //우리는 브라우저 API를 통해 토큰을 저장하여 로그인을 유지한다. localStorage 이다.
   			state.token = userData.token
   			state.username = userData.username
+  			state.nickname = userData.nickname
   			state.isAdmin = userData.isAdmin
   		},
 	},
@@ -50,16 +56,18 @@ export const store = new Vuex.Store({
 		 tryAutoLogin({commit}) {
 		  const token = localStorage.getItem("access_token")
 	      const username = localStorage.getItem("username")
+	      const nickname = localStorage.getItem("nickname")
 	      const isAdmin = localStorage.getItem("isAdmin")
 	      if (!token) {
 	        return
 	      }   
-	      commit('authUser',{token: token, username: username, isAdmin: isAdmin})
+	      commit('authUser',{token: token, username: username, nickname: nickname, isAdmin: isAdmin})
 	    },
 	    logout({commit}) {
 	      commit('clearAuthData')
 	      localStorage.removeItem("access_token")
 	      localStorage.removeItem("username")
+	      localStorage.removeItem("nickname")
 	      localStorage.removeItem("isAdmin")
 	    }
 	}

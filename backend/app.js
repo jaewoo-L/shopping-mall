@@ -19,6 +19,7 @@ var moviesRouter = require('./routes/movies');
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var productsRouter = require('./routes/products');
+var commentRouter = require('./routes/comments');
 require('dotenv').config();
 
 var app = express();
@@ -75,6 +76,7 @@ app.use('/', indexRouter);
 app.use('/api/movies', moviesRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/products', productsRouter);
+app.use("/api/products/:id/comments", commentRouter);
 app.get('/exercise', async (req, res) => {
 	let post = await Post.create({title:'Test', description:'This is a Test'})
 	res.json(post);
