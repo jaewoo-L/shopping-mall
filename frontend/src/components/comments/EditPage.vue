@@ -3,7 +3,6 @@
     <div class="container">
       <h1>Edit Comment</h1>
       <div class="comment-box">
-
         <textarea v-model="comment.text"></textarea>
         <br>
         <button :disabled="!token" @click="editComment" class="btn">Edit</button>
@@ -33,6 +32,7 @@ export default {
 	        if(response.data.result) {
 	          alert('수정 실패');
 	        } else {
+	          alert('수정 성공');
 	          console.log(response.data);
 	          this.$router.push('/products/' + this.$route.params.id);
 	        }
@@ -54,11 +54,11 @@ export default {
 </script>
 
 <style scoped>
-  .container {
+  #editComments .container {
     width:40%;
     margin: 25px auto;
   }
-  .container h1 {
+  #editComments .container h1 {
     font-size: 40px;
     border-bottom: 6px solid #050c30;
     margin-bottom: 30px;
@@ -67,12 +67,12 @@ export default {
     margin-top:20px;
   }
 
-  textarea {
+  .comment-box textarea {
     width: 100%;
     height: 100px;
   }
 
-  .btn {
+  .comment-box .btn {
     width: 100%;
     background: none;
     border: 2px solid #050c30;
@@ -82,7 +82,7 @@ export default {
     margin: 10px 0;
   }
 
-  .btn:disabled {
+  .comment-box .btn:disabled {
     cursor: not-allowed;
     border: 2px solid #b3b5b4;
   }

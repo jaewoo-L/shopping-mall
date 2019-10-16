@@ -28,68 +28,193 @@ cloudinary.config({
 
 
 //INDEX Display a list of all products
+// router.get('/', function(req,res){
+
+// 	//Get all products from DB
+// 	console.log(req.query.search);
+// 	if(req.query.search) {
+// 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+// 		Product.find({name: regex}, function(err, allProducts){
+//            if(err){
+//                console.log(err);
+//            } else {
+//               if(allProducts.length < 1) {
+//                 res.json({noMatch: '검색내용과 일치하는 상품이 없습니다.'});
+//               } else {
+//               	res.json(allProducts);
+//               }
+//            }
+//         });
+// 	} else {
+// 		Product.find({},function(err,allProducts){
+// 			if(err){
+// 				console.log(err);
+// 			}else{
+// 				res.json(allProducts);
+// 			}
+// 		});
+// 	}
+// });
+
 router.get('/', function(req,res){
+	let sendmsg= {};
+	let perPage =3;
+	let productnumber = null ;
+	console.log('req.query.page ===');
+	console.log(req.query.page);
+	let pageQuery = parseInt(req.query.page);
+	let pageNumber = pageQuery ? pageQuery : 1;
 	//Get all products from DB
 	console.log(req.query.search);
+	Product.find({}, function(err, products) {
+		if(err) {
+			console.log(err);
+		} else {
+			productnumber = products.length;
+		}
+	});
 	if(req.query.search) {
 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-		Product.find({name: regex}, function(err, allProducts){
-           if(err){
-               console.log(err);
-           } else {
-              if(allProducts.length < 1) {
-                res.json({noMatch: '검색내용과 일치하는 상품이 없습니다.'});
-              } else {
-              	res.json(allProducts);
-              }
-           }
-        });
+		Product.find({name: regex}).skip((pageNumber*perPage)-perPage).limit(perPage).exec(function(err, allProducts){
+           	Product.count().exec(function(err, count) {
+	           if(err){
+	               console.log(err);
+	           } else {
+	              if(allProducts.length < 1) {
+	                res.json({noMatch: '검색내용과 일치하는 상품이 없습니다.'});
+	              } else {
+	              	sendmsg.current = pageNumber;
+	              	sendmsg.pages = Math.ceil(count/perPage);
+	              	sendmsg.page = 'products';
+	           		sendmsg.products = allProducts;
+	           		sendmsg.productnumber = productnumber;
+	              	console.log(sendmsg);
+	              	res.json(sendmsg);
+	              }
+	           }
+        	});
+      	});
 	} else {
-		Product.find({},function(err,allProducts){
-			if(err){
-				console.log(err);
-			}else{
-				res.json(allProducts);
-			}
-		});
+		Product.find({}).skip((pageNumber*perPage)-perPage).limit(perPage).exec(function(err, allProducts){
+			Product.count().exec(function(err, count) {
+				if(err){
+					console.log(err);
+				}else{
+					sendmsg.current = pageNumber;
+	              	sendmsg.pages = Math.ceil(count/perPage);
+	              	sendmsg.page = 'products';
+	           		sendmsg.products = allProducts;
+	           		sendmsg.productnumber = productnumber;
+	              	console.log(sendmsg);
+	              	res.json(sendmsg);
+				}
+				});
+		});	
 	}
 });
 
 //INDEX Display a list of tops products
 router.get('/tops', function(req,res){
+	let sendmsg= {};
+	let perPage =3;
+	let productnumber = null ;
+	console.log('req.query.page ===');
+	console.log(req.query.page);
+	let pageQuery = parseInt(req.query.page);
+	let pageNumber = pageQuery ? pageQuery : 1;
 	//Get all products from DB
 	Product.find().where('kinds').equals('tops').exec(function(err,topsProducts){
 		if(err){
 			console.log(err);
 		}else{
-			res.json(topsProducts);
+			productnumber = topsProducts.length;
 		}
 	});
+
+	Product.find().where('kinds').equals('tops').skip((pageNumber*perPage)-perPage).limit(perPage).exec(function(err, allProducts){
+		Product.where('kinds').equals('tops').count().exec(function(err, count) {
+			if(err){
+				console.log(err);
+			}else{
+				sendmsg.current = pageNumber;
+	            sendmsg.pages = Math.ceil(count/perPage);
+	            sendmsg.page = 'topProducts';
+	           	sendmsg.products = allProducts;
+	           	sendmsg.productnumber = productnumber;
+	            console.log(sendmsg);
+	            res.json(sendmsg);
+			}
+		});
+	});	
 });
 
 
 //INDEX Display a list of bottoms products
 router.get('/bottoms', function(req,res){
+	let sendmsg= {};
+	let perPage =3;
+	let productnumber = null ;
+	console.log('req.query.page ===');
+	console.log(req.query.page);
+	let pageQuery = parseInt(req.query.page);
+	let pageNumber = pageQuery ? pageQuery : 1;
 	//Get all products from DB
 	Product.find().where('kinds').equals('bottoms').exec(function(err,bottomsProducts){
 		if(err){
 			console.log(err);
 		}else{
-			res.json(bottomsProducts);
+			productnumber = bottomsProducts.length;
 		}
 	});
+	Product.find().where('kinds').equals('bottoms').skip((pageNumber*perPage)-perPage).limit(perPage).exec(function(err, allProducts){
+		Product.where('kinds').equals('bottoms').count().exec(function(err, count) {
+			if(err){
+				console.log(err);
+			}else{
+				sendmsg.current = pageNumber;
+	            sendmsg.pages = Math.ceil(count/perPage);
+	            sendmsg.page = 'bottomPproducts';
+	           	sendmsg.products = allProducts;
+	           	sendmsg.productnumber = productnumber;
+	            console.log(sendmsg);
+	            res.json(sendmsg);
+			}
+		});
+	});	
 });
 
 //INDEX Display a list of accs products
 router.get('/accs', function(req,res){
+	let sendmsg= {};
+	let perPage =3;
+	let productnumber = null ;
+	console.log('req.query.page ===');
+	console.log(req.query.page);
+	let pageQuery = parseInt(req.query.page);
+	let pageNumber = pageQuery ? pageQuery : 1;
 	//Get all products from DB
 	Product.find().where('kinds').equals('accs').exec(function(err,accsProducts){
 		if(err){
 			console.log(err);
 		}else{
-			res.json(accsProducts);
+			productnumber = accsProducts.length;
 		}
 	});
+	Product.find().where('kinds').equals('accs').skip((pageNumber*perPage)-perPage).limit(perPage).exec(function(err, allProducts){
+		Product.where('kinds').equals('accs').count().exec(function(err, count) {
+			if(err){
+				console.log(err);
+			}else{
+				sendmsg.current = pageNumber;
+	            sendmsg.pages = Math.ceil(count/perPage);
+	            sendmsg.page = 'accProducts';
+	           	sendmsg.products = allProducts;
+	           	sendmsg.productnumber = productnumber;
+	            console.log(sendmsg);
+	            res.json(sendmsg);
+			}
+		});
+	});	
 });
 
 //CREATE Add new products to DB

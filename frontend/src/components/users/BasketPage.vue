@@ -1,5 +1,5 @@
 <template>
-   <div class="container">
+   <div class="container" id="products">
         <h5> 장바구니 ({{products.length}}) </h5>
         <hr>  
      
@@ -38,43 +38,4 @@ export default {
 </script>
 
 <style>
-  .container .product {
-    position: relative;
-  }
-
-  .thumbnail {
-    width: 100%;
-    position: relative;
-    border: none;
-    margin: 5%;
-  }
-
-  .thumbnail .overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        overflow: hidden;
-        width: 100%;
-        height: 0;
-        background: rgba(0, 0, 0, 0.6);
-        transition: .5s ease;
-        border-radius: 3px 3px 0 0;
-  }
-
-  .thumbnail .overlay .caption {
-        font-size: 15px;
-        color: white;
-        position: absolute;
-        width: 100%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-  }
-
-  .thumbnail:hover .overlay {
-        display: block;
-        height: 100%;
-    }
 </style>
