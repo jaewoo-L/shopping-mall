@@ -10,6 +10,7 @@
     <p>{{product.price}}￦</p>
     <button :disabled="!token" @click="likeProduct" :class="{likeBtn: istrue}">like({{likes.length}})</button>
     <button :disabled="!token" @click="basketProduct">장바구니 담기</button>
+    <button :disabled="!token" >구매하기</button>
 
 
     <button :disabled="!token" @click="createComment">후기 작성</button>

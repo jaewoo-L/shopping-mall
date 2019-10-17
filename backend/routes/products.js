@@ -198,15 +198,15 @@ router.post('/', upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detail'
 			console.log('------------------------');
 			console.log(req.files['detail'][0]);
 			var newProduct = new Product({
-						name: req.body.name,
-						price: req.body.price,
-						thumbnail: '',
-						detailed_image: '',
-						kinds: req.body.kinds,
-						brand: req.body.brand,
-						items: req.body.items,
-						avatar: req.body.avatar
-					});
+					name: req.body.name,
+					price: req.body.price,
+					thumbnail: '',
+					detailed_image: '',
+					kinds: req.body.kinds,
+					brand: req.body.brand,
+					items: req.body.items,
+					avatar: req.body.avatar
+				});
 			console.log(newProduct);
 
 			cloudinary.uploader.upload(req.files['thumbnail'][0].path , function(err, result){
@@ -256,14 +256,55 @@ router.get("/:id/edit" ,function(req,res){
 });
 
 //UPDATE Product ROUTE
-router.put("/:id" ,function(req,res){
-	//find and update the product
-	Product.findByIdAndUpdate(req.params.id, req.body.product , function(err, editProduct){
-		if(err){
-			res.json({result: 'fail'})
-		}else{
-			res.json(editProduct)
-		}
+router.put("/:id", upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detail', maxCount: 1}]), function(req,res){
+	var editProduct = new Product({
+			name: req.body.name,
+			price: req.body.price,
+			thumbnail: '',
+			detailed_image: '',
+			kinds: req.body.kinds,
+			brand: req.body.brand,
+			items: req.body.items,
+			avatar: req.body.avatar
+		});
+	cloudinary.uploader.upload(req.files['thumbnail'][0].path , function(err, result){
+			if(err) {
+				console.log(err);
+			}
+			else {
+				editProduct.thumbnail = result.secure_url;
+				cloudinary.uploader.upload(req.files['detail'][0].path , function(err, resultDetail){
+					if(err) {
+						console.log(err);
+					} else {
+						editProduct.detailed_image = resultDetail.secure_url;
+						//find and update the product
+						Product.findById(req.params.id, function(err, product) {
+							if(err) {
+								console.log(err);
+							} else {
+								product.name = editProduct.name;
+								product.price = editProduct.price;
+								product.thumbnail = editProduct.thumbnail;
+								product.detailed_image = editProduct.detailed_image;
+								product.kinds = editProduct.kinds;
+								product.brand = editProduct.brand;
+								product.items = editProduct.items;
+								product.avatar = editProduct.avatar;
+								product.save(function(err) {
+									if(err) {
+										console.log(err);
+										res.json({result: 'fail'});
+									} else {
+										res.json({result:'success'});
+									}
+								})
+							}
+						});
+					}
+				})
+				
+			}
 	});
 });
 

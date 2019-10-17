@@ -2,7 +2,7 @@
    <div id="editProduct">
     <div class="editProduct-box">
         <h1> 제품수정 </h1>
-      <form @submit.prevent="editProduct">
+      <form @submit.prevent="editProduct" enctype="multipart/form-data">
           <div class="text-box">
             <label for="productName">Name : </label>
             <input
@@ -25,22 +25,25 @@
           <div class="text-box">
             <label for="thumbnail">thumbnail : </label>
             <input 
-                                id="thumbnail"
-                                name="thumbnail"   
-                                v-model="product.thumbnail"
-                                required>
-            
+                      type="file"
+                      ref="thumbnail"
+                      @change="onSelectThumbnail"
+                      id="thumbnail"
+                      name="thumbnail"    
+                      placeholder="썸네일"
+                      required>
           </div>
 
           <div class="text-box">
             <label for="detailed_image">detailed_image : </label>
             <input 
-                  
-                      v-model="product.detailed_image" 
+                      type="file"
+                      ref="detail"
+                      @change="onSelectDetail"
                       id="detailed_image"
-                      name="detailed_image"
+                      name="detailed_image" 
+                      placeholder="상세 이미지"
                       required>
-          
           </div>
 
           <div class="text-box">
@@ -96,7 +99,9 @@
 export default {
   data: function () {
     return {
-      product: {}
+      product: {},
+      detail: '',
+      thumbnail:''
     }
   },
 
@@ -108,10 +113,30 @@ export default {
   },
 
   methods: {
-    editProduct: function() {
-      this.$http.put('/api/products/' + this.$route.params.id, {product: this.product})
+    onSelectThumbnail() {
+      this.thumbnail = this.$refs.thumbnail.files[0];
+      console.log(this.thumbnail);
+    },
+    onSelectDetail() {
+      this.detail = this.$refs.detail.files[0];
+      console.log(this.detail);
+      
+    },
+
+    async editProduct() {
+      let formData = new FormData();
+      formData.append('name',this.product.name);
+      formData.append('price',this.product.price);
+      formData.append('thumbnail', this.thumbnail);
+      formData.append('detail', this.detail);
+      formData.append('kinds',this.product.kinds);
+      formData.append('brand',this.product.brand);
+      formData.append('items',this.product.items);
+      formData.append('avatar',this.product.avatar);
+
+      await this.$http.put('/api/products/' + this.$route.params.id, formData)
       .then((response) => {
-        if(response.data.result) {
+        if(response.data.result == 'fail') {
           alert('수정 실패');
         } else {
           console.log(response.data);
@@ -135,30 +160,5 @@ export default {
 }
 </script>
 
-<style scoped>
-  #editProduct {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  
-  }
-
-  .editProduct-box {
-    position: absolute;
-    width:360px;
-    top: 50%;
-    left:50%;
-    transform: translate(-50%, -45%);
-    padding-bottom: 70px;
-  }
-
-  .editProduct-box h1 {
-    float: left;
-    font-size: 40px;
-    border-bottom: 6px solid #050c30;
-    margin-bottom: 30px;
-    padding: 10px 0;
-  }
+<style src="./products.css">
 </style>

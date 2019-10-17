@@ -144,7 +144,6 @@ export default {
       formData.append('brand',this.brand);
       formData.append('items',this.items);
       formData.append('avatar',this.avatar);
-      console.log('formData 형성');
       for(let key of formData.entries()) {
         console.log(key[0]);
         console.log(key[1]);
@@ -188,34 +187,5 @@ export default {
 }
 </script>
 
-<style scoped>
-  #newProduct {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  
-  }
-
-  .newProduct-box {
-    position: absolute;
-    width:360px;
-    top: 50%;
-    left:50%;
-    transform: translate(-50%, -45%);
-    padding-bottom: 70px;
-  }
-
-  .newProduct-box h1 {
-    float: left;
-    font-size: 40px;
-    border-bottom: 6px solid #050c30;
-    margin-bottom: 30px;
-    padding: 10px 0;
-  }
-
-  .text-box input {  
-    font-size: 17px;
-  }
+<style src="./products.css">
 </style>
