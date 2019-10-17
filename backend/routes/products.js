@@ -76,7 +76,7 @@ router.get('/', function(req,res){
 	if(req.query.search) {
 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
 		Product.find({name: regex}).skip((pageNumber*perPage)-perPage).limit(perPage).exec(function(err, allProducts){
-           	Product.count().exec(function(err, count) {
+           	Product.count({name: regex}).exec(function(err, count) {
 	           if(err){
 	               console.log(err);
 	           } else {

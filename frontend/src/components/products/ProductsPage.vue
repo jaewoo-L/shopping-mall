@@ -97,7 +97,7 @@ export default {
     },
 
     mipageProduct: function() {
-      this.$http.get('/api/products?page=' + (Number(this.current) - 1))
+      this.$http.get('/api/products?page=' + (Number(this.current) - 1) + '&search=' + this.search)
       .then((response) => {
           this.products = response.data.products;
           this.current = response.data.current;
@@ -107,7 +107,7 @@ export default {
       })
     },
     numpageProduct: function(i) {
-      this.$http.get('/api/products?page=' + i)
+      this.$http.get('/api/products?page=' + i + '&search=' + this.search)
       .then((response) => {
           this.products = response.data.products;
           this.current = response.data.current;
@@ -117,7 +117,7 @@ export default {
       })
     },
     pluspageProduct: function() {
-      this.$http.get('/api/products?page=' + (Number(this.current) + 1))
+      this.$http.get('/api/products?page=' + (Number(this.current) + 1) + '&search=' + this.search)
       .then((response) => {
           this.products = response.data.products;
           this.current = response.data.current;
