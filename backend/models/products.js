@@ -24,11 +24,14 @@ var productSchema = new mongoose.Schema({
 			ref: "Comment"
 		}
 	],
-	createdAt:{type:Date, default: Date.now},
 	kinds: String,
 	brand: String,
 	items: Number,
-	avatar: String
+	avatar: String,
+	date: {
+	    type: Date,
+	    default: Date.now
+	}
 });
 
 module.exports = mongoose.model('Product',productSchema);

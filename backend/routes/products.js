@@ -47,7 +47,7 @@ router.get('/', function(req,res){
 	});
 	if(req.query.search) {
 		const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-		Product.find({name: regex}).skip((pageNum*perPage)-perPage).limit(perPage).exec(function(err, searchProducts){
+		Product.find({name: regex}).sort({date:-1}).skip((pageNum*perPage)-perPage).limit(perPage).exec(function(err, searchProducts){
            	Product.count({name: regex}).exec(function(err, count) {
 	           if(err){
 	               console.log(err);
@@ -67,7 +67,7 @@ router.get('/', function(req,res){
         	});
       	});
 	} else {
-		Product.find({}).skip((pageNum*perPage)-perPage).limit(perPage).exec(function(err, allProducts){
+		Product.find({}).sort({date:-1}).skip((pageNum*perPage)-perPage).limit(perPage).exec(function(err, allProducts){
 			Product.count().exec(function(err, count) {
 				if(err){
 					console.log(err);
@@ -95,7 +95,7 @@ router.get('/tops', function(req,res){
 	let pageQuery = parseInt(req.query.page);
 	let pageNum = pageQuery ? pageQuery : 1;
 	//Get all products from DB
-	Product.find().where('kinds').equals('tops').exec(function(err,topsProducts){
+	Product.find().where('kinds').equals('tops').sort({date:-1}).exec(function(err,topsProducts){
 		if(err){
 			console.log(err);
 		}else{
@@ -104,7 +104,7 @@ router.get('/tops', function(req,res){
 	});
 
 
-	Product.find().where('kinds').equals('tops').skip((pageNum*perPage)-perPage).limit(perPage).exec(function(err, allProducts){
+	Product.find().where('kinds').equals('tops').sort({date:-1}).skip((pageNum*perPage)-perPage).limit(perPage).exec(function(err, allProducts){
 		Product.where('kinds').equals('tops').count().exec(function(err, count) {
 			if(err){
 				console.log(err);
@@ -132,14 +132,14 @@ router.get('/bottoms', function(req,res){
 	let pageQuery = parseInt(req.query.page);
 	let pageNum = pageQuery ? pageQuery : 1;
 	//Get all products from DB
-	Product.find().where('kinds').equals('bottoms').exec(function(err,bottomsProducts){
+	Product.find().where('kinds').equals('bottoms').sort({date:-1}).exec(function(err,bottomsProducts){
 		if(err){
 			console.log(err);
 		}else{
 			bottomProductsNum = bottomsProducts.length;
 		}
 	});
-	Product.find().where('kinds').equals('bottoms').skip((pageNum*perPage)-perPage).limit(perPage).exec(function(err, allProducts){
+	Product.find().where('kinds').equals('bottoms').sort({date:-1}).skip((pageNum*perPage)-perPage).limit(perPage).exec(function(err, allProducts){
 		Product.where('kinds').equals('bottoms').count().exec(function(err, count) {
 			if(err){
 				console.log(err);
@@ -166,14 +166,14 @@ router.get('/accs', function(req,res){
 	let pageQuery = parseInt(req.query.page);
 	let pageNum = pageQuery ? pageQuery : 1;
 	//Get all products from DB
-	Product.find().where('kinds').equals('accs').exec(function(err,accsProducts){
+	Product.find().where('kinds').equals('accs').sort({date:-1}).exec(function(err,accsProducts){
 		if(err){
 			console.log(err);
 		}else{
 			accProductsNum = accsProducts.length;
 		}
 	});
-	Product.find().where('kinds').equals('accs').skip((pageNum*perPage)-perPage).limit(perPage).exec(function(err, allProducts){
+	Product.find().where('kinds').equals('accs').sort({date:-1}).skip((pageNum*perPage)-perPage).limit(perPage).exec(function(err, allProducts){
 		Product.where('kinds').equals('accs').count().exec(function(err, count) {
 			if(err){
 				console.log(err);

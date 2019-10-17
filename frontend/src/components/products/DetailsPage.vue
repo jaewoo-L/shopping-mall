@@ -14,7 +14,7 @@
 
 
     <button :disabled="!token" @click="createComment">후기 작성</button>
-    <div v-for="comment in product.comments">
+    <div v-for="comment in product.comments.slice().reverse()">
       <p>{{comment.author.nickname}}</p>
       <p>{{comment.text}}</p>
               
