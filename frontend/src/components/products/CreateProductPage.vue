@@ -95,7 +95,7 @@
           </div>
 
           <div class="submit">
-            <button class="btn" type="submit" :disabled="$v.$invalid">등록</button>
+            <button class="btn" v-if="isAdmin" type="submit" :disabled="$v.$invalid">등록</button>
           </div>
         </form>
     </div>
@@ -108,7 +108,6 @@ import {required, numeric} from 'vuelidate/lib/validators'
 export default {
   data: function () {
     return {
-      isAdmin: false,
       name: '',
       price: '',
       kinds: '',
@@ -119,7 +118,12 @@ export default {
       thumbnail:''
     }
   },
-
+  computed: {
+    isAdmin(){
+      console.log(this.$store.getters.isAdmin)
+      return this.$store.getters.isAdmin;
+    }
+  },
   methods: {
     onSelectThumbnail() {
       this.thumbnail = this.$refs.thumbnail.files[0];

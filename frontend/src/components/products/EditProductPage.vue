@@ -85,7 +85,7 @@
                       required>  
           </div>
           <div class="submit">
-            <button class="btn" type="submit">수정</button>
+            <button class="btn" v-if="isAdmin" type="submit">수정</button>
           </div>
         </form>
     </div>
@@ -97,6 +97,13 @@ export default {
   data: function () {
     return {
       product: {}
+    }
+  },
+
+  computed: {
+    isAdmin(){
+      console.log(this.$store.getters.isAdmin)
+      return this.$store.getters.isAdmin;
     }
   },
 

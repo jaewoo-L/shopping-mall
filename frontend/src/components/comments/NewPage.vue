@@ -1,5 +1,5 @@
 <template>
-  <div id="comments">
+  <div id="editComments">
     <div class="container">
       <h1>Add a New Comment</h1>
       <div class="comment-box">
@@ -49,36 +49,5 @@ export default {
 }
 </script>
 
-<style scoped>
-  .container {
-    width:40%;
-    margin: 25px auto;
-  }
-  .container h1 {
-    font-size: 40px;
-    border-bottom: 6px solid #050c30;
-    margin-bottom: 30px;
-    padding: 10px 0;
-    text-align:center; 
-    margin-top:20px;
-  }
-
-  textarea {
-    width: 100%;
-    height: 100px;
-  }
-
-  .btn {
-    width: 100%;
-    background: none;
-    border: 2px solid #050c30;
-    padding: 5px;
-    font-size: 20px;
-    cursor: pointer;
-    margin: 10px 0;
-  }
-  .btn:disabled {
-    cursor: not-allowed;
-    border: 2px solid #b3b5b4;
-  }
+<style src="./comments.css">
 </style>

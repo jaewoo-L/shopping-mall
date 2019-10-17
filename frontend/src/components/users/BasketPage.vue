@@ -37,5 +37,5 @@ export default {
 }
 </script>
 
-<style>
+<style src="../products/products.css">
 </style>

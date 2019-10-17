@@ -53,37 +53,6 @@ export default {
 }
 </script>
 
-<style scoped>
-  #editComments .container {
-    width:40%;
-    margin: 25px auto;
-  }
-  #editComments .container h1 {
-    font-size: 40px;
-    border-bottom: 6px solid #050c30;
-    margin-bottom: 30px;
-    padding: 10px 0;
-    text-align:center; 
-    margin-top:20px;
-  }
-
-  .comment-box textarea {
-    width: 100%;
-    height: 100px;
-  }
-
-  .comment-box .btn {
-    width: 100%;
-    background: none;
-    border: 2px solid #050c30;
-    padding: 5px;
-    font-size: 20px;
-    cursor: pointer;
-    margin: 10px 0;
-  }
-
-  .comment-box .btn:disabled {
-    cursor: not-allowed;
-    border: 2px solid #b3b5b4;
-  }
+<style src="./comments.css">
+  
 </style>
