@@ -26,7 +26,10 @@ var productSchema = new mongoose.Schema({
 	],
 	kinds: String,
 	brand: String,
-	items: Number,
+	SItems: Number,
+	MItems: Number,
+	LItems: Number,
+	XLItems: Number,
 	avatar: String,
 	date: {
 	    type: Date,

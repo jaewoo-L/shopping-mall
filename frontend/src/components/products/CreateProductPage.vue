@@ -72,15 +72,48 @@
             <p v-if="$v.brand.$error"> 브랜드 등록을 해주세요.</p>
           </div>
 
-          <div class="text-box" :class="{invalid: $v.items.$error}">
-            <label for="items">items : </label>
+          <div class="text-box" :class="{invalid: $v.SItems.$error}">
+            <label for="SItems">SItems : </label>
             <input
-                  @blur="$v.items.$touch()" 
-                      v-model.number="items" 
-                      id="items"
-                      name="items" 
-                      placeholder="상품갯수">
-            <p v-if="$v.items.$error">상품갯수 등록을 해주세요.</p>
+                  @blur="$v.SItems.$touch()" 
+                      v-model.number="SItems" 
+                      id="SItems"
+                      name="SItems" 
+                      placeholder="'S' 상품갯수">
+            <p v-if="$v.SItems.$error">상품갯수 등록을 해주세요.</p>
+          </div>
+
+          <div class="text-box" :class="{invalid: $v.MItems.$error}">
+            <label for="MItems">MItems : </label>
+            <input
+                  @blur="$v.MItems.$touch()" 
+                      v-model.number="MItems" 
+                      id="MItems"
+                      name="MItems" 
+                      placeholder="'M' 상품갯수">
+            <p v-if="$v.MItems.$error">상품갯수 등록을 해주세요.</p>
+          </div>
+
+          <div class="text-box" :class="{invalid: $v.LItems.$error}">
+            <label for="LItems">LItems : </label>
+            <input
+                  @blur="$v.LItems.$touch()" 
+                      v-model.number="LItems" 
+                      id="LItems"
+                      name="LItems" 
+                      placeholder="'L' 상품갯수">
+            <p v-if="$v.LItems.$error">상품갯수 등록을 해주세요.</p>
+          </div>
+
+          <div class="text-box" :class="{invalid: $v.XLItems.$error}">
+            <label for="XLItems">XLItems : </label>
+            <input
+                  @blur="$v.XLItems.$touch()" 
+                      v-model.number="XLItems" 
+                      id="XLItems"
+                      name="XLItems" 
+                      placeholder="'XLI' 상품갯수">
+            <p v-if="$v.XLItems.$error">상품갯수 등록을 해주세요.</p>
           </div>
 
           <div class="text-box" :class="{invalid: $v.avatar.$error}">
@@ -112,7 +145,10 @@ export default {
       price: '',
       kinds: '',
       brand: '',
-      items: '',
+      SItems: '',
+      MItems: '',
+      LItems: '',
+      XLItems: '',
       avatar: '',
       detail: '',
       thumbnail:''
@@ -142,7 +178,10 @@ export default {
       formData.append('detail', this.detail);
       formData.append('kinds',this.kinds);
       formData.append('brand',this.brand);
-      formData.append('items',this.items);
+      formData.append('SItems',this.SItems);
+      formData.append('MItems',this.MItems);
+      formData.append('LItems',this.LItems);
+      formData.append('XLItems',this.XLItems);
       formData.append('avatar',this.avatar);
       for(let key of formData.entries()) {
         console.log(key[0]);
@@ -176,7 +215,19 @@ export default {
     brand: {
       required
     },
-    items: {
+    SItems: {
+      required,
+      numeric
+    },
+    MItems: {
+      required,
+      numeric
+    },
+    LItems: {
+      required,
+      numeric
+    },
+    XLItems: {
       required,
       numeric
     },

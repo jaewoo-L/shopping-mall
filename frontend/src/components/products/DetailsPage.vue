@@ -27,12 +27,30 @@
     <div class="sales">
       <strong class="name">{{product.name}}</strong>
       <p class="price">KRW {{product.price}}</p>
-      <button class="size">S</button><button class="size">M</button><button class="size">L</button><button class="size">XL</button>
-      <p class="sale">구매 수량 : {{myitemsNum}}  <button @click="upItemsNum" class="num">Up</button>
-      <button @click="downItemsNum" class="num">Down</button></p>
+      <button class="size" @click="salesBar(S)">S</button>
+      <button class="size" @click="salesBar(M)">M</button>
+      <button class="size" @click="salesBar(L)">L</button>
+      <button class="size" @click="salesBar(XL)">XL</button>
+
+      <p class="sale" v-if="STrue">S구매 수량 : {{mySItemsNum}}  
+      <button @click="upItemsNum(S)" class="num">Up</button>
+      <button @click="downItemsNum(S)" class="num">Down</button></p>
+
+      <p class="sale" v-if="MTrue">M구매 수량 : {{myMItemsNum}}  
+      <button @click="upItemsNum(M)" class="num">Up</button>
+      <button @click="downItemsNum(M)" class="num">Down</button></p>
+
+      <p class="sale" v-if="LTrue">L구매 수량 : {{myLItemsNum}}  
+      <button @click="upItemsNum(L)" class="num">Up</button>
+      <button @click="downItemsNum(L)" class="num">Down</button></p>
+
+      <p class="sale" v-if="XLTrue">XL구매 수량 : {{myXLItemsNum}}  
+      <button @click="upItemsNum(XL)" class="num">Up</button>
+      <button @click="downItemsNum(XL)" class="num">Down</button></p>
+
       <button :disabled="!token" @click="likeProduct" class="like" :class="{likeBtn: istrue}">like({{likes.length}})</button>
       <button :disabled="!token" @click="basketProduct" class="basket">장바구니 담기</button>
-      <button :disabled="!token" class="buy">구매하기</button>
+      <button :disabled="!token" @click="buy" class="buy">구매하기</button>
     </div>
   </div>
 </template>
@@ -45,9 +63,12 @@ export default {
 	      likes: [],
         basket: [],
 	      istrue: null,
-        myitemsNum: 1,
-        itemsNum:null
-        //items 는 number인거 잊지말자
+        S:'s', M:'m', L:'l', XL:'xl',
+        mySItemsNum: 0, myMItemsNum: 0, myLItemsNum: 0, myXLItemsNum: 0,
+        STrue: false, MTrue: false, LTrue: false, XLTrue: false,
+        //itemsNum 는 type:number 
+        SItemsNum:null, MItemsNum:null, LItemsNum:null, XLItemsNum:null
+
 	    }
 	},
 	computed: {
@@ -123,19 +144,114 @@ export default {
           alert(error)
         })
       },
-      upItemsNum() {
-      if(this.itemsNum > this.myitemsNum) {
-        this.myitemsNum++;
-        console.log(this.myitemsNum)
-      } else {
-        alert('최대 수량을 초과하였습니다.')
+      buy() {
+        this.SItemsNum -= this.mySItemsNum;
+        this.MItemsNum -= this.myMItemsNum;
+        this.LItemsNum -= this.myLItemsNum;
+        this.XLItemsNum -= this.myXLItemsNum;
+
+        this.$http.put('/api/products/' + this.$route.params.id + '/buy', {
+          SItemsNum: this.SItemsNum, MItemsNum: this.MItemsNum, LItemsNum: this.LItemsNum, XLItemsNum: this.XLItemsNum
+        })
+        .then((response) => {
+        if(response.data.result == 'fail') {
+          alert('구매 실패.');
+        } else {
+          console.log(response.data);
+          alert('구매 완료.')
+          this.$router.push('/orders');
+        }
+      })
+      .catch(error => {
+          alert(error)
+      })
+      },
+      upItemsNum(size) {
+      if(size == 's') {
+        if(this.SItemsNum > this.mySItemsNum) {
+          this.mySItemsNum++;
+        } else {
+          alert('최대 수량을 초과하였습니다.')
+        }
       }
+      if(size == 'm') {
+        if(this.MItemsNum > this.myMItemsNum) {
+          this.myMItemsNum++;
+        } else {
+          alert('최대 수량을 초과하였습니다.')
+        }
+      }
+      if(size == 'l') {
+        if(this.LItemsNum > this.myLItemsNum) {
+          this.myLItemsNum++;
+        } else {
+          alert('최대 수량을 초과하였습니다.')
+        }
+      }
+      if(size == 'xl') {
+        if(this.XLItemsNum > this.myXLItemsNum) {
+          this.myXLItemsNum++;
+        } else {
+          alert('최대 수량을 초과하였습니다.')
+        }
+      }
+      
     },
-    downItemsNum() {
-      if(this.myitemsNum > 1) {
-        this.myitemsNum--;
-      } else {
-        alert('최소 수량입니다.')
+    downItemsNum(size) {
+      if(size == 's') {
+        if(this.mySItemsNum > 1) {
+          this.mySItemsNum--;
+        } else {
+          alert('최소 수량입니다.')
+        }
+      }
+      if(size == 'm') {
+        if(this.myMItemsNum > 1) {
+          this.myMItemsNum--;
+        } else {
+          alert('최소 수량입니다.')
+        }
+      }
+      if(size == 'l') {
+        if(this.myLItemsNum > 1) {
+          this.myLItemsNum--;
+        } else {
+          alert('최소 수량입니다.')
+        }
+      }
+      if(size == 'xl') {
+        if(this.myXLItemsNum > 1) {
+          this.myXLItemsNum--;
+        } else {
+          alert('최소 수량입니다.')
+        }
+      }
+      
+    },
+    salesBar(size) {
+      if(size == 's') {
+        this.STrue = !this.STrue;
+        if(this.STrue == false) {
+          this.mySItemsNum = 0;
+        }
+      }
+      if(size == 'm') {
+        this.MTrue = !this.MTrue;
+        if(this.MTrue == false) {
+          this.myMItemsNum = 0;
+        }
+      }
+      if(size == 'l') {
+        this.LTrue = !this.LTrue;
+        if(this.LTrue == false) {
+          this.myLItemsNum = 0;
+        }
+      }
+      if(size == 'xl') {
+        this.XLTrue = !this.XLTrue;
+        if(this.XLTrue == false) {
+          this.myXLItemsNum = 0;
+        }
       }
     }
   	},
@@ -157,7 +273,10 @@ export default {
   		.then((response) => {
   			this.product = response.data;
   			this.likes = response.data.likes;
-        this.itemsNum = response.data.items;
+        this.SItemsNum = response.data.SItems;
+        this.MItemsNum = response.data.MItems;
+        this.LItemsNum = response.data.LItems;
+        this.XLItemsNum = response.data.XLItems;
   			console.log(response.data);
   			for(var i in response.data.likes) {
   				if(response.data.likes[i]._id == this.$store.getters.token) {

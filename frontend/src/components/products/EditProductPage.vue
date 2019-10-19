@@ -69,12 +69,45 @@
           </div>
 
           <div class="text-box">
-            <label for="items">items : </label>
+            <label for="SItems">SItems : </label>
             <input
                  
-                      v-model.number="product.items" 
-                      id="items"
-                      name="items"
+                      v-model.number="product.SItems" 
+                      id="SItems"
+                      name="SItems"
+                      required>
+            
+          </div>
+
+          <div class="text-box">
+            <label for="MItems">MItems : </label>
+            <input
+                 
+                      v-model.number="product.MItems" 
+                      id="MItems"
+                      name="MItems"
+                      required>
+            
+          </div>
+
+          <div class="text-box">
+            <label for="LItems">LItems : </label>
+            <input
+                 
+                      v-model.number="product.LItems" 
+                      id="LItems"
+                      name="LItems"
+                      required>
+            
+          </div>
+
+          <div class="text-box">
+            <label for="XLItems">XLItems : </label>
+            <input
+                 
+                      v-model.number="product.XLItems" 
+                      id="XLItems"
+                      name="XLItems"
                       required>
             
           </div>
@@ -131,7 +164,10 @@ export default {
       formData.append('detail', this.detail);
       formData.append('kinds',this.product.kinds);
       formData.append('brand',this.product.brand);
-      formData.append('items',this.product.items);
+      formData.append('SItems',this.product.SItems);
+      formData.append('MItems',this.product.MItems);
+      formData.append('LItems',this.product.LItems);
+      formData.append('XLItems',this.product.XLItems);
       formData.append('avatar',this.product.avatar);
 
       await this.$http.put('/api/products/' + this.$route.params.id, formData)
@@ -145,7 +181,7 @@ export default {
       })
       .catch(error => {
           alert(error)
-        })
+      })
     }
   },
 

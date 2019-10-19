@@ -204,9 +204,14 @@ router.post('/', upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detail'
 					detailed_image: '',
 					kinds: req.body.kinds,
 					brand: req.body.brand,
-					items: req.body.items,
+					SItems: req.body.SItems,
+					MItems: req.body.MItems,
+					LItems: req.body.LItems,
+					XLItems: req.body.XLItems,
 					avatar: req.body.avatar
 				});
+			console.log(req.body.SItems);
+			console.log('새제품 등록.');
 			console.log(newProduct);
 
 			cloudinary.uploader.upload(req.files['thumbnail'][0].path , function(err, result){
@@ -264,7 +269,10 @@ router.put("/:id", upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detai
 			detailed_image: '',
 			kinds: req.body.kinds,
 			brand: req.body.brand,
-			items: req.body.items,
+			SItems: req.body.SItems,
+			MItems: req.body.MItems,
+			LItems: req.body.LItems,
+			XLItems: req.body.XLItems,
 			avatar: req.body.avatar
 		});
 	cloudinary.uploader.upload(req.files['thumbnail'][0].path , function(err, result){
@@ -289,7 +297,10 @@ router.put("/:id", upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detai
 								product.detailed_image = editProduct.detailed_image;
 								product.kinds = editProduct.kinds;
 								product.brand = editProduct.brand;
-								product.items = editProduct.items;
+								product.SItems = editProduct.SItems;
+								product.MItems = editProduct.MItems;
+								product.LItems = editProduct.LItems;
+								product.XLItems = editProduct.XLItems;
 								product.avatar = editProduct.avatar;
 								product.save(function(err) {
 									if(err) {
@@ -307,6 +318,27 @@ router.put("/:id", upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detai
 			}
 	});
 });
+
+router.put("/:id/buy", function(req, res) {
+	Product.findById(req.params.id, function(err, product) {
+		if(err) {
+			console.log(err);
+		} else {
+			product.SItems = req.body.SItemsNum
+			product.MItems = req.body.MItemsNum
+			product.LItems = req.body.LItemsNum
+			product.XLItems = req.body.XLItemsNum
+			product.save(function(err) {
+				if(err) {
+					console.log(err);
+					res.json({result: 'fail'});
+				} else {
+					res.json({result:'success'});
+				}
+			})
+		}
+	})
+})
 
 //DESTROY Product ROUTE
 router.delete("/:id" ,function(req,res){
