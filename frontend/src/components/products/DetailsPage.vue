@@ -50,7 +50,7 @@
 
       <button :disabled="!token" @click="likeProduct" class="like" :class="{likeBtn: istrue}">like({{likes.length}})</button>
       <button :disabled="!token" @click="basketProduct" class="basket">장바구니 담기</button>
-      <button :disabled="!token" @click="buy" class="buy">구매하기</button>
+      <button :disabled="!isDisabled" @click="buy" class="buy">구매하기</button>
     </div>
   </div>
 </template>
@@ -79,7 +79,14 @@ export default {
     	},
     	token() {
     		return this.$store.getters.token;
-    	}
+    	},
+      beforeBuy() {
+        let select = this.mySItemsNum != 0 || this.myMItemsNum != 0 || this.myLItemsNum != 0 || this.myXLItemsNum != 0 ? true : false; 
+        return select;
+      },
+      isDisabled() {
+        return this.token && this.beforeBuy;
+      }
   },
   	methods: {
   		editProduct() {
@@ -150,21 +157,29 @@ export default {
         this.LItemsNum -= this.myLItemsNum;
         this.XLItemsNum -= this.myXLItemsNum;
 
-        this.$http.put('/api/products/' + this.$route.params.id + '/buy', {
-          SItemsNum: this.SItemsNum, MItemsNum: this.MItemsNum, LItemsNum: this.LItemsNum, XLItemsNum: this.XLItemsNum
-        })
+        this.$http.post('/api/login/' + this.$route.params.id + '/orders', {userid: this.$store.getters.token})
         .then((response) => {
-        if(response.data.result == 'fail') {
-          alert('구매 실패.');
-        } else {
-          console.log(response.data);
-          alert('구매 완료.')
-          this.$router.push('/orders');
-        }
-      })
-      .catch(error => {
-          alert(error)
-      })
+
+          this.$http.put('/api/products/' + this.$route.params.id + '/buy', {
+            SItemsNum: this.SItemsNum, MItemsNum: this.MItemsNum, LItemsNum: this.LItemsNum, XLItemsNum: this.XLItemsNum
+          })
+          .then((response) => {
+            if(response.data.result == 'fail') {
+              alert('구매 실패.');
+            } else {
+              console.log(response.data);
+              alert('구매 완료.')
+              this.$router.push('/'+ this.$store.getters.token +'/orders');
+            }
+          })
+          .catch(error => {
+              alert(error)
+          })  
+          
+          
+        });
+
+        
       },
       upItemsNum(size) {
       if(size == 's') {

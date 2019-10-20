@@ -16,6 +16,7 @@ import Forgot from './components/login/ForgotPage'
 import Reset from './components/login/ResetPage'
 import Basket from './components/users/BasketPage'
 import Orders from './components/users/OrdersPage'
+import MyPage from './components/users/MyPage'
 import NewComments from './components/comments/NewPage'
 import EditComments from './components/comments/EditPage'
 import {store} from './store/store'
@@ -165,11 +166,20 @@ export default new Router({
     },
     //Order Inquiry
     {
-      path: '/orders',
+      path: '/:id/orders',
       name: 'orders',
       components: {
         'header': Header,
         default: Orders
+      }
+    },
+
+    //my information
+    {
+      path: '/:id/myPage',
+      components: {
+        'header': Header,
+        default: MyPage
       }
     },
 

@@ -190,6 +190,15 @@ router.get('/:id/basket', function(req, res) {
 	});
 });
 
+router.get('/:id/basket', function(req, res) {
+	User.findById(req.params.id).where('basket').populate('basket').exec(function(err, foundUserBasket) {
+		console.log('user basket');
+		console.log(foundUserBasket);
+
+		res.json(foundUserBasket);
+	});
+});
+
 //User's item in shopping basket Route
 router.post("/:id/basket", function(req,res){
 	User.findById(req.body.userid, function(err, foundUser) {
@@ -215,6 +224,29 @@ router.post("/:id/basket", function(req,res){
 			console.log('저장합니다.')
 			console.log(foundUser.basket);
 			res.json(foundUser.basket);
+		});
+	});
+});
+
+router.get('/:id/orders', function(req, res) {
+	User.findById(req.params.id).where('orders').populate('orders').exec(function(err, foundUserOrders) {
+		console.log('user orders');
+		console.log(foundUserOrders);
+
+		res.json(foundUserOrders);
+	});
+});
+
+router.post("/:id/orders", function(req,res){
+	User.findById(req.body.userid, function(err, foundUser) {
+		foundUser.orders.push(req.params.id);
+		foundUser.save(function(err) {
+			if(err) {
+				
+			}
+			console.log('저장합니다.')
+			console.log(foundUser.orders);
+			res.json(foundUser.orders);
 		});
 	});
 });

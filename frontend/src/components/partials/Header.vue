@@ -12,12 +12,12 @@
 				<!-- <router-link to="/" tag="a"><img alt="Brand" src="/src/assets/brand.PNG"></router-link> -->
 			</div>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<li v-if="auth" class="navbar-text navbar-right"><router-link :to="{name: 'orders'}" tag="a" class="navbar-link">주문조회</router-link></li>
+					<li v-if="auth" class="navbar-text navbar-right"><router-link :to="'/' + this.$store.getters.token + '/orders'" tag="a" class="navbar-link">주문조회</router-link></li>
 					<li v-if="auth" class="navbar-text navbar-right"><router-link :to="'/' + this.$store.getters.token + '/basket/'" tag="a" class="navbar-link">장바구니</router-link></li>
 					<li v-if="!auth" class="navbar-text navbar-right"><router-link :to="{name: 'signUp'}" tag="a" class="navbar-link">회원가입</router-link></li>
 					<li v-if="!auth" class="navbar-text navbar-right"><router-link :to="{name: 'login'}" tag="a" class="navbar-link">로그인</router-link></li>
 					<li v-if="auth" class="navbar-text navbar-right"><router-link :to="{name: 'logout'}" tag="a" class="navbar-link">로그아웃</router-link></li>
-					<li v-if="auth" class="navbar-text navbar-right"><router-link to="" tag="a" class="navbar-link">{{nickname}}</router-link></li>
+					<li v-if="auth" class="navbar-text navbar-right"><router-link :to="'/' + this.$store.getters.token + '/myPage'"  tag="a" class="navbar-link">{{nickname}}</router-link></li>
 			</div> 
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
