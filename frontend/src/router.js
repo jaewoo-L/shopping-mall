@@ -17,6 +17,7 @@ import Reset from './components/login/ResetPage'
 import Basket from './components/users/BasketPage'
 import Orders from './components/users/OrdersPage'
 import MyPage from './components/users/MyPage'
+import EditUser from './components/users/EditUserPage'
 import NewComments from './components/comments/NewPage'
 import EditComments from './components/comments/EditPage'
 import {store} from './store/store'
@@ -180,6 +181,15 @@ export default new Router({
       components: {
         'header': Header,
         default: MyPage
+      }
+    },
+
+    //User edit
+    {
+      path: '/:id/myPage/edit',
+      components: {
+        'header': Header,
+        default: EditUser
       }
     },
 

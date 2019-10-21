@@ -251,4 +251,50 @@ router.post("/:id/orders", function(req,res){
 	});
 });
 
+router.get('/:id/myPage', function(req, res) {
+	User.findById(req.params.id, function(err, foundUser) {
+		console.log(foundUser);
+		res.json(foundUser);
+	});
+});
+
+router.put("/:id/myPage/edit", function(req, res) {
+	User.findById(req.params.id, function(err, foundUser) {
+		if(err) {
+			console.log(err);
+		} else {
+			foundUser.nickname = req.body.myInfo.nickname
+			foundUser.lastName = req.body.myInfo.lastName
+			foundUser.firstName = req.body.myInfo.firstName
+			foundUser.avatar = req.body.myInfo.avatar
+			foundUser.age = req.body.myInfo.age
+			foundUser.address = req.body.myInfo.address
+			foundUser.phone_first = req.body.myInfo.phone_first
+			foundUser.phone_middle = req.body.myInfo.phone_middle
+			foundUser.phone_last = req.body.myInfo.phone_last
+			console.log('저장하기 일보직전');
+			console.log(foundUser);
+			
+			foundUser.save(function(err) {
+				if(err) {
+					console.log(err);
+					res.json({result: 'fail'});
+				} else {
+					res.json(foundUser);
+				}
+			})
+		}
+	})
+});
+
+router.delete("/:id/myPage" ,function(req,res){
+	User.findByIdAndRemove(req.params.id, function(err){
+		if(err){
+			res.json({result: 'fail'})
+		}else{
+			res.json({result: 'success'})
+		}
+	});
+});
+
 module.exports = router;

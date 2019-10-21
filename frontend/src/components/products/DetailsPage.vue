@@ -93,18 +93,20 @@ export default {
         this.$router.push('/products/' + this.$route.params.id + '/edit');
   		},
   		deleteProduct() {
-        this.$http.delete('/api/products/' + this.$route.params.id)
-        .then((response) => {
-          if(response.data.result == 'success') {
-            alert('삭제 성공했습니다.');
-            this.$router.push('/products');
-          } else if(response.data.result == 'fail') {
-            alert('삭제 실패했습니다.')
-          }
-        })
-        .catch(error => {
-          alert(error)
-        })
+        if(confirm('정말 삭제하시겠습니까?') == true) {
+          this.$http.delete('/api/products/' + this.$route.params.id)
+          .then((response) => {
+            if(response.data.result == 'success') {
+              alert('삭제 성공했습니다.');
+              this.$router.push('/products');
+            } else if(response.data.result == 'fail') {
+              alert('삭제 실패했습니다.')
+            }
+          })
+          .catch(error => {
+            alert(error)
+          })
+        }
   		},
   		likeProduct() {
   			this.$http.post('/api/products/' + this.$route.params.id + '/like', {userid: this.$store.getters.token})

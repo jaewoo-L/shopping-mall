@@ -73,12 +73,12 @@
           <input
                       type="radio"
                       id="male"
-                      value="Male"
+                      value="남자"
                       v-model="gender"> Male
                 <input
                       type="radio"
                       id="female"
-                      value="Female"
+                      value="여자"
                       v-model="gender"> Female  
         </div>
 
@@ -166,7 +166,7 @@ export default {
             nickname: this.nickname,
             lastName: this.lastName,
             firstName: this.firstName,
-            gender: this.gender,
+            avatar: this.gender,
             age: this.age,
             address: this.address,
             phone_first: this.phone_first,

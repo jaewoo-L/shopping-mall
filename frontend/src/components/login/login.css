@@ -56,7 +56,7 @@
     border-bottom: 1px solid #050c30; 
   }
 
-  #login .text-box input, #forgot .text-box input {
+  #login>.login-box>.text-box>input, #forgot>forgot-box>.text-box>input {
     width: 80%;
     float: left;
     border: none;
@@ -66,7 +66,7 @@
     margin: 0 10px;
   }
 
-  #signUp .text-box input {
+  #signUp>.signUp-box>.text-box>input {
     border: none;
     outline: none;
     background: none;
