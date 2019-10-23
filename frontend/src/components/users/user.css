@@ -1,0 +1,22 @@
+.myPage-box {
+    position: absolute;
+    width: 40%;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -30%);
+    margin-bottom: 150px;
+  }
+  .myPage-box h1 {
+    width: 35%;
+    font-size: 40px;
+    border-bottom: 6px solid #050c30;
+    margin-bottom: 30px;
+    padding: 10px 0;
+  }
+  .information {
+    border: 1px solid black;
+    line-height:2.3em;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }

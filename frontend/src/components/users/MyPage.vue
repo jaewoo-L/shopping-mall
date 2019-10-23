@@ -1,14 +1,18 @@
 <template>
-  <div id="myPage">
+  <div id="myPage" class="container">
     <div class="myPage-box">
-      <button @click="editUser">개인정보 변경</button>
-      <p>닉네임: {{myInfo.nickname}}</p>
-      <p>이름: {{myInfo.lastName}}{{myInfo.firstName}}</p>
-      <p>성별: {{myInfo.avatar}}</p>
-      <p>나이: {{myInfo.age}}</p>
-      <p>주소: {{myInfo.address}}</p>
-      <p>핸드폰: {{myInfo.phone_first}}-{{myInfo.phone_middle}}-{{myInfo.phone_last}}</p>
-      <button @click="deleteUser">회원탈퇴</button>
+      <h1>나의 정보</h1>
+      <div class="information">
+        <p><strong>닉네임: </strong>{{myInfo.nickname}}</p>
+        <p><strong>이름: </strong>{{myInfo.lastName}}{{myInfo.firstName}}</p>
+        <p><strong>성별: </strong>{{myInfo.avatar}}</p>
+        <p><strong>나이: </strong>{{myInfo.age}}</p>
+        <p><strong>주소: </strong>{{myInfo.address}}</p>
+        <p><strong>핸드폰:</strong> {{myInfo.phone_first}}-{{myInfo.phone_middle}}-{{myInfo.phone_last}}</p>
+      </div>
+
+      <button @click="editUser" class="btn btn-default">개인정보 변경</button>
+      <button @click="deleteUser" class="btn btn-default">회원탈퇴</button>
     </div>
   </div>
 </template>
@@ -57,5 +61,5 @@ export default {
 }
 </script>
 
-<style src="../products/products.css">
+<style src="./user.css">
 </style>
