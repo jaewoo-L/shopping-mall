@@ -13,12 +13,20 @@
     left:50%;
     transform: translate(-50%, -50%);
   }
-  .signUp-box, .editUser-box {
+  .signUp-box {
     position: absolute;
     width:360px;
     top: 50%;
     left:50%;
-    transform: translate(-50%, -25%);
+    transform: translate(-50%, -30%);
+    padding-bottom: 70px;
+  }
+  .editUser-box {
+    position: absolute;
+    width:360px;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -40%);
     padding-bottom: 70px;
   }
   .forgot-box, .reset-box {

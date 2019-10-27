@@ -15,7 +15,7 @@ var	passportLocalMongoose = require('passport-local-mongoose');
 
 
 
-var moviesRouter = require('./routes/movies'); 
+ 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var productsRouter = require('./routes/products');
@@ -73,7 +73,6 @@ app.all('/*', function(req, res, next) {
 });
 
 app.use('/', indexRouter);
-app.use('/api/movies', moviesRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/products', productsRouter);
 app.use("/api/products/:id/comments", commentRouter);

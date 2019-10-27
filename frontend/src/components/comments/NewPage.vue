@@ -1,5 +1,5 @@
 <template>
-  <div id="editComments">
+  <div id="newComments">
     <div class="container">
       <h1>Add a New Comment</h1>
       <div class="comment-box">

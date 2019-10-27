@@ -276,9 +276,9 @@ export default {
       $(function(){
         $(window).scroll(function(){  //스크롤하면 아래 코드 실행
                var num = $(this).scrollTop();  // 스크롤값
-               if( num > 250 ){  // 스크롤을 36이상 했을 때
+               if( num > 180 ){  // 스크롤을 36이상 했을 때
                   $(".sales").css("position","fixed");
-                  $(".sales").css("top","10px");
+                  $(".sales").css("top","70px");
                }else{
                    $(".sales").css("position","");
                }
@@ -310,6 +310,9 @@ export default {
 </script>
 
 <style>
+  #detail {
+    margin-top:100px;
+  }
   .header {
     width:100%;
   }

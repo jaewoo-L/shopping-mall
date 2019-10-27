@@ -1,8 +1,11 @@
-#editComments .container {
+#editComments, #newComments {
+  margin-top:100px;
+}
+#editComments .container, #newComments .container {
     width:40%;
     margin: 25px auto;
   }
-  #editComments .container h1 {
+  #editComments .container h1, #newComments .container h1 {
     font-size: 40px;
     border-bottom: 6px solid #050c30;
     margin-bottom: 30px;
