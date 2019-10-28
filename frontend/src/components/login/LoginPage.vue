@@ -9,12 +9,12 @@
       
       <div class="text-box">
         <i class="fas fa-lock"></i>
-        <input v-model="password" type="password" name="password" placeholder="Password">
+        <input v-model="password" @keyup.enter="login" type="password" name="password" placeholder="Password">
       </div>      
       <a :href="url.signUpUrl" >회원가입</a> 
       <a style="float:right;" :href="url.forgotUrl" > 비밀번호가 기억나지 않나요? </a>
       <div class="submit">
-              <button class="btn" v-on:click="login">login</button>
+              <button class="btn" @click="login">login</button>
       </div>
     </div>
   </div>
@@ -70,5 +70,5 @@ export default {
 }
 </script>
 
-<style src="./login.css">
+<style src="../../../public/stylesheets/login.css">
 </style>

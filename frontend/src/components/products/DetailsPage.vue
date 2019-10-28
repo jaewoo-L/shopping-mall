@@ -12,15 +12,15 @@
 
       <button :disabled="!token" @click="createComment" class="btn btn-default">후기 작성</button>
       <div class="comments">
-        <div class="container">
+        
           <div v-for="comment in product.comments.slice().reverse()">
             <strong>{{comment.author.nickname}}</strong>
             <p>{{comment.text}}</p>
                     
               <button v-if="comment.author.id == token" @click="editComment(comment)" class="btn btn-default">수정</button>
-              <button v-if="comment.author.id == token" @click="deleteComment(comment)" class="btn btn-default">삭제</button>
+              <button v-if="comment.author.id == token || isAdmin" @click="deleteComment(comment)" class="btn btn-default">삭제</button>
           </div>
-        </div>
+        
       </div>
     </div>
 
@@ -271,16 +271,15 @@ export default {
         }
       }
     }
-  	},
+  	}, 
     mounted() {
       $(function(){
-        $(window).scroll(function(){  //스크롤하면 아래 코드 실행
-               var num = $(this).scrollTop();  // 스크롤값
-               if( num > 180 ){  // 스크롤을 36이상 했을 때
-                  $(".sales").css("position","fixed");
-                  $(".sales").css("top","70px");
+        $(window).scroll(function(){ 
+               var num = $(this).scrollTop();
+               if( num > 180 ){
+                  $(".sales").addClass("scrolladd");
                }else{
-                   $(".sales").css("position","");
+                   $(".sales").removeClass("scrolladd");
                }
           });
         });
@@ -309,77 +308,6 @@ export default {
 }
 </script>
 
-<style>
-  #detail {
-    margin-top:100px;
-  }
-  .header {
-    width:100%;
-  }
+<style src="../../../public/stylesheets/products.css">
 
-  .contents {
-    height:100%; 
-    width:70%;
-    float:left;
-  }
-  .sales {
-    position:;
-    right: 30px;
-    height:100%; 
-    width:30%;
-    float:left;
-    padding-left:35px;
-    line-height: 20px;
-  }
-  .sales .sale {
-    border: 1px solid #c4bebe;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-  }
-  .sales .name {
-    font-size:20px;
-  }
-  .sales .price {
-    font-size: 15px;
-    margin-top: 10px;
-  }
-  .sales .size {
-    background:none;
-    border:none;
-    padding-bottom:10px;
-    font-size:15px;
-  }
-  .sales .num {
-    background:none;
-    border:none;
-  }
-  .like, .basket, .buy {
-    width: 100%;
-    background: none;
-    border: 1px solid #050c30;
-    padding: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    margin: 10px 0;
-    transition: all 0.3s ease;
-  }
-
-   .basket:hover, .buy:hover {
-    background: #050c30;
-    color: white;
-  }
-
-  .likeBtn {
-    background: #050c30;
-    color: white;
-  }
-
-  .comments {
-    border: 1px solid #c4bebe;
-    margin-top:10px;
-    margin-bottom:20px;
-    padding-top:10px;
-    padding-bottom:10px;
-  }
 </style>

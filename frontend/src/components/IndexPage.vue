@@ -134,61 +134,6 @@
   </div>
 </template>
 
-<style>
-  #main{
-    margin:0;
-    padding:0;
-  }
-  .background {
-    opacity: 0.85;
-    background-image: url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 100vh;
-    color: #fff;
-  }
-
-  .title {
-    padding-top: 250px;
-    padding-bottom: 100px;
-  }
-  .title h3{
-    font-size: 25px;
-    line-height:1.5;
-    text-align: center;
-  }
-  .title h3 strong{
-    font-weight: 400;
-  }
-  .title h3 em {
-    display: block;
-    font-size: 20px;
-  }
-
-  .info-1 {
-    width: 75%;
-  }
-  .info-2 .back-img{
-    background-image: url('https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160682/8_htcj8j.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 100vh;
-  }
-  .info-2 .row {
-    margin-top: 200px;
-  }
-  .thumbnail {
-    border: none;
-  }
-  .thumbnail .caption .en {
-    font-size: 20px;
-    font-family: 'Shadows Into Light', cursive;
-  }
-</style>
-
 <script>
 export default {
   created () {
@@ -201,3 +146,7 @@ export default {
   }
 }
 </script>
+
+<style src="../../public/stylesheets/index.css">
+  
+</style>

@@ -53,6 +53,6 @@ export default {
 }
 </script>
 
-<style src="./comments.css">
+<style src="../../../public/stylesheets/comments.css">
   
 </style>

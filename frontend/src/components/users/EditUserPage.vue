@@ -55,12 +55,28 @@
         </div>
 
         <div class="text-box">
-          <label for="address">주소 : </label>
+          <label for="postcode">주소 : </label>
+          <input type="text" id="postcode" class="post-num" placeholder="우편번호">
+          <button class="post-num-btn"  @click="execPostcode()">우편번호 찾기</button>
+          <br>
+        </div>
+        <div class="text-box">
+          <input type="text" class="addressFinder" id="roadAddress" placeholder="도로명주소">
+        </div>
+        <div class="text-box">
+          <input type="text" class="addressFinder" id="jibunAddress" placeholder="지번주소">
+        </div>
+          <span id="guide" style="color:#999;display:none"></span>
+        <div class="text-box">
           <input 
-              v-model="myInfo.address" 
-              id="address"
-              name="address"
-              required>
+                  type="text" 
+                  class="addressFinder"
+                  id="detailAddress"
+                  placeholder="상세주소"
+                  required>
+        </div>
+        <div class="text-box">
+          <input type="text" class="addressFinder" id="extraAddress" placeholder="참고항목">
         </div>
 
         <div class="text-box">
@@ -97,7 +113,21 @@ export default {
   },
   methods: {
     editUser() {
-      this.$http.put('/api/login/' + this.$route.params.id + '/myPage/edit', {myInfo: this.myInfo})
+      this.$http.put('/api/login/' + this.$route.params.id + '/myPage/edit', {
+        nickname: this.myInfo.nickname,
+        lastName: this.myInfo.lastName,
+        firstName: this.myInfo.firstName,
+        avatar: this.myInfo.gender,
+        age: this.myInfo.age,
+        postcode: this.$store.state.postcode,
+        roadAddress: this.$store.state.roadAddress,
+        jibunAddress: this.$store.state.jibunAddress,
+        detailAddress: this.myInfo.detailAddress,
+        extraAddress: this.$store.state.extraAddress,
+        phone_first: this.myInfo.phone_first,
+        phone_middle: this.myInfo.phone_middle,
+        phone_last: this.myInfo.phone_last
+      })
       .then((response) => {
         console.log('response');
         console.log(response.data);
@@ -116,6 +146,10 @@ export default {
         alert('frontend error');
         console.log(error);
       })
+    },
+
+    execPostcode: function() {
+        this.$store.dispatch('postcode');
     }
   },
 
@@ -128,5 +162,5 @@ export default {
 }
 </script>
 
-<style scoped>
+<style src="../../../public/stylesheets/login.css">
 </style>

@@ -23,7 +23,11 @@ router.post('/signUp', function(req, res, next) {
 		lastName: req.body.lastName,
 		avatar: req.body.avatar,
 		age: req.body.age,
-		address: req.body.address,
+		postcode: req.body.postcode,
+		roadAddress: req.body.roadAddress,
+		jibunAddress: req.body.jibunAddress,
+		detailAddress: req.body.detailAddress,
+		extraAddress: req.body.extraAddress,
 		phone_first: req.body.phone_first,
 		phone_middle: req.body.phone_middle,
 		phone_last: req.body.phone_last
@@ -263,15 +267,19 @@ router.put("/:id/myPage/edit", function(req, res) {
 		if(err) {
 			console.log(err);
 		} else {
-			foundUser.nickname = req.body.myInfo.nickname
-			foundUser.lastName = req.body.myInfo.lastName
-			foundUser.firstName = req.body.myInfo.firstName
-			foundUser.avatar = req.body.myInfo.avatar
-			foundUser.age = req.body.myInfo.age
-			foundUser.address = req.body.myInfo.address
-			foundUser.phone_first = req.body.myInfo.phone_first
-			foundUser.phone_middle = req.body.myInfo.phone_middle
-			foundUser.phone_last = req.body.myInfo.phone_last
+			foundUser.nickname = req.body.nickname
+			foundUser.lastName = req.body.lastName
+			foundUser.firstName = req.body.firstName
+			foundUser.avatar = req.body.avatar
+			foundUser.age = req.body.age
+			foundUser.postcode = req.body.postcode
+			foundUser.roadAddress = req.body.roadAddress
+			foundUser.jibunAddress = req.body.jibunAddress
+			foundUser.detailAddress = req.body.detailAddress
+			foundUser.extraAddress = req.body.extraAddress
+			foundUser.phone_first = req.body.phone_first
+			foundUser.phone_middle = req.body.phone_middle
+			foundUser.phone_last = req.body.phone_last
 			console.log('저장하기 일보직전');
 			console.log(foundUser);
 			

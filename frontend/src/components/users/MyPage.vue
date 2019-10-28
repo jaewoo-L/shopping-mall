@@ -5,9 +5,9 @@
       <div class="information">
         <p><strong>닉네임: </strong>{{myInfo.nickname}}</p>
         <p><strong>이름: </strong>{{myInfo.lastName}}{{myInfo.firstName}}</p>
-        <p><strong>성별: </strong>{{myInfo.avatar}}</p>
         <p><strong>나이: </strong>{{myInfo.age}}</p>
-        <p><strong>주소: </strong>{{myInfo.address}}</p>
+        <p><strong>주소: </strong>{{myInfo.roadAddress}}</p>
+        <p>{{myInfo.detailAddress}}</p>
         <p><strong>핸드폰:</strong> {{myInfo.phone_first}}-{{myInfo.phone_middle}}-{{myInfo.phone_last}}</p>
       </div>
 
@@ -61,5 +61,5 @@ export default {
 }
 </script>
 
-<style src="./user.css">
+<style src="../../../public/stylesheets/user.css">
 </style>

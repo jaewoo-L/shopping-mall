@@ -65,5 +65,5 @@ export default {
 }
 </script>
 
-<style src="./login.css">
+<style src="../../../public/stylesheets/login.css">
 </style>

@@ -140,7 +140,7 @@ export default {
 }
 </script>
 
-<style src="./products.css">
+<style src="../../../public/stylesheets/products.css">
 </style>
 
 

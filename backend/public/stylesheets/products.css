@@ -166,3 +166,87 @@
     margin-top:5px;
     font-size: 8px;
   }
+
+  #detail {
+    margin-top:100px;
+  }
+  #detail .header {
+    width:100%;
+  }
+
+  #detail .contents {
+    height:100%; 
+    width:70%;
+    float:left;
+  }
+  .sales {
+    position:;
+    right: 30px;
+    height:100%; 
+    width:30%;
+    float:left;
+    padding-left:35px;
+    line-height: 20px;
+  }
+  .sales .sale {
+    border: 1px solid #c4bebe;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+  }
+  .sales .name {
+    font-size:20px;
+  }
+  .sales .price {
+    font-size: 15px;
+    margin-top: 10px;
+  }
+  .sales .size {
+    background:none;
+    border:none;
+    padding-bottom:10px;
+    font-size:15px;
+  }
+  .sales .num {
+    background:none;
+    border:none;
+  }
+  .like, .basket, .buy {
+    width: 100%;
+    background: none;
+    border: 1px solid #050c30;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+  }
+
+  .basket:hover, .buy:hover {
+    background: #050c30;
+    color: white;
+  }
+
+  .likeBtn {
+    background: #050c30;
+    color: white;
+  }
+
+  .comments {
+    border: 1px solid #c4bebe;
+    margin-top:10px;
+    margin-bottom:20px;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    word-break:break-all;
+  }
+
+  .scrolladd {
+    position: fixed;
+    top: 70px;
+    -webkit-transform: translate(-33px);
+    -ms-transform: translate(-170px);
+    width: 342px;
+  }

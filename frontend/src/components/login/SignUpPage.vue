@@ -94,15 +94,33 @@
           <p v-if="$v.age.$error">숫자를 입력하세요.</p>             
         </div>
 
+        
         <div class="text-box">
-          <label for="address">주소 : </label>
-          <input 
-                    @input="$v.address.$touch()"
-                    v-model="address" 
-                    id="address"
-                    name="address" 
-                    placeholder="주소">
+          <label for="postcode">주소 : </label>
+          <input type="text" id="postcode" class="post-num" placeholder="우편번호">
+          <button class="post-num-btn"  @click="execPostcode()">우편번호 찾기</button>
+          <br>
         </div>
+        <div class="text-box">
+          <input type="text" class="addressFinder" id="roadAddress" placeholder="도로명주소">
+        </div>
+        <div class="text-box">
+          <input type="text" class="addressFinder" id="jibunAddress" placeholder="지번주소">
+        </div>
+          <span id="guide" style="color:#999;display:none"></span>
+        <div class="text-box">
+          <input 
+                  @input="$v.detailAddress.$touch()"
+                  v-model="detailAddress"
+                  type="text" 
+                  class="addressFinder"
+                  id="detailAddress" 
+                  placeholder="상세주소">
+        </div>
+        <div class="text-box">
+          <input type="text" class="addressFinder" id="extraAddress" placeholder="참고항목">
+        </div>
+       
 
         <div class="text-box">
           <label>핸드폰 : </label>
@@ -149,7 +167,7 @@ export default {
         firstName: '',
         gender: '',
         age: '',
-        address: '',
+        detailAddress: '',
         phone_first: '',
         phone_middle: '',
         phone_last: '',
@@ -168,7 +186,11 @@ export default {
             firstName: this.firstName,
             avatar: this.gender,
             age: this.age,
-            address: this.address,
+            postcode: this.$store.state.postcode,
+            roadAddress: this.$store.state.roadAddress,
+            jibunAddress: this.$store.state.jibunAddress,
+            detailAddress: this.detailAddress,
+            extraAddress: this.$store.state.extraAddress,
             phone_first: this.phone_first,
             phone_middle: this.phone_middle,
             phone_last: this.phone_last
@@ -203,6 +225,10 @@ export default {
         }
         alert('사용가능한 아이디 입니다.');
         this.doubleCheckVariable = true;
+    },
+
+    execPostcode: function() {
+        this.$store.dispatch('postcode');
     }
   },
 
@@ -225,7 +251,7 @@ export default {
       age: {
         numeric
       },
-      address: {
+      detailAddress: {
         required
       },
       phone_first: {
@@ -251,5 +277,6 @@ export default {
 }
 </script>
 
-<style src="./login.css">
+<style src="../../../public/stylesheets/login.css">
+  
 </style>
