@@ -46,68 +46,65 @@
                       required>
           </div>
 
-          <div class="text-box">
-            <label for="kinds">kinds : </label>
-            <input 
-                 
-                      v-model="product.kinds" 
-                      id="kinds"
-                      name="kinds"
-                      required>
-           
-          </div>
-
-          <div class="text-box">
-            <label for="brand">brand : </label>
-            <input 
-                  
-                      v-model="product.brand" 
-                      id="brand"
-                      name="brand"
-                      required>
-            
-          </div>
-
-          <div class="text-box">
+          <div v-if="product.kinds == 'tops' || product.kinds == 'bottoms'" class="text-box">
             <label for="SItems">SItems : </label>
             <input
                  
                       v-model.number="product.SItems" 
                       id="SItems"
                       name="SItems"
-                      required>
+                      placeholder="'S' 상품갯수">
             
           </div>
 
-          <div class="text-box">
+          <div v-if="product.kinds == 'tops' || product.kinds == 'bottoms'" class="text-box">
             <label for="MItems">MItems : </label>
             <input
                  
                       v-model.number="product.MItems" 
                       id="MItems"
                       name="MItems"
-                      required>
+                      placeholder="'M' 상품갯수">
             
           </div>
 
-          <div class="text-box">
+          <div v-if="product.kinds == 'tops' || product.kinds == 'bottoms'" class="text-box">
             <label for="LItems">LItems : </label>
             <input
                  
                       v-model.number="product.LItems" 
                       id="LItems"
                       name="LItems"
-                      required>
+                      placeholder="'L' 상품갯수">
             
           </div>
 
-          <div class="text-box">
+          <div v-if="product.kinds == 'tops' || product.kinds == 'bottoms'" class="text-box">
             <label for="XLItems">XLItems : </label>
             <input
                  
                       v-model.number="product.XLItems" 
                       id="XLItems"
                       name="XLItems"
+                      placeholder="'XL' 상품갯수">
+            
+          </div>
+
+          <div v-if="product.kinds == 'accs'" class="text-box">
+            <label for="FreeItems">FreeItems : </label>
+            <input
+                      v-model.number="product.FreeItems" 
+                      id="FreeItems"
+                      name="FreeItems"
+                      placeholder="'Free' 상품갯수">
+          </div>
+
+          <div class="text-box">
+            <label for="brand">brand : </label>
+            <input 
+                      v-model="product.brand" 
+                      id="brand"
+                      name="brand"
                       required>
             
           </div>
@@ -168,6 +165,7 @@ export default {
       formData.append('MItems',this.product.MItems);
       formData.append('LItems',this.product.LItems);
       formData.append('XLItems',this.product.XLItems);
+      formData.append('FreeItems',this.product.FreeItems);
       formData.append('avatar',this.product.avatar);
 
       await this.$http.put('/api/products/' + this.$route.params.id, formData)

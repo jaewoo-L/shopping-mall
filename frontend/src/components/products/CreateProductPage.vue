@@ -50,17 +50,6 @@
                       required>
           </div>
 
-          <div class="text-box" :class="{invalid: $v.kinds.$error}">
-            <label for="kinds">kinds : </label>
-            <input 
-                  @blur="$v.kinds.$touch()"
-                      v-model="kinds" 
-                      id="kinds"
-                      name="kinds" 
-                      placeholder="ex)tops, bottoms, accs">
-            <p v-if="$v.kinds.$error">종류를 작성 해주세요.</p>
-          </div>
-
           <div class="text-box" :class="{invalid: $v.brand.$error}">
             <label for="brand">brand : </label>
             <input 
@@ -72,7 +61,17 @@
             <p v-if="$v.brand.$error"> 브랜드 등록을 해주세요.</p>
           </div>
 
-          <div class="text-box" :class="{invalid: $v.SItems.$error}">
+          <div class="text-box" :class="{invalid: $v.kinds.$error}">
+            <label for="kinds">kinds : </label>
+            <select id="kinds" v-model="kinds" @blur="$v.kinds.$touch()">
+              <option value="tops">tops</option>
+              <option value="bottoms">bottoms</option>
+              <option value="accs">accs</option>
+            </select>
+            <p v-if="$v.kinds.$error">종류를 선택 해주세요.</p>
+          </div>
+
+          <div v-if="kinds == 'tops' || kinds == 'bottoms'" class="text-box" :class="{invalid: $v.SItems.$error}">
             <label for="SItems">SItems : </label>
             <input
                   @blur="$v.SItems.$touch()" 
@@ -80,10 +79,10 @@
                       id="SItems"
                       name="SItems" 
                       placeholder="'S' 상품갯수">
-            <p v-if="$v.SItems.$error">상품갯수 등록을 해주세요.</p>
+            <p v-if="$v.SItems.$error">숫자를 입력해주세요.</p>
           </div>
 
-          <div class="text-box" :class="{invalid: $v.MItems.$error}">
+          <div v-if="kinds == 'tops' || kinds == 'bottoms'" class="text-box" :class="{invalid: $v.MItems.$error}">
             <label for="MItems">MItems : </label>
             <input
                   @blur="$v.MItems.$touch()" 
@@ -91,10 +90,10 @@
                       id="MItems"
                       name="MItems" 
                       placeholder="'M' 상품갯수">
-            <p v-if="$v.MItems.$error">상품갯수 등록을 해주세요.</p>
+            <p v-if="$v.MItems.$error">숫자를 입력해주세요.</p>
           </div>
 
-          <div class="text-box" :class="{invalid: $v.LItems.$error}">
+          <div v-if="kinds == 'tops' || kinds == 'bottoms'" class="text-box" :class="{invalid: $v.LItems.$error}">
             <label for="LItems">LItems : </label>
             <input
                   @blur="$v.LItems.$touch()" 
@@ -102,10 +101,10 @@
                       id="LItems"
                       name="LItems" 
                       placeholder="'L' 상품갯수">
-            <p v-if="$v.LItems.$error">상품갯수 등록을 해주세요.</p>
+            <p v-if="$v.LItems.$error">숫자를 입력해주세요.</p>
           </div>
 
-          <div class="text-box" :class="{invalid: $v.XLItems.$error}">
+          <div v-if="kinds == 'tops' || kinds == 'bottoms'" class="text-box" :class="{invalid: $v.XLItems.$error}">
             <label for="XLItems">XLItems : </label>
             <input
                   @blur="$v.XLItems.$touch()" 
@@ -113,7 +112,18 @@
                       id="XLItems"
                       name="XLItems" 
                       placeholder="'XLI' 상품갯수">
-            <p v-if="$v.XLItems.$error">상품갯수 등록을 해주세요.</p>
+            <p v-if="$v.XLItems.$error">숫자를 입력해주세요.</p>
+          </div>
+
+          <div v-if="kinds == 'accs'" class="text-box" :class="{invalid: $v.FreeItems.$error}">
+            <label for="FreeItems">FreeItems : </label>
+            <input
+                  @blur="$v.FreeItems.$touch()" 
+                      v-model.number="FreeItems" 
+                      id="FreeItems"
+                      name="FreeItems" 
+                      placeholder="'Free' 상품갯수">
+            <p v-if="$v.FreeItems.$error">숫자를 입력해주세요.</p>
           </div>
 
           <div class="text-box" :class="{invalid: $v.avatar.$error}">
@@ -149,6 +159,7 @@ export default {
       MItems: '',
       LItems: '',
       XLItems: '',
+      FreeItems:'',
       avatar: '',
       detail: '',
       thumbnail:''
@@ -182,6 +193,7 @@ export default {
       formData.append('MItems',this.MItems);
       formData.append('LItems',this.LItems);
       formData.append('XLItems',this.XLItems);
+      formData.append('FreeItems',this.FreeItems);
       formData.append('avatar',this.avatar);
       for(let key of formData.entries()) {
         console.log(key[0]);
@@ -216,19 +228,18 @@ export default {
       required
     },
     SItems: {
-      required,
       numeric
     },
     MItems: {
-      required,
       numeric
     },
     LItems: {
-      required,
       numeric
     },
     XLItems: {
-      required,
+      numeric
+    },
+    FreeItems: {
       numeric
     },
     avatar: {

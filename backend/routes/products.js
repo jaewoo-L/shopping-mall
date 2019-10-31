@@ -30,7 +30,7 @@ cloudinary.config({
 //INDEX Display a list of all products
 router.get('/', function(req,res){
 	let sendObj = {};
-	let perPage =3;
+	let perPage =2;
 	let allProductsNum = null;
 	console.log('req.query.page ===');
 	console.log(req.query.page);
@@ -208,9 +208,9 @@ router.post('/', upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detail'
 					MItems: req.body.MItems,
 					LItems: req.body.LItems,
 					XLItems: req.body.XLItems,
+					FreeItems: req.body.FreeItems,
 					avatar: req.body.avatar
 				});
-			console.log(req.body.SItems);
 			console.log('새제품 등록.');
 			console.log(newProduct);
 
@@ -273,6 +273,7 @@ router.put("/:id", upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detai
 			MItems: req.body.MItems,
 			LItems: req.body.LItems,
 			XLItems: req.body.XLItems,
+			FreeItems: req.body.FreeItems,
 			avatar: req.body.avatar
 		});
 	cloudinary.uploader.upload(req.files['thumbnail'][0].path , function(err, result){
@@ -301,6 +302,7 @@ router.put("/:id", upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detai
 								product.MItems = editProduct.MItems;
 								product.LItems = editProduct.LItems;
 								product.XLItems = editProduct.XLItems;
+								product.FreeItems = editProduct.FreeItems;
 								product.avatar = editProduct.avatar;
 								product.save(function(err) {
 									if(err) {
@@ -328,6 +330,7 @@ router.put("/:id/buy", function(req, res) {
 			product.MItems = req.body.MItemsNum
 			product.LItems = req.body.LItemsNum
 			product.XLItems = req.body.XLItemsNum
+			product.FreeItems = req.body.FreeItemsNum
 			product.save(function(err) {
 				if(err) {
 					console.log(err);

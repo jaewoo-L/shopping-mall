@@ -68,10 +68,15 @@ export default {
       while (this.list.length) {
         this.list.pop();
       } 
-      for(var i= (Number(this.current) > 5 ? Number(this.current) - 4 : 1); i <= (Number(this.current) + 4) && i <= this.pages; i++) this.list.push(i);
-      console.log(this.list);
-      return this.list;
-        
+      if(Number(this.current) < 6) {
+        for(var i= (Number(this.current) % 6 == 0 ? Number(this.current) : Number(this.current) - Number(this.current) % 6 + 1 ), j= i;   i <= (j + 4) && i <= this.pages; i++) this.list.push(i);
+        console.log(this.list);
+        return this.list;  
+      } else {
+        for(var i= (Number(this.current) % 6 == 0 ? Number(this.current) : Number(this.current) - Number(this.current) % 6), j= i; i <= (j + 5) && i <= this.pages; i++) this.list.push(i);
+        console.log(this.list);
+        return this.list; 
+      }
     }
   },
   methods: {
