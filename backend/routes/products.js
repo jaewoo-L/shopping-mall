@@ -11,6 +11,7 @@ var storage = multer.diskStorage({
 		//callback(null, Date.now() + file.originalname);
 	//}
 });
+require('dotenv').config();
 //file형식이 이미지가 맞는지 filtering
 var imageFilter = function(req, file, callback) {
 	if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
@@ -22,15 +23,15 @@ var upload = multer({storage: storage, fileFilter: imageFilter});
 
 cloudinary.config({
 	cloud_name: 'du8m0pgtu',
-	api_key: '912133187682198',
-	api_secret: '2VtyQEbrxPHQLpvx7bTFQY0IFcI'
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 
 //INDEX Display a list of all products
 router.get('/', function(req,res){
 	let sendObj = {};
-	let perPage =2;
+	let perPage =20;
 	let allProductsNum = null;
 	console.log('req.query.page ===');
 	console.log(req.query.page);
@@ -88,7 +89,7 @@ router.get('/', function(req,res){
 //INDEX Display a list of tops products
 router.get('/tops', function(req,res){
 	let sendObj= {};
-	let perPage =3;
+	let perPage =20;
 	let topProductsNum = null;
 	console.log('req.query.page ===');
 	console.log(req.query.page);
@@ -125,7 +126,7 @@ router.get('/tops', function(req,res){
 //INDEX Display a list of bottoms products
 router.get('/bottoms', function(req,res){
 	let sendObj= {};
-	let perPage =3;
+	let perPage =20;
 	let bottomProductsNum = null;
 	console.log('req.query.page ===');
 	console.log(req.query.page);
@@ -159,7 +160,7 @@ router.get('/bottoms', function(req,res){
 //INDEX Display a list of accs products
 router.get('/accs', function(req,res){
 	let sendObj= {};
-	let perPage =3;
+	let perPage =20;
 	let accProductsNum = null;
 	console.log('req.query.page ===');
 	console.log(req.query.page);

@@ -140,12 +140,14 @@
   .post-num {
     width:70px;
   }
+
   .post-num-btn {
     float: right;
     cursor: pointer;
     background: none;
     border: 1px solid #050c30;
   }
+  
   .addressFinder {
     width: 100%;
   }
