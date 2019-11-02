@@ -87,7 +87,6 @@ export default new Router({
       name: 'createProduct',
       components: {
         'header': Header,
-        'footer': Footer,
         default: CreateProduct
       }
     },
@@ -109,7 +108,6 @@ export default new Router({
       name: 'editProduct',
       components: {
         'header': Header,
-        'footer': Footer,
         default: EditProduct
       }
     },
@@ -120,7 +118,6 @@ export default new Router({
       name: 'login',
       components: {
         'header': Header,
-        'footer': Footer,
         default: Login
       }
   
@@ -131,7 +128,6 @@ export default new Router({
       name: 'logout',
       components: {
         'header': Header,
-        'footer': Footer,
         default: Logout
       }
   
@@ -142,7 +138,6 @@ export default new Router({
       name: 'signUp',
       components: {
         'header': Header,
-        'footer': Footer,
         default: SignUp
       }
   
@@ -153,7 +148,6 @@ export default new Router({
       name: 'forgot',
       components: {
         'header': Header,
-        'footer': Footer,
         default: Forgot
       }
   
@@ -164,7 +158,6 @@ export default new Router({
       name: 'reset',
       components: {
         'header': Header,
-        'footer': Footer,
         default: Reset
       }
   
@@ -196,7 +189,6 @@ export default new Router({
       path: '/:id/myPage',
       components: {
         'header': Header,
-        'footer': Footer,
         default: MyPage
       }
     },
@@ -206,7 +198,6 @@ export default new Router({
       path: '/:id/myPage/edit',
       components: {
         'header': Header,
-        'footer': Footer,
         default: EditUser
       }
     },
@@ -217,7 +208,6 @@ export default new Router({
       name: 'newComments',
       components: {
         'header': Header,
-        'footer': Footer,
         default: NewComments
       }
     },
@@ -227,7 +217,6 @@ export default new Router({
       name: 'editComments',
       components: {
         'header': Header,
-        'footer': Footer,
         default: EditComments
       }
     }
