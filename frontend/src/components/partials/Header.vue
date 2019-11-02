@@ -20,6 +20,7 @@
           <li class="active"><a href="/products/bottoms">Bottoms</a></li>
           <li class="active"><a href="/products/accs">Accs</a></li>
         </ul>
+        
         <ul class="show-small">
           <li v-if="auth" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/myPage'" class="navbar-link">{{nickname}}</a></li>
           <li v-if="auth" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/orders'" class="navbar-link">주문조회</a></li>
