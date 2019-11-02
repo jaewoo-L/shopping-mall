@@ -129,7 +129,7 @@
   }
 
   .phone {
-    width: 40px;
+    width: 60px;
   }
 
   .doubleCheck {
@@ -138,7 +138,7 @@
     border: 1px solid #050c30;
   }
   .post-num {
-    width:70px;
+    width:100px;
   }
 
   .post-num-btn {
@@ -148,7 +148,7 @@
     border: 1px solid #050c30;
   }
 
-  
+
   .addressFinder {
     width: 100%;
   }

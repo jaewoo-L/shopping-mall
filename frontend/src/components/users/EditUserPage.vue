@@ -1,5 +1,5 @@
 <template>
-  <div id="editUser">
+  <div id="editUser" class="container">
     <div class="editUser-box">
         <h1> 개인정보 변경 </h1>
 

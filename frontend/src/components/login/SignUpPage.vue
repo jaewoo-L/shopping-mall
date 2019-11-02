@@ -1,5 +1,5 @@
 <template>
-  <div id="signUp">
+  <div id="signUp" class="container">
     <div class="signUp-box">
         <h1> Sign Up </h1>
         <div class="text-box" :class="{invalid: $v.username.$error}">

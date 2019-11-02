@@ -21,7 +21,7 @@
           <router-link tag="li" :to="{name: 'bottoms'}" active-class="active"><a>Bottoms</a></router-link>
           <router-link tag="li" :to="{name: 'accs'}" active-class="active"><a>Accs</a></router-link>
         </ul>
-        <ul class="">
+        <ul class="navbar_user">
           <li v-if="auth" class="navbar-text navbar-right"><router-link :to="'/' + this.$store.getters.token + '/orders'" tag="a" class="navbar-link">주문조회</router-link></li>
           <li v-if="auth" class="navbar-text navbar-right"><router-link :to="'/' + this.$store.getters.token + '/basket/'" tag="a" class="navbar-link">장바구니</router-link></li>
           <li v-if="!auth" class="navbar-text navbar-right"><router-link :to="{name: 'signUp'}" tag="a" class="navbar-link">회원가입</router-link></li>
@@ -69,6 +69,12 @@
     font-size:23px;
     color: #000;
   }
+  @media (max-width: 768px) {
+  	.navbar_user {
+  		padding: 0;
+  	}
+  }
+  
 
   @media (min-width: 768px){
     .navbar-right {

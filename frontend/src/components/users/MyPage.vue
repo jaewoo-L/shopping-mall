@@ -11,8 +11,8 @@
         <p><strong>핸드폰:</strong> {{myInfo.phone_first}}-{{myInfo.phone_middle}}-{{myInfo.phone_last}}</p>
       </div>
 
-      <button @click="editUser" class="btn btn-default">개인정보 변경</button>
-      <button @click="deleteUser" class="btn btn-default">회원탈퇴</button>
+      <button @click="editUser" class="btn btn-default editUser">개인정보 변경</button>
+      <button @click="deleteUser" class="btn btn-default deleteUser">회원탈퇴</button>
     </div>
   </div>
 </template>

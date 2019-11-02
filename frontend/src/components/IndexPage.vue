@@ -10,7 +10,7 @@
     <div class="main-layout">
       <div class="info-1 container">
         <div class="row">
-          <div class="col-sm-6 col-md-4">
+          <div class="col-sm-12 col-md-4">
             <div data-aos="fade-up" class="thumbnail">
               <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160674/5_uhndfa.jpg" alt="">
               <div class="caption">
@@ -19,7 +19,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-md-4">
+          <div class="col-sm-12 col-md-4">
             <div data-aos="fade-up" class="thumbnail">
               <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160674/3_gqgxvk.jpg" alt="">
               <div class="caption">
@@ -28,7 +28,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-md-4">
+          <div class="col-sm-12 col-md-4">
             <div data-aos="fade-up" class="thumbnail">
               <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160675/11_uxi1eu.jpg" alt="">
               <div class="caption">
@@ -69,17 +69,17 @@
         <div class="container">
         <div class="row">
           <div class="col-sm-12 col-md-6">
-            <div data-aos="fade-right" class="thumbnail">
+            <div data-aos="fade-up" class="thumbnail">
               <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160678/7_x0etnh.png" alt="">
             </div>
           </div>
           <div class="col-sm-12 col-md-6">
-            <div data-aos="fade-left" class="thumbnail">
+            <div data-aos="fade-up" class="thumbnail">
               <img style="width:90%;" src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160673/1_ufriqt.jpg" alt="">
             </div>
           </div>
           <div class="col-sm-12 col-md-6">
-            <div data-aos="fade-left" class="thumbnail">
+            <div data-aos="fade-up" class="thumbnail">
               <img style="width:90%;" src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160677/12_ryco1g.jpg">
             </div>
           </div>
@@ -96,7 +96,7 @@
           </h3>
         </div>
         <div data-aos="fade-up" class="row">
-          <div class="col-sm-6 col-md-4">
+          <div class="col-sm-12 col-md-4">
             <div class="thumbnail">
               <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160673/2_ee8gkm.jpg" alt="">
               <div class="caption">
@@ -105,7 +105,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-md-4">
+          <div class="col-sm-12 col-md-4">
             <div class="thumbnail">
               <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160673/4_ahtkuj.jpg" alt="">
               <div class="caption">
@@ -114,7 +114,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-md-4">
+          <div class="col-sm-12 col-md-4">
             <div class="thumbnail">
               <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160674/6_cpqxy0.jpg" alt="">
               <div class="caption">
@@ -147,6 +147,6 @@ export default {
 }
 </script>
 
-<style src="../../public/stylesheets/index.css">
+<style scoped src="../../public/stylesheets/index.css">
   
 </style>

@@ -1,5 +1,5 @@
 <template>
-   <div id="newProduct">
+   <div id="newProduct" class="container">
     <div class="newProduct-box">
         <h1> 제품등록 </h1>
         <form @submit.prevent="createProduct" enctype="multipart/form-data">
