@@ -160,6 +160,7 @@ export default new Router({
         'header': Header,
         default: Reset
       }
+      
   
     },
     
