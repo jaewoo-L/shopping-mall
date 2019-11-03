@@ -78,8 +78,6 @@ export default {
   },
   computed: {
       isAdmin() {
-          console.log('isAmin 변경');
-          console.log(this.$store.getters.isAdmin);
           return this.$store.getters.isAdmin;
       },
       token() {
@@ -117,10 +115,7 @@ export default {
         this.$http.post('/api/products/' + this.$route.params.id + '/like', {userid: this.$store.getters.token})
         .then((response) => {
           this.likes = response.data;
-          //let token = this.token;
           this.istrue = !this.istrue;
-          console.log(this.likes);
-          //console.log(token);
         })
       },
       basketProduct() {
@@ -175,13 +170,12 @@ export default {
             if(response.data.result == 'fail') {
               alert('구매 실패.');
             } else {
-              console.log(response.data);
-              alert('구매 완료.')
+              alert('구매 완료.');
               this.$router.push('/'+ this.$store.getters.token +'/orders');
             }
           })
           .catch(error => {
-              alert(error)
+              alert(error);
           })  
           
           
@@ -320,7 +314,6 @@ export default {
         this.LItemsNum = response.data.LItems;
         this.XLItemsNum = response.data.XLItems;
         this.FreeItemsNum = response.data.FreeItems;
-        console.log(response.data);
         for(var i in response.data.likes) {
           if(response.data.likes[i]._id == this.$store.getters.token) {
             this.istrue = true;

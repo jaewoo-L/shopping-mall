@@ -196,19 +196,16 @@ export default {
             phone_last: this.phone_last
           })
           .then((response) => {
-            console.log('response');
-            console.log(response.data);
             if (response.data.result == 0) {
-              alert('Error, please, try again');
+              alert('Error, 다시 시도해 주세요.');
             }
             if (response.data.result == 1) {
-              alert('Success');
+              alert('회원가입을 축하드립니다.');
               this.$router.push('/login');
             }
           })
           .catch(function (error) {
-            alert('frontend error');
-            console.log(error);
+            alert('Error, 다시 시도해 주세요.');
           })
       } else {
           alert('E-mail 중복확인이 필요합니다.');

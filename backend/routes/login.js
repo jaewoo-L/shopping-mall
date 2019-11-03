@@ -8,9 +8,6 @@ var nodemailer = require('nodemailer');
 
 router.get('/signUp', function(req, res) {
 	User.find().where('username').exec(function(err, foundUsername) {
-		console.log('backend user');
-		console.log(foundUsername);
-
 		res.json(foundUsername);
 	});
 });
@@ -33,8 +30,6 @@ router.post('/signUp', function(req, res, next) {
 		phone_last: req.body.phone_last
 	});
 	var password = req.body.password;
-	console.log('id: ' + req.body.username);
-	console.log('password: ' + password);
 	User.register(newUser, password, function(err,newuser) {
 		if(err){
 			console.log(err);
@@ -54,22 +49,18 @@ router.post('/signUp', function(req, res, next) {
 
 router.post('/', passport.authenticate('local') ,function(req, res) {
 	let sendmsg = {};
-	console.log('user ');
-	console.log(req.user);
 	req.session._id = req.user._id;
 	sendmsg.isAdmin = req.user.isAdmin;
 	sendmsg.username = req.user.username;
 	sendmsg.nickname = req.user.nickname;
 	sendmsg.session = req.session._id;
-	console.log('sendmsg object!!!');
-	console.log(sendmsg);
 	 res.json(sendmsg);
 });
 
 
 router.get('/logout', function(req, res) {
 	req.logout();
-	res.json({msg: 'logout'});
+	res.json({msg: 'see you again.'});
 });
 
 router.post('/forgot', function(req, res, next) {
@@ -127,16 +118,6 @@ router.post('/forgot', function(req, res, next) {
 	});
 });
 
-// router.get('/reset/:token', function(req, res) {
-// 	User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: Date.now()}}, function(err, user) {
-// 		if(!user) {
-// 			res.json('존재하지 않는 유저입니다.')
-// 		} else {
-
-// 		}
-// 	});
-// });
-
 router.post('/reset/:token', function(req, res) {
 	async.waterfall([
 		function(done) {
@@ -149,7 +130,6 @@ router.post('/reset/:token', function(req, res) {
 					user.resetPasswordExpires = undefined;
 
 					user.save(function(err) {
-						console.log('비밀번호 변경.')
 						req.logIn(user, function(err) {
 							done(err, user);
 						});
@@ -187,18 +167,6 @@ router.post('/reset/:token', function(req, res) {
 
 router.get('/:id/basket', function(req, res) {
 	User.findById(req.params.id).where('basket').populate('basket').exec(function(err, foundUserBasket) {
-		console.log('user basket');
-		console.log(foundUserBasket);
-
-		res.json(foundUserBasket);
-	});
-});
-
-router.get('/:id/basket', function(req, res) {
-	User.findById(req.params.id).where('basket').populate('basket').exec(function(err, foundUserBasket) {
-		console.log('user basket');
-		console.log(foundUserBasket);
-
 		res.json(foundUserBasket);
 	});
 });
@@ -207,12 +175,10 @@ router.get('/:id/basket', function(req, res) {
 router.post("/:id/basket", function(req,res){
 	User.findById(req.body.userid, function(err, foundUser) {
 		if(err) {
-			
+			coonsole.log(err);
 		}
-		console.log(foundUser);
 		var foundBasketUser = foundUser.basket.some(function(basket) {
 				return basket.equals(req.params.id);
-			
 		});
 		if(foundBasketUser) {
 			//already have, removing product
@@ -220,13 +186,10 @@ router.post("/:id/basket", function(req,res){
 		}else { 
 			foundUser.basket.push(req.params.id);
 		}
-		
 		foundUser.save(function(err) {
 			if(err) {
-				
+				coonsole.log(err);
 			}
-			console.log('저장합니다.')
-			console.log(foundUser.basket);
 			res.json(foundUser.basket);
 		});
 	});
@@ -234,9 +197,6 @@ router.post("/:id/basket", function(req,res){
 
 router.get('/:id/orders', function(req, res) {
 	User.findById(req.params.id).where('orders').populate('orders').exec(function(err, foundUserOrders) {
-		console.log('user orders');
-		console.log(foundUserOrders);
-
 		res.json(foundUserOrders);
 	});
 });
@@ -246,10 +206,8 @@ router.post("/:id/orders", function(req,res){
 		foundUser.orders.push(req.params.id);
 		foundUser.save(function(err) {
 			if(err) {
-				
+				coonsole.log(err);
 			}
-			console.log('저장합니다.')
-			console.log(foundUser.orders);
 			res.json(foundUser.orders);
 		});
 	});
@@ -257,7 +215,6 @@ router.post("/:id/orders", function(req,res){
 
 router.get('/:id/myPage', function(req, res) {
 	User.findById(req.params.id, function(err, foundUser) {
-		console.log(foundUser);
 		res.json(foundUser);
 	});
 });
@@ -280,9 +237,6 @@ router.put("/:id/myPage/edit", function(req, res) {
 			foundUser.phone_first = req.body.phone_first
 			foundUser.phone_middle = req.body.phone_middle
 			foundUser.phone_last = req.body.phone_last
-			console.log('저장하기 일보직전');
-			console.log(foundUser);
-			
 			foundUser.save(function(err) {
 				if(err) {
 					console.log(err);

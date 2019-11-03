@@ -33,7 +33,6 @@ export default {
 	          alert('수정 실패');
 	        } else {
 	          alert('수정 성공');
-	          console.log(response.data);
 	          this.$router.push('/products/' + this.$route.params.id);
 	        }
 	      })
@@ -46,8 +45,6 @@ export default {
     	this.$http.get('/api/products/'+ this.$route.params.id + '/comments/' + this.$route.params.comments_id + '/edit')
       	.then((response) => {
         	this.comment = response.data;
-        	console.log(response.data);
-        	console.log(this.comment);
       	});
   	}
 }

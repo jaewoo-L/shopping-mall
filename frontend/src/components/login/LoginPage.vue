@@ -39,8 +39,7 @@ export default {
         password: this.password
       })
       .then((response) => {  
-            alert('success login' + response.data.username)
-            console.log(response.data.session);
+            alert(response.data.nickname + '님 환영합니다.');
             let token = response.data.session;
             let username = response.data.username;
             let nickname = response.data.nickname;

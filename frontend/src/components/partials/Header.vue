@@ -86,7 +86,7 @@
   }
 
 
-  @media (min-width: 768px){
+   @media (min-width: 768px){
     .navbar-right {
       float: right!important;
       margin-right: 5px;
@@ -97,7 +97,7 @@
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .show-large {
       display: none;
     }
@@ -105,4 +105,5 @@
       padding-left:0px;
     }
   }
+
 </style>

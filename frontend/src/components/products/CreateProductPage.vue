@@ -167,19 +167,15 @@ export default {
   },
   computed: {
     isAdmin(){
-      console.log(this.$store.getters.isAdmin)
       return this.$store.getters.isAdmin;
     }
   },
   methods: {
     onSelectThumbnail() {
       this.thumbnail = this.$refs.thumbnail.files[0];
-      console.log(this.thumbnail);
     },
     onSelectDetail() {
       this.detail = this.$refs.detail.files[0];
-      console.log(this.detail);
-      
     },
     async createProduct() {
       let formData = new FormData();
@@ -195,21 +191,18 @@ export default {
       formData.append('XLItems',this.XLItems);
       formData.append('FreeItems',this.FreeItems);
       formData.append('avatar',this.avatar);
-      for(let key of formData.entries()) {
-        console.log(key[0]);
-        console.log(key[1]);
-      };
+
         await this.$http.post('/api/products', formData)
             .then((response) => {
               if(response.data) {
-                alert('제품 등록 완료');
+                alert('제품 등록 완료.');
               } else {
-                alert('제품 등록 오류');
+                alert('제품 등록 오류.');
               }
               this.$router.push('/products');
             })
             .catch(function (error) {
-                  console.log(error);
+                alert(error);
              })
       }
     },

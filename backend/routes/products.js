@@ -33,12 +33,9 @@ router.get('/', function(req,res){
 	let sendObj = {};
 	let perPage =20;
 	let allProductsNum = null;
-	console.log('req.query.page ===');
-	console.log(req.query.page);
 	let pageQuery = parseInt(req.query.page);
 	let pageNum = pageQuery ? pageQuery : 1;
 	//Get all products from DB
-	console.log(req.query.search);
 	Product.find({}, function(err, allproducts) {
 		if(err) {
 			console.log(err);
@@ -61,7 +58,6 @@ router.get('/', function(req,res){
 	              	sendObj.page = 'products';
 	           		sendObj.products = searchProducts;
 	           		sendObj.productsNum = allProductsNum;
-	              	console.log(sendObj);
 	              	res.json(sendObj);
 	              }
 	           }
@@ -78,7 +74,6 @@ router.get('/', function(req,res){
 	              	sendObj.page = 'products';
 	           		sendObj.products = allProducts;
 	           		sendObj.productsNum = allProductsNum;
-	              	console.log(sendObj);
 	              	res.json(sendObj);
 				}
 				});
@@ -91,8 +86,6 @@ router.get('/tops', function(req,res){
 	let sendObj= {};
 	let perPage =20;
 	let topProductsNum = null;
-	console.log('req.query.page ===');
-	console.log(req.query.page);
 	let pageQuery = parseInt(req.query.page);
 	let pageNum = pageQuery ? pageQuery : 1;
 	//Get all products from DB
@@ -115,7 +108,6 @@ router.get('/tops', function(req,res){
 	            sendObj.page = 'topProducts';
 	           	sendObj.products = allProducts;
 	           	sendObj.productsNum = topProductsNum;
-	            console.log(sendObj);
 	            res.json(sendObj);
 			}
 		});
@@ -128,8 +120,6 @@ router.get('/bottoms', function(req,res){
 	let sendObj= {};
 	let perPage =20;
 	let bottomProductsNum = null;
-	console.log('req.query.page ===');
-	console.log(req.query.page);
 	let pageQuery = parseInt(req.query.page);
 	let pageNum = pageQuery ? pageQuery : 1;
 	//Get all products from DB
@@ -150,7 +140,6 @@ router.get('/bottoms', function(req,res){
 	            sendObj.page = 'bottomPproducts';
 	           	sendObj.products = allProducts;
 	           	sendObj.productsNum = bottomProductsNum;
-	            console.log(sendObj);
 	            res.json(sendObj);
 			}
 		});
@@ -162,8 +151,6 @@ router.get('/accs', function(req,res){
 	let sendObj= {};
 	let perPage =20;
 	let accProductsNum = null;
-	console.log('req.query.page ===');
-	console.log(req.query.page);
 	let pageQuery = parseInt(req.query.page);
 	let pageNum = pageQuery ? pageQuery : 1;
 	//Get all products from DB
@@ -184,7 +171,6 @@ router.get('/accs', function(req,res){
 	            sendObj.page = 'accProducts';
 	           	sendObj.products = allProducts;
 	           	sendObj.productsNum = accProductsNum;
-	            console.log(sendObj);
 	            res.json(sendObj);
 			}
 		});
@@ -193,11 +179,6 @@ router.get('/accs', function(req,res){
 
 //CREATE Add new products to DB
 router.post('/', upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detail', maxCount: 1}]), function(req,res){	
-			console.log(req.files);
-			console.log('------------------------');
-			console.log(req.files['thumbnail'][0]);
-			console.log('------------------------');
-			console.log(req.files['detail'][0]);
 			var newProduct = new Product({
 					name: req.body.name,
 					price: req.body.price,
@@ -212,9 +193,6 @@ router.post('/', upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detail'
 					FreeItems: req.body.FreeItems,
 					avatar: req.body.avatar
 				});
-			console.log('새제품 등록.');
-			console.log(newProduct);
-
 			cloudinary.uploader.upload(req.files['thumbnail'][0].path , function(err, result){
 				if(err) {
 					console.log(err);
@@ -230,7 +208,6 @@ router.post('/', upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detail'
 								if(err){
 									console.log(err);
 								}else{
-									console.log(newProduct);
 									res.json(newProduct);
 								}
 							});
@@ -247,7 +224,6 @@ router.get('/:id', function(req,res){
 		if(err){
 			
 		}else{
-			console.log('--foundProduct--');
 			res.json(foundProduct);
 		}
 	}); 
@@ -256,7 +232,6 @@ router.get('/:id', function(req,res){
 //EDIT Product ROUTE
 router.get("/:id/edit" ,function(req,res){
 	Product.findById(req.params.id, function(err, foundProduct) {
-		console.log(foundProduct);
 		res.json(foundProduct);		
 	});
 });
@@ -361,7 +336,6 @@ router.post("/:id/like", function(req,res){
 		if(err) {
 			
 		}
-		console.log(foundProduct);
 		var foundLikeUser = foundProduct.likes.some(function(like) {
 				return like.equals(req.body.userid);
 			
@@ -370,7 +344,6 @@ router.post("/:id/like", function(req,res){
 			//already likded, removing like
 			foundProduct.likes.pull(req.body.userid);
 		}else { 
-			console.log(req.user);
 			foundProduct.likes.push(req.body.userid);
 		}
 		
@@ -378,8 +351,6 @@ router.post("/:id/like", function(req,res){
 			if(err) {
 				
 			}
-			console.log('저장합니다.')
-			console.log(foundProduct.likes);
 			res.json(foundProduct.likes);
 		});
 	});

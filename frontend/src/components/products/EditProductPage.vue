@@ -137,7 +137,6 @@ export default {
 
   computed: {
     isAdmin(){
-      console.log(this.$store.getters.isAdmin)
       return this.$store.getters.isAdmin;
     }
   },
@@ -145,12 +144,9 @@ export default {
   methods: {
     onSelectThumbnail() {
       this.thumbnail = this.$refs.thumbnail.files[0];
-      console.log(this.thumbnail);
     },
     onSelectDetail() {
-      this.detail = this.$refs.detail.files[0];
-      console.log(this.detail);
-      
+      this.detail = this.$refs.detail.files[0];  
     },
 
     async editProduct() {
@@ -171,9 +167,9 @@ export default {
       await this.$http.put('/api/products/' + this.$route.params.id, formData)
       .then((response) => {
         if(response.data.result == 'fail') {
-          alert('수정 실패');
+          alert('수정 실패했습니다.');
         } else {
-          console.log(response.data);
+          alert('수정 되었습니다.')
           this.$router.push('/products/' + this.$route.params.id);
         }
       })
@@ -187,8 +183,6 @@ export default {
     this.$http.get('/api/products/'+ this.$route.params.id + '/edit')
       .then((response) => {
         this.product = response.data;
-        console.log(response.data);
-        console.log(this.product);
       });
   }
 }

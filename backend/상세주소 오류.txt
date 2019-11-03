@@ -1,0 +1,5 @@
+//vue를 통한 앱이 적절한 서버 설정이 없는 단일 페이지이기 때문에 사용자가 직접 url에 상세주소를 입력하면 오류가 뜬다. 
+//이때 이를 해결하기 위한 패키지가 아래와 같다.
+app.use(require('connect-history-api-fallback')());
+
+

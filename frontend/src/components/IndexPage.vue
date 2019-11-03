@@ -125,9 +125,6 @@
           </div>
         </div>
       </div>
-      <!-- footer 만들고 지우기 -->
-      <div style="height:20vh"></div>
-
     </div>
 
 

@@ -69,6 +69,7 @@
           <span id="guide" style="color:#999;display:none"></span>
         <div class="text-box">
           <input 
+                  v-model="myInfo.detailAddress"
                   type="text" 
                   class="addressFinder"
                   id="detailAddress"
@@ -129,22 +130,19 @@ export default {
         phone_last: this.myInfo.phone_last
       })
       .then((response) => {
-        console.log('response');
-        console.log(response.data);
         if (response.data.result == 'fail') {
-          alert('Error, please, try again');
+          alert('Error, 다시 시도해 주세요.');
         }
         else {
           let nickname = response.data.nickname;
           localStorage.setItem("nickname", nickname);
           this.$store.state.nickname = nickname;
-          alert('Success');
+          alert('성공적으로 변경되었습니다.');
           this.$router.push('/' + this.$route.params.id + '/myPage' );
         }
       })
       .catch(function (error) {
-        alert('frontend error');
-        console.log(error);
+        alert(error);
       })
     },
 

@@ -29,15 +29,15 @@ export default {
       this.$router.push('/' + this.$route.params.id + '/myPage/edit')
     },
     deleteUser() {
-      if(confirm('정말 삭제하시겠습니까?') == true) {
+      if(confirm('정말 탈퇴 하시겠습니까?') == true) {
         this.$http.delete('/api/login/' + this.$route.params.id + '/myPage')
         .then((response) => {
           if(response.data.result == 'success') {
-            alert('삭제 성공했습니다.');
+            alert('그동안 고마웠습니다. 다시 방문해주세요.');
             this.$store.dispatch('logout');
             this.$router.push('/login');
           } else if(response.data.result == 'fail') {
-            alert('삭제 실패했습니다.')
+            alert('다시 시도해 주세요.')
           }
         })
         .catch(error => {
@@ -54,8 +54,7 @@ export default {
     })
     this.$store.dispatch('tryAutoLogin')
       .then((response) => {
-        console.log('tryAutoLogin');
-        console.log(typeof this.$store.getters.isAdmin);
+
       });
   }
 }

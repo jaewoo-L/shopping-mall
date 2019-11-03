@@ -61,7 +61,6 @@ export default {
   },
   computed: {
     isAdmin(){
-      console.log(this.$store.getters.isAdmin)
       return this.$store.getters.isAdmin;
     },
     changelist() {
@@ -70,11 +69,9 @@ export default {
       } 
       if(Number(this.current) < 6) {
         for(var i= (Number(this.current) % 6 == 0 ? Number(this.current) : Number(this.current) - Number(this.current) % 6 + 1 ), j= i;   i <= (j + 4) && i <= this.pages; i++) this.list.push(i);
-        console.log(this.list);
         return this.list;  
       } else {
         for(var i= (Number(this.current) % 6 == 0 ? Number(this.current) : Number(this.current) - Number(this.current) % 6), j= i; i <= (j + 5) && i <= this.pages; i++) this.list.push(i);
-        console.log(this.list);
         return this.list; 
       }
     }
@@ -85,10 +82,8 @@ export default {
     },
     searchProduct: function() {
       this.noMatch = null;
-      console.log(this.search);
       this.$http.get('/api/products?search=' + this.search)
       .then((response) => {
-          console.log(response.data);
           if(response.data.noMatch) {
             this.noMatch = response.data.noMatch;
           } else {
