@@ -1,2 +1,2 @@
 # shopping-mall
-DEMO_ADDRESS: https://jaewooshop.herokuapp.com/
+DEMO_ADDRESS: https://jaewoomall.herokuapp.com/
