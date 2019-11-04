@@ -63,30 +63,6 @@
     height:40px;
   }
 
-  @media all and (max-width:501px) {
-    img {
-      margin-top:60px;
-    }
-    .thumbnail {
-      margin-left: 0px;
-    }
-    .thumbnail .overlay {
-      position: static;
-    }
-    .thumbnail .overlay .caption {
-      left:0px;
-      line-height: 10px;
-      color: black;
-      top: 90%;
-      transform: translate(0 ,50%);
-      z-index:1;
-    }
-    .paging {
-      position: static;
-      padding-bottom: 100px;
-    }
-  }
-
   ul{
     text-align:left;
     list-style:none;
@@ -113,6 +89,39 @@
   }
   .pagination>.page-box>li>.disabled {
       cursor: not-allowed;
+  }
+
+  @media all and (max-width:767px) {
+    img {
+      margin-top:60px;
+    }
+    .basketPage img {
+      margin-top:140px;
+    }
+    .thumbnail {
+      margin-left: 0px;
+    }
+    .thumbnail .overlay {
+      position: static;
+      overflow: unset;
+      height: auto;
+      background:none;
+    }
+    .thumbnail .overlay .caption {
+      left:0px;
+      line-height: 10px;
+      color: black;
+      top: 90%;
+      transform: translate(0 ,50%);
+      z-index:1;
+    }
+    .paging {
+      position: static;
+      padding-top: 20vh;
+    }
+    .pagination>.page-box>li>a {
+      padding: 6px 8px;
+    }
   }
 
   @media all and (min-width: 765px) {
@@ -234,6 +243,10 @@
     padding-bottom:10px;
     font-size:15px;
   }
+  .sales .sum {
+    font-size: 18px;
+    padding-top: 10px;
+  }
   .sales .num {
     background:none;
     border:none;
@@ -306,4 +319,6 @@ and (-webkit-min-device-pixel-ratio: 1) {
   .thumbnail {
       margin-left: 0px;
     }
+
+
 }

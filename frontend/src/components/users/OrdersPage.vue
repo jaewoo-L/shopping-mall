@@ -1,6 +1,6 @@
 <template>
    <div class="container" id="products">
-        <h5> 구매내역 ({{products.length}}) </h5>
+        <h5> 구매품목 ({{products.length}}) </h5>
         <hr>  
      
         <div v-for="product in products" class="col-sm-4 col-md-3 product" >

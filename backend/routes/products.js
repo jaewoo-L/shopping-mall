@@ -334,7 +334,7 @@ router.delete("/:id" ,function(req,res){
 router.post("/:id/like", function(req,res){
 	Product.findById(req.params.id, function(err, foundProduct) {
 		if(err) {
-			
+			console.log(err);
 		}
 		var foundLikeUser = foundProduct.likes.some(function(like) {
 				return like.equals(req.body.userid);

@@ -74,7 +74,7 @@ router.post('/forgot', function(req, res, next) {
 		function(token, done) {
 			User.findOne({username: req.body.username}, function(err, user) {
 				if(!user) {
-					alert('존재하지 않는 email 입니다.')
+					res.json({result: '존재하지 않는 Email 입니다.'});
 				} else {
 					user.resetPasswordToken = token;
 					user.resetPasswordExpires = Date.now() + 3600000;
@@ -93,16 +93,15 @@ router.post('/forgot', function(req, res, next) {
 					pass: process.env.GMAILPW
 				}
 			});
-
 			var mailOptions = {
 				to: user.username,
 				from: 'lim945169@gmail.com',
 				subject: 'Password Reset',
-				text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-			          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+				text: '당신(혹은 다른 사람)이 당신의 계정에 대한 비밀번호 재설정을 요청하여 해당메일이 전송되었습니다.\n\n' +
+			          '아래의 링크를 클릭하거나 브라우저에 붙어넣기를 하여 다음을 수행하세요:\n\n' +
 							//req.headers.host 는 내 홈페이지 기본 주소.
 			          'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-			          'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+			          '이 메일을 본인이 요청하지 않은 경우 이 메일을 무시하십시오. 암호가 변경되지 않은 상태로 유지될 수 있습니다.\n'
 			};
 			smtpTransport.sendMail(mailOptions, function(err){
 				console.log('mail sent');
@@ -149,8 +148,8 @@ router.post('/reset/:token', function(req, res) {
 				to: user.username,
 				from: 'lim945169@gmail.com',
 				subject: 'Your Password has been changed',
-				text: 'Hello \n\n' +
-					  'This is a confirmation that the password for your account ' + user.username + ' has just changed.'
+				text: '반갑습니다. \n\n' +
+					  user.username + ' 계정의 암호가 성공적으로 변경되었습니다.'
 			};
 			smtpTransport.sendMail(mailOptions, function(err){
 				done(err,'done');
@@ -175,7 +174,7 @@ router.get('/:id/basket', function(req, res) {
 router.post("/:id/basket", function(req,res){
 	User.findById(req.body.userid, function(err, foundUser) {
 		if(err) {
-			coonsole.log(err);
+			console.log(err);
 		}
 		var foundBasketUser = foundUser.basket.some(function(basket) {
 				return basket.equals(req.params.id);
@@ -188,7 +187,7 @@ router.post("/:id/basket", function(req,res){
 		}
 		foundUser.save(function(err) {
 			if(err) {
-				coonsole.log(err);
+				console.log(err);
 			}
 			res.json(foundUser.basket);
 		});

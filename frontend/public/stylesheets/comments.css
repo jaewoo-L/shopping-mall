@@ -2,8 +2,13 @@
   margin-top:100px;
 }
 #editComments .container, #newComments .container {
-    width:40%;
+    width:80%;
     margin: 25px auto;
+  }
+  @media (min-width: 800px) {
+    #editComments .container, #newComments .container {
+      width:50%;
+    }
   }
   #editComments .container h1, #newComments .container h1 {
     font-size: 40px;

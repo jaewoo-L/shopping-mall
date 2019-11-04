@@ -23,8 +23,8 @@
         
         <ul class="show-small">
           <li v-if="auth" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/myPage'" class="navbar-link">{{nickname}}</a></li>
-          <li v-if="auth" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/orders'" class="navbar-link">주문조회</a></li>
-          <li v-if="auth" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/basket/'" class="navbar-link">장바구니</a></li>
+          <li v-if="auth" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/orders'" class="navbar-link">구매품목</a></li>
+          <li v-if="auth" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/basket/'" class="navbar-link">찜목록</a></li>
           <li v-if="!auth" class="navbar-text navbar-right"><a href="/signup" class="navbar-link">회원가입</a></li>
           <li v-if="!auth" class="navbar-text navbar-right"><a href="/login" class="navbar-link">로그인</a></li>
           <li v-if="auth" class="navbar-text navbar-right"><a href="/logout" class="navbar-link">로그아웃</a></li>
@@ -37,8 +37,8 @@
           <router-link tag="li" :to="{name: 'accs'}" active-class="active"><a>Accs</a></router-link>
         </ul>
         <ul class="show-large">
-          <li v-if="auth" class="navbar-text navbar-right"><router-link :to="'/' + this.$store.getters.token + '/orders'" tag="a" class="navbar-link">주문조회</router-link></li>
-          <li v-if="auth" class="navbar-text navbar-right"><router-link :to="'/' + this.$store.getters.token + '/basket/'" tag="a" class="navbar-link">장바구니</router-link></li>
+          <li v-if="auth" class="navbar-text navbar-right"><router-link :to="'/' + this.$store.getters.token + '/orders'" tag="a" class="navbar-link">구매품목</router-link></li>
+          <li v-if="auth" class="navbar-text navbar-right"><router-link :to="'/' + this.$store.getters.token + '/basket/'" tag="a" class="navbar-link">찜목록</router-link></li>
           <li v-if="!auth" class="navbar-text navbar-right"><router-link :to="{name: 'signUp'}" tag="a" class="navbar-link">회원가입</router-link></li>
           <li v-if="!auth" class="navbar-text navbar-right"><router-link :to="{name: 'login'}" tag="a" class="navbar-link">로그인</router-link></li>
           <li v-if="auth" class="navbar-text navbar-right"><router-link :to="{name: 'logout'}" tag="a" class="navbar-link">로그아웃</router-link></li>

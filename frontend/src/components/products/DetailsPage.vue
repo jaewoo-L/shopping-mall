@@ -53,9 +53,11 @@
       <button @click="upItemsNum(Free)" class="num">Up</button>
       <button @click="downItemsNum(Free)" class="num">Down</button></p>
 
+      <p v-if="priceSum !=0" class="sum">총 {{priceSum}}원</p>
+
       <button :disabled="!token" @click="likeProduct" class="like" :class="{likeBtn: istrue}">like({{likes.length}})</button>
-      <button :disabled="!token" @click="basketProduct" class="basket">장바구니 담기</button>
-      <button :disabled="!isDisabled" @click="buy" class="buy">구매하기</button>
+      <button :disabled="!token" @click="basketProduct" class="basket">찜하기</button>
+      <button :disabled="!token" @click="buy" class="buy">구매하기</button>
     </div>
   </div>
 </template>
@@ -82,6 +84,10 @@ export default {
       },
       token() {
         return this.$store.getters.token;
+      },
+      priceSum() {
+        var price = this.product.price.replace(',','');
+        return (Number(price) * (this.mySItemsNum + this.myMItemsNum + this.myLItemsNum + this.myXLItemsNum + this.myFreeItemsNum)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       },
       beforeBuy() {
         let select = this.mySItemsNum != 0 || this.myMItemsNum != 0 || this.myLItemsNum != 0 || this.myXLItemsNum != 0 || this.myFreeItemsNum != 0 ? true : false; 
@@ -120,16 +126,15 @@ export default {
       },
       basketProduct() {
         this.$http.post('/api/login/' + this.$route.params.id + '/basket', {userid: this.$store.getters.token})
-        .then((response) => {
-          for(var i in response.data){
-            if(response.data[i] == this.$route.params.id) {
-              alert("장바구니에 추가합니다.");
-              return;
+          .then((response) => {
+            for(var i in response.data){
+              if(response.data[i] == this.$route.params.id) {
+                alert("찜목록에 추가합니다.");
+                return;
+               }
             }
-          }
-          alert("장바구니에서 삭제합니다.");
-          
-        })
+            alert("찜목록에서 삭제합니다.");  
+          })
       },
       createComment() {
         this.$router.push('/products/' + this.$route.params.id + '/comments/new');
@@ -154,34 +159,34 @@ export default {
         })
       },
       buy() {
-        this.SItemsNum -= this.mySItemsNum;
-        this.MItemsNum -= this.myMItemsNum;
-        this.LItemsNum -= this.myLItemsNum;
-        this.XLItemsNum -= this.myXLItemsNum;
-        this.FreeItemsNum -= this.myFreeItemsNum;
+        if(this.isDisabled == false) {
+          alert('옵션을 먼저 선택해주세요.');
+        } else {
+          this.SItemsNum -= this.mySItemsNum;
+          this.MItemsNum -= this.myMItemsNum;
+          this.LItemsNum -= this.myLItemsNum;
+          this.XLItemsNum -= this.myXLItemsNum;
+          this.FreeItemsNum -= this.myFreeItemsNum;
 
-        this.$http.post('/api/login/' + this.$route.params.id + '/orders', {userid: this.$store.getters.token})
-        .then((response) => {
-
-          this.$http.put('/api/products/' + this.$route.params.id + '/buy', {
-            SItemsNum: this.SItemsNum, MItemsNum: this.MItemsNum, LItemsNum: this.LItemsNum, XLItemsNum: this.XLItemsNum, FreeItemsNum: this.FreeItemsNum
-          })
+          this.$http.post('/api/login/' + this.$route.params.id + '/orders', {userid: this.$store.getters.token})
           .then((response) => {
-            if(response.data.result == 'fail') {
-              alert('구매 실패.');
-            } else {
-              alert('구매 완료.');
-              this.$router.push('/'+ this.$store.getters.token +'/orders');
-            }
-          })
-          .catch(error => {
-              alert(error);
-          })  
-          
-          
-        });
 
-        
+            this.$http.put('/api/products/' + this.$route.params.id + '/buy', {
+              SItemsNum: this.SItemsNum, MItemsNum: this.MItemsNum, LItemsNum: this.LItemsNum, XLItemsNum: this.XLItemsNum, FreeItemsNum: this.FreeItemsNum
+            })
+            .then((response) => {
+              if(response.data.result == 'fail') {
+                alert('구매 실패.');
+              } else {
+                alert('구매 완료.');
+                this.$router.push('/'+ this.$store.getters.token +'/orders');
+              }
+            })
+            .catch(error => {
+                alert(error);
+            })  
+          });
+        }        
       },
       upItemsNum(size) {
       if(size == 's') {

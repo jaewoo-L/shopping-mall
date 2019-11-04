@@ -12,7 +12,7 @@
                   placeholder="abc@gmail.com">        
       </div>
       <div class="submit">
-              <button class="btn" @click="sendMail">메일 보내기</button>
+              <button class="btn" @click="sendMail" :disabled="$v.$invalid">메일 보내기</button>
       </div>
     </div>
   </div>
