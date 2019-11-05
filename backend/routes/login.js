@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var Product = require('../models/products');
 var passport = require('passport');
 const crypto = require('crypto');
 var async = require('async');
@@ -8,7 +9,11 @@ var nodemailer = require('nodemailer');
 
 router.get('/signUp', function(req, res) {
 	User.find().where('username').exec(function(err, foundUsername) {
-		res.json(foundUsername);
+		var users = [];
+		for(var i=0; i< foundUsername.length; i++){
+			users.push(foundUsername[i].username);
+		}
+		res.json(users);
 	});
 });
 
@@ -248,14 +253,49 @@ router.put("/:id/myPage/edit", function(req, res) {
 	})
 });
 
-router.delete("/:id/myPage" ,function(req,res){
-	User.findByIdAndRemove(req.params.id, function(err){
+router.delete("/:id/myPage/comments", function(req, res) {
+	Product.find({}).populate('comments').exec( function(err, docs) {
 		if(err){
+			console.log(err);
 			res.json({result: 'fail'})
-		}else{
-			res.json({result: 'success'})
+		} else {
+			for(var i=0; i<docs.length; i++) {
+				for(var j=0 ; j<docs[i].comments.length; j++) {
+					if(docs[i].comments[j].author.id == req.params.id) {
+						docs[i].comments.splice(j, 1);
+						j -= 1;
+					}
+				}
+				docs[i].save();	
+			}
+			res.json({result: 'success'});
 		}
-	});
+	})
+})
+
+router.delete("/:id/myPage" ,function(req,res){
+	Product.find({}).populate('comments').exec( function(err, docs) {
+		if(err){
+			console.log(err);
+		} else {
+			for(var i=0; i<docs.length; i++) {
+				for(var j=0 ; j<docs[i].comments.length; j++) {
+					if(docs[i].comments[j].author.id == req.params.id) {
+						docs[i].comments.splice(j, 1);
+						j -= 1;
+					}
+				}
+				docs[i].save();	
+			}
+			User.findByIdAndRemove(req.params.id, function(err){
+				if(err){
+					res.json({result: 'fail'})
+				}else{
+					res.json({result: 'success'})
+				}
+			});
+		}
+	})
 });
 
 module.exports = router;

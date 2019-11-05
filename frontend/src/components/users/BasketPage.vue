@@ -30,7 +30,6 @@ export default {
   created() {
       this.$http.get('/api/login/'+ this.$store.getters.token + '/basket')
       .then((response) => {
-          console.log(response.data.basket);
           this.products = response.data.basket
       })
   }

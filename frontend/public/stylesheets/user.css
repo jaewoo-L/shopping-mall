@@ -3,8 +3,13 @@
     width: 80%;
     top: 50%;
     left:50%;
-    transform: translate(-50%, -50%);
-    margin-bottom: 150px;
+    transform: translate(-50%, -45%);
+    margin-bottom: 15px;
+  }
+  @media (min-width: 800px) {
+    .myPage-box {
+      width:50%;
+    }
   }
   .myPage-box h1 {
     width:180px;
@@ -20,9 +25,11 @@
     margin-bottom: 10px;
     font-size: 18px;
   }
-
+  .editUser , .deleteUser, .deleteComments {
+    margin:0 3px;
+  }
   @media all and (max-width:501px) {
-    .editUser , .deleteUser {
+    .editUser , .deleteUser, .deleteComments {
       width: 100%;
       margin-bottom: 10px;
     }

@@ -12,7 +12,9 @@
         <div class="row">
           <div class="col-sm-12 col-md-4">
             <div data-aos="fade-up" class="thumbnail">
-              <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160674/5_uhndfa.jpg" alt="">
+              <a href="/products/5dc10a09cde43668a023d506">
+                <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160674/5_uhndfa.jpg" alt="">
+              </a>
               <div class="caption">
                 <p class="en">19fw traveler sweatshirts grey</p>
                 <p>여행시 편의성을 고려한 디자인</p>
@@ -21,7 +23,9 @@
           </div>
           <div class="col-sm-12 col-md-4">
             <div data-aos="fade-up" class="thumbnail">
-              <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160674/3_gqgxvk.jpg" alt="">
+              <a href="/products/5dbee054b5c2d400179c12af">
+                <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160674/3_gqgxvk.jpg" alt="">
+              </a>
               <div class="caption">
                 <p class="en">19fw light down parka beige</p>  
                 <p>우수한 복원력과 보온성을 갖춘 다운파카로 한겨울에도 착용 가능한 제품</p>
@@ -30,7 +34,9 @@
           </div>
           <div class="col-sm-12 col-md-4">
             <div data-aos="fade-up" class="thumbnail">
-              <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160675/11_uxi1eu.jpg" alt="">
+              <a href="/products/5dc10ae9cde43668a023d507">
+                <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160675/11_uxi1eu.jpg" alt="">
+              </a>
               <div class="caption">
                 <p class="en">19fw strap climbing pants khaki</p>
                 <p>착용이 간편한 스트링 / 밴드 디자인</p>
@@ -70,17 +76,23 @@
         <div class="row">
           <div class="col-sm-12 col-md-6">
             <div data-aos="fade-up" class="thumbnail">
-              <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160678/7_x0etnh.png" alt="">
+              <a href="/products/5dc10c3ccde43668a023d508">
+                <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160678/7_x0etnh.png" alt="">
+              </a>
             </div>
           </div>
           <div class="col-sm-12 col-md-6">
             <div data-aos="fade-up" class="thumbnail">
-              <img style="width:90%;" src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160673/1_ufriqt.jpg" alt="">
+              <a href="/products/5dbee0ffb5c2d400179c12b2">
+                <img style="width:90%;" src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160673/1_ufriqt.jpg" alt="">
+              </a>
             </div>
           </div>
           <div class="col-sm-12 col-md-6">
             <div data-aos="fade-up" class="thumbnail">
-              <img style="width:90%;" src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160677/12_ryco1g.jpg">
+              <a href="/products/5dbede5ab5c2d400179c12a7">
+                <img style="width:90%;" src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160677/12_ryco1g.jpg">
+              </a>  
             </div>
           </div>
         </div>

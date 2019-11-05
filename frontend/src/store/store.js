@@ -64,7 +64,7 @@ export const store = new Vuex.Store({
 	      const isAdmin = localStorage.getItem("isAdmin")
 	      if (!token) {
 	        return
-	      }   
+	      }  
 	      commit('authUser',{token: token, username: username, nickname: nickname, isAdmin: isAdmin})
 	    },
 	    logout({commit}) {

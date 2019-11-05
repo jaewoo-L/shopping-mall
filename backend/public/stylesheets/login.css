@@ -66,7 +66,7 @@
     border-bottom: 1px solid #050c30; 
   }
 
-  #login>.login-box>.text-box>input, #forgot>.forgot-box>.text-box>input {
+  #login .login-box .text-box input, #forgot .forgot-box .text-box input {
     width: 80%;
     float: left;
     border: none;
@@ -76,7 +76,7 @@
     margin: 0 10px;
   }
 
-  #signUp .signUp-box .text-box input, #editUser>.editUser-box>.text-box>input {
+  #signUp .signUp-box .text-box input, #editUser .editUser-box .text-box input {
     border: none;
     outline: none;
     background: none;
@@ -144,6 +144,7 @@
   }
 
   .post-num-btn {
+    padding: 0 5px;
     float: right;
     cursor: pointer;
     background: none;

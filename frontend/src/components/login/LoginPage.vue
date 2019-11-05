@@ -44,7 +44,6 @@ export default {
             let username = response.data.username;
             let nickname = response.data.nickname;
             let isAdmin = response.data.isAdmin
-            //토큰을 node서버의 세션으로 부터 받아와서 로컬스토리지에 access_token이라는 이름으로 token을 저장하겠다.
             localStorage.setItem("access_token", token);
             localStorage.setItem("username", username);
             localStorage.setItem("nickname", nickname);
@@ -53,7 +52,6 @@ export default {
             this.$store.state.nickname = nickname;
             this.$store.state.token = token;
             this.$store.state.isAdmin = isAdmin;
-            //홈페이지로 보내기
             this.$router.push('/');
        
         },

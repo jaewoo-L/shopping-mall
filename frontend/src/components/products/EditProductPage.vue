@@ -1,7 +1,7 @@
 <template>
    <div id="editProduct" class="container">
     <div class="editProduct-box">
-        <h1> 제품수정 </h1>
+      <h1> 제품수정 </h1>
       <form @submit.prevent="editProduct" enctype="multipart/form-data">
           <div class="text-box">
             <label for="productName">Name : </label>

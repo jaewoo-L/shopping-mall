@@ -262,7 +262,7 @@
     transition: all 0.3s ease;
   }
 
-  .basket:hover, .buy:hover {
+  .basket:hover, .buy:hover, .like:hover{
     background: #050c30;
     color: white;
   }

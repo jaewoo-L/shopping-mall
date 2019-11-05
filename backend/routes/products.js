@@ -222,12 +222,13 @@ router.post('/', upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detail'
 router.get('/:id', function(req,res){
 	Product.findById(req.params.id).populate('comments likes').exec(function(err, foundProduct){
 		if(err){
-			
+			console.log(err);
 		}else{
 			res.json(foundProduct);
 		}
 	}); 
 });
+
 
 //EDIT Product ROUTE
 router.get("/:id/edit" ,function(req,res){
@@ -349,7 +350,7 @@ router.post("/:id/like", function(req,res){
 		
 		foundProduct.save(function(err) {
 			if(err) {
-				
+				console.log(err);
 			}
 			res.json(foundProduct.likes);
 		});

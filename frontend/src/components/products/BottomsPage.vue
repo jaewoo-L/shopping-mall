@@ -104,7 +104,6 @@ export default {
     }
   },
   created() {
-      this.isAdmin = this.$store.state.isAdmin;
       this.$http.get('/api/products/bottoms')
       .then((response) => {
           this.products = response.data.products;

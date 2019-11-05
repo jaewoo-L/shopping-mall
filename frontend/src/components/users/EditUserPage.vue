@@ -1,8 +1,8 @@
 <template>
   <div id="editUser" class="container">
     <div class="editUser-box">
-        <h1> 개인정보 변경 </h1>
-
+      <h1> 개인정보 변경 </h1>
+      <form @submit.prevent="editUser">
         <div class="text-box">
           <label for="nickname">닉네임 : </label>
           <input 
@@ -57,7 +57,7 @@
         <div class="text-box">
           <label for="postcode">주소 : </label>
           <input type="text" id="postcode" class="post-num" placeholder="우편번호">
-          <button class="post-num-btn"  @click="execPostcode()">우편번호 찾기</button>
+          <span class="post-num-btn"  @click="execPostcode()"> 우편번호 찾기 </span>
           <br>
         </div>
         <div class="text-box">
@@ -98,8 +98,9 @@
         </div>
 
         <div class="submit">
-              <button class="btn" @click="editUser">수정</button>
+              <button class="btn" type="submit">수정</button>
         </div>
+      </form>  
     </div>
     
   </div>

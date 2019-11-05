@@ -13,7 +13,7 @@
       <button :disabled="!token" @click="createComment" class="btn btn-default">후기 작성</button>
       <div class="comments">
         
-          <div v-for="comment in product.comments.slice().reverse()">
+          <div v-for="comment in product.comments">
             <strong>{{comment.author.nickname}}</strong>
             <p>{{comment.text}}</p>
                     
@@ -55,8 +55,8 @@
 
       <p v-if="priceSum !=0" class="sum">총 {{priceSum}}원</p>
 
-      <button :disabled="!token" @click="likeProduct" class="like" :class="{likeBtn: istrue}">like({{likes.length}})</button>
-      <button :disabled="!token" @click="basketProduct" class="basket">찜하기</button>
+      <button :disabled="!token" @click="likeProduct" class="like" :class="{likeBtn: likeTrue}">like({{likes.length}})</button>
+      <button :disabled="!token" @click="basketProduct" class="basket" :class="{likeBtn: basketTrue}">찜하기</button>
       <button :disabled="!token" @click="buy" class="buy">구매하기</button>
     </div>
   </div>
@@ -66,10 +66,13 @@
 export default {
   data: function () {
       return {
-        product: {},
+        product: {
+          price:0
+        },
         likes: [],
         basket: [],
-        istrue: null,
+        likeTrue: null,
+        basketTrue: null,
         S:'s', M:'m', L:'l', XL:'xl', Free:'free',
         mySItemsNum: 0, myMItemsNum: 0, myLItemsNum: 0, myXLItemsNum: 0, myFreeItemsNum: 0,
         SSaleTrue: false, MSaleTrue: false, LSaleTrue: false, XLSaleTrue: false, FreeSaleTrue: false,
@@ -86,8 +89,7 @@ export default {
         return this.$store.getters.token;
       },
       priceSum() {
-        var price = this.product.price.replace(',','');
-        return (Number(price) * (this.mySItemsNum + this.myMItemsNum + this.myLItemsNum + this.myXLItemsNum + this.myFreeItemsNum)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return (Number(this.product.price) * (this.mySItemsNum + this.myMItemsNum + this.myLItemsNum + this.myXLItemsNum + this.myFreeItemsNum)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       },
       beforeBuy() {
         let select = this.mySItemsNum != 0 || this.myMItemsNum != 0 || this.myLItemsNum != 0 || this.myXLItemsNum != 0 || this.myFreeItemsNum != 0 ? true : false; 
@@ -121,20 +123,26 @@ export default {
         this.$http.post('/api/products/' + this.$route.params.id + '/like', {userid: this.$store.getters.token})
         .then((response) => {
           this.likes = response.data;
-          this.istrue = !this.istrue;
+          this.likeTrue = !this.likeTrue;
         })
       },
       basketProduct() {
-        this.$http.post('/api/login/' + this.$route.params.id + '/basket', {userid: this.$store.getters.token})
+        if(!this.token) {
+          alert('로그인이 필요합니다.');
+        } else {
+          this.$http.post('/api/login/' + this.$route.params.id + '/basket', {userid: this.$store.getters.token})
           .then((response) => {
             for(var i in response.data){
               if(response.data[i] == this.$route.params.id) {
                 alert("찜목록에 추가합니다.");
+                this.basketTrue = true;
                 return;
                }
             }
-            alert("찜목록에서 삭제합니다.");  
+            alert("찜목록에서 삭제합니다.");
+            this.basketTrue = false; 
           })
+        }
       },
       createComment() {
         this.$router.push('/products/' + this.$route.params.id + '/comments/new');
@@ -313,6 +321,7 @@ export default {
       this.$http.get('/api/products/'+ this.$route.params.id)
       .then((response) => {
         this.product = response.data;
+        this.product.price = this.product.price.replace(',','');
         this.likes = response.data.likes;
         this.SItemsNum = response.data.SItems;
         this.MItemsNum = response.data.MItems;
@@ -321,10 +330,10 @@ export default {
         this.FreeItemsNum = response.data.FreeItems;
         for(var i in response.data.likes) {
           if(response.data.likes[i]._id == this.$store.getters.token) {
-            this.istrue = true;
+            this.likeTrue = true;
           }
           else {
-            this.istrue = false;
+            this.likeTrue = false;
           }
           
         }

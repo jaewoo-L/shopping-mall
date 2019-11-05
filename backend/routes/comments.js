@@ -11,8 +11,6 @@ router.get('/new', function(req,res){
 		if(err){
 			console.log(err);
 		}else{
-			console.log('==foundproduct==');
-			console.log(product);
 			res.json(product);		
 		}
 	});
@@ -33,7 +31,7 @@ router.post('/', function(req,res){
 					//save comment
 					comment.save();
 					//save comment in the product
-					product.comments.push(comment);
+					product.comments.unshift(comment);
 					product.save();
 					res.json({result: '후기작성 완료.'});
 				}
