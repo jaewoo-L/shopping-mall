@@ -220,8 +220,12 @@ export default {
               return;
           }
         }
-        alert('사용가능한 아이디 입니다.');
-        this.doubleCheckVariable = true;
+        if(this.username == '') {
+          alert('Email을 먼저 입력하세요.');
+        } else {
+          alert('사용가능한 아이디 입니다.');
+          this.doubleCheckVariable = true;
+        }
     },
 
     execPostcode: function() {

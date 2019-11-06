@@ -12,7 +12,7 @@
         <div class="row">
           <div class="col-sm-12 col-md-4">
             <div data-aos="fade-up" class="thumbnail">
-              <a href="/products/5dc10a09cde43668a023d506">
+              <a href="/products/5dc261b07dfe555c20078edb">
                 <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160674/5_uhndfa.jpg" alt="">
               </a>
               <div class="caption">
@@ -76,14 +76,14 @@
         <div class="row">
           <div class="col-sm-12 col-md-6">
             <div data-aos="fade-up" class="thumbnail">
-              <a href="/products/5dc10c3ccde43668a023d508">
+              <a href="/products/5dc25e017997596be8752f14">
                 <img src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160678/7_x0etnh.png" alt="">
               </a>
             </div>
           </div>
           <div class="col-sm-12 col-md-6">
             <div data-aos="fade-up" class="thumbnail">
-              <a href="/products/5dbee0ffb5c2d400179c12b2">
+              <a href="/products/5dc262017dfe555c20078edc">
                 <img style="width:90%;" src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160673/1_ufriqt.jpg" alt="">
               </a>
             </div>

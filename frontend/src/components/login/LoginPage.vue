@@ -56,11 +56,15 @@ export default {
        
         },
         (error) => { 
-          alert('undifind error: ' +error.response.data.error)
+          if(error.response.data.error == undefined) {
+            alert('아이디 혹은 비밀번호를 확인하세오.');
+          } else {
+            alert('Error: ' + error.response.data.error);
+          }
         }
       )
       .catch(error => {
-        alert('catch error: ' + error)
+        alert('Error: ' + error)
       })
     }
   }

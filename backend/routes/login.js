@@ -169,6 +169,23 @@ router.post('/reset/:token', function(req, res) {
 	});
 });
 
+router.get('/:id', function(req,res){
+	var basket = [];
+	if(req.params.id == null) {
+		res.json(basket);
+	}
+	User.findById(req.params.id).populate('basket').exec(function(err, foundUser){
+		if(err){
+			console.log(err);
+		}else{
+			for(var i=0; i<foundUser.basket.length; i++) {
+				basket.push(foundUser.basket[i]._id);
+			}
+			res.json(basket);
+		}
+	}); 
+});
+
 router.get('/:id/basket', function(req, res) {
 	User.findById(req.params.id).where('basket').populate('basket').exec(function(err, foundUserBasket) {
 		res.json(foundUserBasket);
@@ -287,13 +304,22 @@ router.delete("/:id/myPage" ,function(req,res){
 				}
 				docs[i].save();	
 			}
-			User.findByIdAndRemove(req.params.id, function(err){
-				if(err){
-					res.json({result: 'fail'})
-				}else{
-					res.json({result: 'success'})
+			for(var i=0; i<docs.length; i ++) {
+				for(var j=0; j<docs[i].likes.length; j++) {
+					if(docs[i].likes[j]._id == req.params.id) {
+						docs[i].likes.splice(j, 1);
+						j -= 1;
+					}
 				}
-			});
+				docs[i].save();
+			}
+			 User.findByIdAndRemove(req.params.id, function(err){
+			 	if(err){
+			 		res.json({result: 'fail'})
+			 	}else{
+			 		res.json({result: 'success'})
+			 	}
+			 });
 		}
 	})
 });
