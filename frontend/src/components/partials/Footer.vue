@@ -8,11 +8,6 @@
 	</div>
 </template>
 
-<style scoped>
-	#footer {
-		margin-top: 120px;
-		padding: 20px;
-		height: auto;
-		background-color: #f1f1f1;
-	}
+<style scoped src="../../../public/stylesheets/partials.css">
+
 </style>

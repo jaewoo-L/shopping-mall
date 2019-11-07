@@ -6,7 +6,7 @@
     transform: translate(-50%, -45%);
     margin-bottom: 15px;
   }
-  @media (min-width: 800px) {
+  @media all and (min-width: 800px) {
     .myPage-box {
       width:50%;
     }

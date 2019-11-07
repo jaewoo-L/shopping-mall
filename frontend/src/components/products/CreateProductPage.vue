@@ -208,36 +208,16 @@ export default {
     },
 
   validations: {
-    name: {
-      required
-    },
-    price: {
-      required
-    },
-    kinds: {
-      required
-    },
-    brand: {
-      required
-    },
-    SItems: {
-      numeric
-    },
-    MItems: {
-      numeric
-    },
-    LItems: {
-      numeric
-    },
-    XLItems: {
-      numeric
-    },
-    FreeItems: {
-      numeric
-    },
-    avatar: {
-      required
-    }
+    name: {required},
+    price: {required},
+    kinds: {required},
+    brand: {required},
+    SItems: {numeric},
+    MItems: {numeric},
+    LItems: {numeric},
+    XLItems: {numeric},
+    FreeItems: {numeric},
+    avatar: {required}
   }
 }
 </script>

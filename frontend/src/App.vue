@@ -22,7 +22,8 @@
       this.$store.dispatch('tryAutoLogin')
       .then((response) => {
 
-      });
+      }),
+      this.$store.dispatch('eachPage')
     }
   }
 

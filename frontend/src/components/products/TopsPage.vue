@@ -80,6 +80,10 @@ export default {
           this.pages = response.data.pages;
           this.page = response.data.page;
           this.productsNum = response.data.productsNum;
+          localStorage.setItem("topsPage", this.current);
+          console.log('this.current=' + this.current);
+          this.$store.state.topsPage = this.current;
+          this.$router.push('/products/tops?page=' + (Number(this.current)));
       })
     },
     numpageProduct: function(i) {
@@ -90,6 +94,10 @@ export default {
           this.pages = response.data.pages;
           this.page = response.data.page;
           this.productsNum = response.data.productsNum;
+          localStorage.setItem("topsPage", this.current);
+          console.log('this.current=' + this.current);
+          this.$store.state.topsPage = this.current;
+          this.$router.push('/products/tops?page=' + (Number(this.current)));
       })
     },
     pluspageProduct: function() {
@@ -100,11 +108,16 @@ export default {
           this.pages = response.data.pages;
           this.page = response.data.page;
           this.productsNum = response.data.productsNum;
+          localStorage.setItem("topsPage", this.current);
+          console.log('this.current=' + this.current);
+          this.$store.state.topsPage = this.current;
+          this.$router.push('/products/tops?page=' + (Number(this.current)));
       })
     }
   },
   created() {
-      this.$http.get('/api/products/tops')
+      this.current = this.$store.getters.topsPage;
+      this.$http.get('/api/products/tops?page=' + (Number(this.current)))
       .then((response) => {
           this.products = response.data.products;
           this.current = response.data.current;

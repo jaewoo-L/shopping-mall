@@ -5,7 +5,7 @@
     width:80%;
     margin: 25px auto;
   }
-  @media (min-width: 800px) {
+  @media all and (min-width: 800px) {
     #editComments .container, #newComments .container {
       width:50%;
     }

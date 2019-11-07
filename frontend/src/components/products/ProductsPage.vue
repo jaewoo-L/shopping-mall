@@ -1,12 +1,11 @@
 <template>
    <div class="container" id="products">
         <h5> All Products ({{productsNum}}) </h5>
-        <form @submit.prevent="searchProduct" class="navbar-form navbar-right" role="search" id="searchBar">
-          <div class="form-group">
-          <input v-model="search" class="form-control" placeholder="제품명검색">
-          </div>
-          <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-        </form>
+        <div class="searchbox">
+          <input v-model="search" class="searchbar " placeholder="제품명검색">
+          <button type="submit" class="btn btn-default" @click="searchProduct"><i class="fas fa-search"></i></button>
+        </div>
+
         <button class="btn btn-default" v-if="isAdmin" @click="createProduct">등록</button>
         <hr>  
       
@@ -54,7 +53,7 @@ export default {
       noMatch:null,
       list: [],
       productsNum:null,
-      current:null,
+      current: null,
       pages:null,
       page:null
     }
@@ -81,67 +80,145 @@ export default {
       this.$router.push('/products/new');
     },
     searchProduct: function() {
-      this.noMatch = null;
-      this.$http.get('/api/products?search=' + this.search)
-      .then((response) => {
-          if(response.data.noMatch) {
-            this.noMatch = response.data.noMatch;
-          } else {
+      if(!this.search){
+        this.$http.get('/api/products?page=' + 1)
+        .then((response) => {
+              this.products = response.data.products;
+              this.current = response.data.current;
+              this.pages = response.data.pages;
+              this.page = response.data.page;
+              this.productsNum = response.data.productsNum;
+              this.$store.dispatch('searchDelete')
+              localStorage.setItem("productsPage", 1);
+              this.$router.push('/products?page=' + 1);  
+        })
+      } 
+      else {
+          this.$http.get('/api/products?page=' + 1 + '&search=' + this.search)
+          .then((response) => {
+              if(response.data.noMatch) {
+                this.noMatch = response.data.noMatch;
+              } 
+              else {
+                this.products = response.data.products;
+                this.current = response.data.current;
+                this.pages = response.data.pages;
+                this.page = response.data.page;
+                this.productsNum = response.data.productsNum;
+                localStorage.setItem("productsPage", 1);
+                localStorage.setItem("searchProducts", this.search);
+                this.$router.push('/products?page=' + 1 +'&search=' + this.search);
+              }
+          })
+      } 
+    },
+
+    mipageProduct: function() {
+      if(!this.search) {
+        this.$http.get('/api/products?page=' + (Number(this.current) - 1))
+        .then((response) => {
             this.products = response.data.products;
             this.current = response.data.current;
             this.pages = response.data.pages;
             this.page = response.data.page;
             this.productsNum = response.data.productsNum;
-          }
-      })
-    },
-
-    mipageProduct: function() {
-      this.$http.get('/api/products?page=' + (Number(this.current) - 1) + '&search=' + this.search)
-      .then((response) => {
-          this.products = response.data.products;
-          this.current = response.data.current;
-          this.pages = response.data.pages;
-          this.page = response.data.page;
-          this.productsNum = response.data.productsNum;
-      })
+            localStorage.setItem("productsPage", this.current);
+            this.$router.push('/products?page=' + (Number(this.current)));
+        })
+      } else {
+        this.$http.get('/api/products?page=' + (Number(this.current) - 1) + '&search=' + this.search)
+        .then((response) => {
+            this.products = response.data.products;
+            this.current = response.data.current;
+            this.pages = response.data.pages;
+            this.page = response.data.page;
+            this.productsNum = response.data.productsNum;
+            localStorage.setItem("productsPage", this.current);
+            this.$router.push('/products?page=' + (Number(this.current)) + '&search=' + this.search);
+        })
+      }
     },
     numpageProduct: function(i) {
-      this.$http.get('/api/products?page=' + i + '&search=' + this.search)
-      .then((response) => {
-          this.products = response.data.products;
-          this.current = response.data.current;
-          this.pages = response.data.pages;
-          this.page = response.data.page;
-          this.productsNum = response.data.productsNum;
-      })
+      if(!this.search){
+        this.$http.get('/api/products?page=' + i)
+        .then((response) => {
+            this.products = response.data.products;
+            this.current = response.data.current;
+            this.pages = response.data.pages;
+            this.page = response.data.page;
+            this.productsNum = response.data.productsNum;
+            localStorage.setItem("productsPage", this.current);
+            this.$router.push('/products?page=' + (Number(this.current)));
+        })
+      } else{
+        this.$http.get('/api/products?page=' + i + '&search=' + this.search)
+        .then((response) => {
+            this.products = response.data.products;
+            this.current = response.data.current;
+            this.pages = response.data.pages;
+            this.page = response.data.page;
+            this.productsNum = response.data.productsNum;
+            localStorage.setItem("productsPage", this.current);
+            this.$router.push('/products?page=' + (Number(this.current)) + '&search=' + this.search);
+        })
+      }
     },
     pluspageProduct: function() {
-      this.$http.get('/api/products?page=' + (Number(this.current) + 1) + '&search=' + this.search)
-      .then((response) => {
-          this.products = response.data.products;
-          this.current = response.data.current;
-          this.pages = response.data.pages;
-          this.page = response.data.page;
-          this.productsNum = response.data.productsNum;
-      })
+      if(!this.search){
+        this.$http.get('/api/products?page=' + (Number(this.current) + 1))
+        .then((response) => {
+            this.products = response.data.products;
+            this.current = response.data.current;
+            this.pages = response.data.pages;
+            this.page = response.data.page;
+            this.productsNum = response.data.productsNum;
+            localStorage.setItem("productsPage", this.current);
+            this.$router.push('/products?page=' + (Number(this.current)));
+        })
+      } else {
+        this.$http.get('/api/products?page=' + (Number(this.current) + 1) + '&search=' + this.search)
+        .then((response) => {
+            this.products = response.data.products;
+            this.current = response.data.current;
+            this.pages = response.data.pages;
+            this.page = response.data.page;
+            this.productsNum = response.data.productsNum;
+            localStorage.setItem("productsPage", this.current);
+            this.$router.push('/products?page=' + (Number(this.current)) + '&search=' + this.search);
+        })
+      }
+      
     }
   },
   created() {
-      this.$http.get('/api/products')
-      .then((response) => {
-          this.products = response.data.products;
-          this.current = response.data.current;
-          this.pages = response.data.pages;
-          this.page = response.data.page;
-          this.productsNum = response.data.productsNum;
-      })
+      this.search = this.$store.getters.searchProducts;
+      this.current = this.$store.getters.productsPage;
+      if(!this.search) {
+        this.$http.get('/api/products?page=' + (Number(this.current)))
+        .then((response) => {
+            this.products = response.data.products;
+            this.current = response.data.current;
+            this.pages = response.data.pages;
+            this.page = response.data.page;
+            this.productsNum = response.data.productsNum;
+        })
+      } else {
+        this.$http.get('/api/products?page=' + (Number(this.current)) + '&search=' + this.search)
+        .then((response) => {
+            this.products = response.data.products;
+            this.current = response.data.current;
+            this.pages = response.data.pages;
+            this.page = response.data.page;
+            this.productsNum = response.data.productsNum;
+        })
+      }
   }
 }
 </script>
 
 <style src="../../../public/stylesheets/products.css">
 </style>
+
 
 
 

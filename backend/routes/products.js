@@ -2,9 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Product = require('../models/products');
 var async = require('async');
-//multer를 이용해 imagefile 저장할 cloud
 var cloudinary = require('cloudinary').v2;
-//file 업로드에 사용되는 module
 var multer = require('multer');
 var storage = multer.diskStorage({
 	//filename: function(req, file, callback) {
