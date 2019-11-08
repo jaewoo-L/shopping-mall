@@ -2,10 +2,12 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var Product = require('../models/products');
+var PurchaseState = require('../models/purchaseState');
 var passport = require('passport');
 const crypto = require('crypto');
 var async = require('async');
 var nodemailer = require('nodemailer');
+require('dotenv').config();
 
 router.get('/signUp', function(req, res) {
 	User.find().where('username').exec(function(err, foundUsername) {
@@ -40,6 +42,7 @@ router.post('/signUp', function(req, res, next) {
 			console.log(err);
 			return res.json({result: 0});
 		}else{
+			console.log(newuser);
 			passport.authenticate('local', function (err, user, info) {
 			    var error = err || info;
 			    if (error) return res.json(401, error);
@@ -169,23 +172,6 @@ router.post('/reset/:token', function(req, res) {
 	});
 });
 
-router.get('/:id', function(req,res){
-	var basket = [];
-	if(req.params.id == null) {
-		res.json(basket);
-	}
-	User.findById(req.params.id).populate('basket').exec(function(err, foundUser){
-		if(err){
-			console.log(err);
-		}else{
-			for(var i=0; i<foundUser.basket.length; i++) {
-				basket.push(foundUser.basket[i]._id);
-			}
-			res.json(basket);
-		}
-	}); 
-});
-
 router.get('/:id/basket', function(req, res) {
 	User.findById(req.params.id).where('basket').populate('basket').exec(function(err, foundUserBasket) {
 		res.json(foundUserBasket);
@@ -233,6 +219,69 @@ router.post("/:id/orders", function(req,res){
 		});
 	});
 });
+
+router.get("/:id/purchaseState", function(req, res) {
+	if(req.params.id != process.env.ADMIN) {
+		res.json({result: 'fail'})
+	} else {
+		User.findById(req.params.id).populate('purchaseState').exec(function(err, foundUser) {
+			console.log(foundUser.purchaseState);
+			res.json(foundUser.purchaseState);
+		})
+	}
+})
+
+router.post("/:id/purchaseState", function(req, res) {
+	var newPurchaseProduct = {
+		username:req.body.username,
+		postcode:req.body.postcode,
+		roadAddress:req.body.roadAddress,
+		jibunAddress:req.body.jibunAddress,
+		detailAddress:req.body.detailAddress,
+		purchasePrice:req.body.purchasePrice,
+		productName:req.body.productName,
+		thumbnail:req.body.thumbnail,
+		SItems:req.body.SItems,
+		MItems:req.body.MItems,
+		LItems:req.body.LItems,
+		XLItems:req.body.XLItems,
+		FreeItems:req.body.FreeItems
+	}
+
+	User.findById(process.env.ADMIN,function(err, foundUser) {
+		if(err) {
+			console.log(err);
+		} else {
+			PurchaseState.create(newPurchaseProduct, function(err, newpurchaseProduct) {
+				if(err) {
+					res.json({result: 'fail'})
+				} else {
+					foundUser.purchaseState.push(newpurchaseProduct._id);
+					foundUser.save();	
+					res.json({result:'success'});
+				}
+			})
+		}
+		
+	})
+})
+
+router.delete('/:id/purchaseState/:productid', function(req, res) {
+	User.findById(req.params.id, function(err, foundUser) {
+		if(err) {
+			console.log(err);
+			res.json({result:'fail'});
+		} else {
+			for(var i=0; i < foundUser.purchaseState.length; i++) {
+				if(foundUser.purchaseState[i]._id == req.params.productid) {
+					foundUser.purchaseState.splice(i,1);
+					foundUser.save();
+				} 
+			}
+			res.json({result:'success'});
+		}
+	})
+})
 
 router.get('/:id/myPage', function(req, res) {
 	User.findById(req.params.id, function(err, foundUser) {

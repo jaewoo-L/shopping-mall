@@ -17,6 +17,7 @@ import Forgot from './components/login/ForgotPage'
 import Reset from './components/login/ResetPage'
 import Basket from './components/users/BasketPage'
 import Orders from './components/users/OrdersPage'
+import PurchaseState from './components/users/PurchaseState'
 import MyPage from './components/users/MyPage'
 import EditUser from './components/users/EditUserPage'
 import NewComments from './components/comments/NewPage'
@@ -182,6 +183,16 @@ export default new Router({
         'header': Header,
         'footer': Footer,
         default: Orders
+      }
+    },
+    //customers purchaseState
+    {
+      path:'/:id/purchaseState',
+      name:'purchaseState',
+      components: {
+        'header': Header,
+        'footer': Footer,
+        'purchaseState': PurchaseState
       }
     },
 

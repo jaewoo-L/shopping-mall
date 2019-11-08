@@ -27,7 +27,11 @@ var userSchema  = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Product"
 	}],
-	isAdmin: {type:String, default:'false'}
+	purchaseState:[{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "PurchaseState"
+	}],
+	isAdmin: {type:String, default:'true'}
 });
 //plugin 으로 passportLocalMongoose npm메소드 추가
 userSchema.plugin(passportLocalMongoose);

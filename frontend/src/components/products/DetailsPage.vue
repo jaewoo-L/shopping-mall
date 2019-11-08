@@ -69,6 +69,7 @@ export default {
         product: {
           price:0
         },
+        user: {},
         likes: [],
         basket: [],
         likeTrue: null,
@@ -185,21 +186,37 @@ export default {
 
             this.$http.post('/api/login/' + this.$route.params.id + '/orders', {userid: this.$store.getters.token})
             .then((response) => {
-
-              this.$http.put('/api/products/' + this.$route.params.id + '/buy', {
-                SItemsNum: this.SItemsNum, MItemsNum: this.MItemsNum, LItemsNum: this.LItemsNum, XLItemsNum: this.XLItemsNum, FreeItemsNum: this.FreeItemsNum
+              this.$http.post('/api/login/' + this.$store.getters.token + '/purchaseState', {
+                username: this.$store.getters.username,
+                postcode: this.user.postcode,
+                roadAddress: this.user.roadAddress,
+                jibunAddress: this.user.jibunAddress,
+                detailAddress: this.user.detailAddress,
+                purchasePrice:this.priceSum,
+                productName:this.product.name,
+                thumbnail:this.product.thumbnail,
+                SItems:this.mySItemsNum,
+                MItems:this.myMItemsNum,
+                LItems:this.myLItemsNum,
+                XLItems:this.myXLItemsNum,
+                FreeItems:this.myFreeItemsNum,
               })
               .then((response) => {
-                if(response.data.result == 'fail') {
-                  alert('구매 실패.');
-                } else {
-                  alert('구매 완료.');
-                  this.$router.push('/'+ this.$store.getters.token +'/orders');
-                }
+                this.$http.put('/api/products/' + this.$route.params.id + '/buy', {
+                  SItemsNum: this.SItemsNum, MItemsNum: this.MItemsNum, LItemsNum: this.LItemsNum, XLItemsNum: this.XLItemsNum, FreeItemsNum: this.FreeItemsNum
+                })
+                .then((response) => {
+                  if(response.data.result == 'fail') {
+                    alert('구매 실패.');
+                  } else {
+                    alert('구매 완료.');
+                    this.$router.push('/'+ this.$store.getters.token +'/orders');
+                  }
+                })
+                .catch(error => {
+                    alert(error);
+                }) 
               })
-              .catch(error => {
-                  alert(error);
-              })  
             });
           } 
         }       
@@ -343,14 +360,14 @@ export default {
           }
         }
       }),
-
-      this.$http.get('/api/login/' + this.$store.getters.token)
+      this.$http.get('/api/login/' + this.$store.getters.token + '/myPage')
       .then((response) => {
-        for(var i in response.data) {
-          if(response.data[i] == this.$route.params.id) {
+        this.user = response.data;
+        for(var i in response.data.basket) {
+          if(response.data.basket[i] == this.$route.params.id) {
             this.basketTrue = true;
           }
-        }      
+        }
       })
     }
 }

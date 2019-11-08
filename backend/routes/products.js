@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Product = require('../models/products');
+var PurchaseState = require('../models/purchaseState');
 var async = require('async');
 var cloudinary = require('cloudinary').v2;
 var multer = require('multer');
@@ -295,6 +296,8 @@ router.put("/:id", upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detai
 			}
 	});
 });
+
+
 
 router.put("/:id/buy", function(req, res) {
 	Product.findById(req.params.id, function(err, product) {

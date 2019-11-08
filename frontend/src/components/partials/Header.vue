@@ -14,7 +14,7 @@
         </button>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav mL">
+        <ul class="nav navbar-nav mL myMenu">
           <li class="active"><a href="/products" @click="productsPageSet">All Products</a></li>
           <li class="active"><a href="/products/tops" @click="topsPageSet">Tops</a></li>
           <li class="active"><a href="/products/bottoms" @click="bottomsPageSet">Bottoms</a></li>
@@ -22,13 +22,14 @@
         </ul>
         
         <ul class="myMenu">
-          <li v-if="auth" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/orders'" class="navbar-link">구매품목</a></li>
+          <li v-if="auth && isAdmin" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/purchaseState'" class="navbar-link">주문현황</a></li>
+          <li v-if="auth && !isAdmin" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/orders'" class="navbar-link">구매품목</a></li>
           <li v-if="auth" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/basket/'" class="navbar-link">찜목록</a></li>
           <li v-if="!auth" class="navbar-text navbar-right"><a href="/signup" class="navbar-link">회원가입</a></li>
           <li v-if="!auth" class="navbar-text navbar-right"><a href="/login" class="navbar-link">로그인</a></li>
           <li v-if="auth" class="navbar-text navbar-right"><a href="/logout" class="navbar-link">로그아웃</a></li>
           <li v-if="auth" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/myPage'" class="navbar-link">{{nickname}}</a></li>
-        </ul> 
+        </ul>   
       </div> 
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -43,28 +44,29 @@
   export default {
     computed: {
       auth(){
-        return this.$store.getters.isAuthenticated
+        return this.$store.getters.isAuthenticated;
+      },
+      isAdmin() {
+        return this.$store.getters.isAdmin;
       },
       nickname() {
         return this.$store.getters.nickname;
       }
     },
     methods: {
+
       productsPageSet() {
         localStorage.setItem("productsPage", 1);
         localStorage.removeItem("searchProducts");
       },
       topsPageSet() {
         localStorage.setItem("topsPage", 1);
-        localStorage.removeItem("searchProducts");
       },
       bottomsPageSet() {
         localStorage.setItem("bottomsPage", 1);
-        localStorage.removeItem("searchProducts");
       },
       accsPageSet() {
         localStorage.setItem("accsPage", 1);
-        localStorage.removeItem("searchProducts");
       }
     }
   }
