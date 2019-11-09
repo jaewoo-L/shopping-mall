@@ -225,7 +225,6 @@ router.get("/:id/purchaseState", function(req, res) {
 		res.json({result: 'fail'})
 	} else {
 		User.findById(req.params.id).populate('purchaseState').exec(function(err, foundUser) {
-			console.log(foundUser.purchaseState);
 			res.json(foundUser.purchaseState);
 		})
 	}

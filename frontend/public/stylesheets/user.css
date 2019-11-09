@@ -1,4 +1,7 @@
-.myPage-box {
+  #purchaseState {
+    margin-top:100px;
+  }
+  .myPage-box {
     position: absolute;
     width: 80%;
     top: 50%;
@@ -33,4 +36,38 @@
       width: 100%;
       margin-bottom: 10px;
     }
+  }
+
+  .purchasebox img {
+    width:200px;
+    margin: 0 150px;
+  }
+  .purchasebox .text {
+    float: right;
+    width: 50%;
+    font-size: 14px;
+    font-weight: 600;
+    color: balck;
+    line-height: 18px;
+
+  }
+  @media all and (max-width: 1200px) {
+    .purchasebox img {
+      margin: 0;
+    }
+  }
+  @media all and (max-width: 633px) {
+    .purchasebox img {
+      margin-top:60px;
+      width: 100%;
+    }
+    .purchasebox .text {
+      font-size:15px;
+      font-weight:600;
+      width: 100%;
+      text-align: center;
+    }
+    .purchasebox .text .btn {
+      width:50%;
+    }    
   }

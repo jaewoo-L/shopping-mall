@@ -215,7 +215,7 @@ export default {
 
     doubleCheck: function() {
         for(var i in this.currentUser) {
-          if(this.currentUser[i].username == this.username) {
+          if(this.currentUser[i] == this.username) {
               alert('이미 존재하는 아이디 입니다.');
               return;
           }

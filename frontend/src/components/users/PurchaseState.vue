@@ -1,9 +1,9 @@
 <template>
-   <div class="container">
-      <h5>PurchasState</h5>
+   <div id="purchaseState" class="container">
+      <h5>PurchaseState</h5>
       <hr>
-      <div v-for="purchase in purchaseState" class="col-sm-12 col-md-12 ">
-        <div class="">
+      <div v-for="purchase in purchaseState" class="col-sm-12">
+        <div class="purchasebox">
           <img v-bind:src="purchase.thumbnail" alt="">
           <div class="text">
             <p>제품명: {{purchase.productName}}</p>
@@ -16,7 +16,7 @@
               <span v-if="purchase.XLItems > 0">XL: {{purchase.XLItems}}</span>
               <span v-if="purchase.FreeItems > 0">Free: {{purchase.FreeItems}}</span></p>
             <p>금액: {{purchase.purchasePrice}}</p>
-          <button @click="deleteProduct(purchase._id)">삭제</button>
+            <button @click="deleteProduct(purchase._id)" class="btn btn-default">삭제</button>
           </div>
           <hr>
         </div>
@@ -61,17 +61,6 @@ export default {
 }
 </script>
 
-<style scoped>
-  img {
-    width:200px;
-    margin: 0 150px;
-  }
-  .container {
-    margin-top:100px;
-  }
-  .text {
-    float: right;
-    width: 40%;
-    font-size: 14px;
-  }
+<style src="../../../public/stylesheets/user.css">
+
 </style>

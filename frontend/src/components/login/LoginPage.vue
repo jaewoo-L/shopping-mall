@@ -10,9 +10,9 @@
       <div class="text-box">
         <i class="fas fa-lock"></i>
         <input v-model="password" @keyup.enter="login" type="password" name="password" placeholder="Password">
-      </div>      
-      <a :href="url.signUpUrl" >회원가입</a> 
-      <a style="float:right;" :href="url.forgotUrl" > 비밀번호가 기억나지 않나요? </a>
+      </div>  
+      <router-link :to="{name: 'signUp'}">회원가입</router-link>
+      <router-link :to="{name:'forgot'}" style="float:right;"> 비밀번호가 기억나지 않나요? </router-link>    
       <div class="submit">
               <button class="btn" @click="login">login</button>
       </div>

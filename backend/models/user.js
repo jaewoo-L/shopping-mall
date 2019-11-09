@@ -31,7 +31,7 @@ var userSchema  = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "PurchaseState"
 	}],
-	isAdmin: {type:String, default:'true'}
+	isAdmin: {type:String, default:'false'}
 });
 //plugin 으로 passportLocalMongoose npm메소드 추가
 userSchema.plugin(passportLocalMongoose);
