@@ -4,7 +4,7 @@ Address:https://jaewoomall.herokuapp.com/
 ## Project Stack  
 ### Client
 Following items are core frontend technologies used in this project:
-- Vue
+- Vue.js
 - Vue-cli
 - Vue-router
 - Vuex
