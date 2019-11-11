@@ -1,7 +1,18 @@
-#main{
+
+  #main{
     margin:0;
     padding:0;
    
+  }
+  .img-box {
+    overflow: hidden;
+  }
+  .img-box img {
+    max-width: 100%;
+    transition: all .3s ease;
+  }
+  .img-box:hover img{
+    transform: scale(1.1);
   }
   .background {
     opacity: 0.85;
