@@ -7,7 +7,9 @@
 		</div>
 	</div>
 </template>
+<script>
 
-<style scoped src="../../../public/stylesheets/partials.css">
+</script>
+<style src="../../../public/stylesheets/partials.css">
 
 </style>

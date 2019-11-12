@@ -340,7 +340,7 @@ export default {
                    $(".sales").removeClass("scrolladd");
                }
           });
-        });
+      });
     },
     created() {
       this.$http.get('/api/products/'+ this.$route.params.id)
