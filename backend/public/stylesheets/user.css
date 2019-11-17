@@ -9,11 +9,7 @@
     transform: translate(-50%, -45%);
     margin-bottom: 15px;
   }
-  @media all and (min-width: 800px) {
-    .myPage-box {
-      width:50%;
-    }
-  }
+
   .myPage-box h1 {
     width:180px;
     font-size: 40px;
@@ -31,11 +27,9 @@
   .editUser , .deleteUser, .deleteComments {
     margin:0 3px;
   }
-  @media all and (max-width:501px) {
-    .editUser , .deleteUser, .deleteComments {
-      width: 100%;
-      margin-bottom: 10px;
-    }
+
+  .purchaseProducts {
+    margin-bottom: 200px;
   }
 
   .purchasebox img {
@@ -51,12 +45,31 @@
     line-height: 18px;
 
   }
+
+  @media all and (min-width: 800px) {
+    .myPage-box {
+      width:50%;
+    }
+  }
+
+  @media all and (max-width:501px) {
+    .editUser , .deleteUser, .deleteComments {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+
   @media all and (max-width: 1200px) {
     .purchasebox img {
       margin: 0;
     }
   }
+
   @media all and (max-width: 633px) {
+    .purchaseProducts {
+      margin-bottom: 400px;
+    }
+
     .purchasebox img {
       margin-top:60px;
       width: 100%;

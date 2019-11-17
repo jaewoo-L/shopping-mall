@@ -2,23 +2,25 @@
    <div id="purchaseState" class="container">
       <h5>PurchaseState</h5>
       <hr>
-      <div v-for="purchase in purchaseState" class="col-sm-12">
-        <div class="purchasebox">
-          <img v-bind:src="purchase.thumbnail" alt="">
-          <div class="text">
-            <p>제품명: {{purchase.productName}}</p>
-            <p>주문자: {{purchase.username}}</p>
-            <p>주소: {{purchase.roadAddress}}({{purchase.postcode}})</p>
-            <p>- {{purchase.detailAddress}}</p>
-            <p><span v-if="purchase.SItems > 0">S: {{purchase.SItems}}</span>
-              <span v-if="purchase.MItems > 0">M: {{purchase.MItems}}</span>
-              <span v-if="purchase.LItems > 0">L: {{purchase.LItems}}</span>
-              <span v-if="purchase.XLItems > 0">XL: {{purchase.XLItems}}</span>
-              <span v-if="purchase.FreeItems > 0">Free: {{purchase.FreeItems}}</span></p>
-            <p>금액: {{purchase.purchasePrice}}</p>
-            <button @click="deleteProduct(purchase._id)" class="btn btn-default">삭제</button>
+      <div class="purchaseProducts">
+        <div v-for="purchase in purchaseState">
+          <div class="purchasebox">
+            <img v-bind:src="purchase.thumbnail" alt="">
+            <div class="text">
+              <p>제품명: {{purchase.productName}}</p>
+              <p>주문자: {{purchase.username}}</p>
+              <p>주소: {{purchase.roadAddress}}({{purchase.postcode}})</p>
+              <p>- {{purchase.detailAddress}}</p>
+              <p><span v-if="purchase.SItems > 0">S: {{purchase.SItems}}</span>
+                <span v-if="purchase.MItems > 0">M: {{purchase.MItems}}</span>
+                <span v-if="purchase.LItems > 0">L: {{purchase.LItems}}</span>
+                <span v-if="purchase.XLItems > 0">XL: {{purchase.XLItems}}</span>
+                <span v-if="purchase.FreeItems > 0">Free: {{purchase.FreeItems}}</span></p>
+              <p>금액: {{purchase.purchasePrice}}</p>
+              <button @click="deleteProduct(purchase._id)" class="btn btn-default">삭제</button>
+            </div>
+            <hr>
           </div>
-          <hr>
         </div>
       </div>
   </div>

@@ -1,4 +1,4 @@
-#products {
+  #products {
     position: relative;
     margin-top:100px;
     padding-bottom: 300px;
@@ -14,7 +14,6 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;  
   }
 
-  
   #products .product {
     position: relative;
   }
@@ -27,27 +26,27 @@
   }
 
   .thumbnail .overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        overflow: hidden;
-        width: 100%;
-        height: 0;
-        background: rgba(0, 0, 0, 0.6);
-        transition: .5s ease;
-        border-radius: 3px 3px 0 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    background: rgba(0, 0, 0, 0.6);
+    transition: .5s ease;
+    border-radius: 3px 3px 0 0;
   }
 
   .thumbnail .overlay .caption {
-        font-size: 15px;
-        color: white;
-        position: absolute;
-        width: 100%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
   }
 
   .thumbnail:hover .overlay {
@@ -73,85 +72,41 @@
     float: left;
   }
   .pagination>.page-box>li>.active{
-      background-color: #efeaea;
+    background-color: #efeaea;
   }
   .pagination>.page-box>li>a {
-      position: relative;
-      //float: left;
-      padding: 6px 12px;
-      margin-left: -1px;
-      line-height: 1.42857143;
-      color: #337ab7;
-      text-decoration: none;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      cursor: pointer;
-      display:inline;
+    position: relative;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    display:inline;
   }
   .pagination>.page-box>li>.disabled {
-      cursor: not-allowed;
+    cursor: not-allowed;
   }
 
-  @media all and (max-width:767px) {
-    img {
-      margin-top:60px;
-    }
-    .basketPage img {
-      margin-top:140px;
-    }
-    .thumbnail {
-      margin-left: 0px;
-    }
-    .thumbnail .overlay {
-      position: static;
-      overflow: unset;
-      height: auto;
-      background:none;
-    }
-    .thumbnail .overlay .caption {
-      left:0px;
-      line-height: 10px;
-      color: black;
-      top: 90%;
-      transform: translate(0 ,50%);
-      z-index:1;
-    }
-    .paging {
-      position: static;
-      padding-top: 20vh;
-    }
-    .pagination>.page-box>li>a {
-      padding: 6px 8px;
-    }
-  }
   .searchbox {
     float: right!important;
-      margin-top: -35px;
+    margin-top: -35px;
   }
   .searchbox .btn {
     margin-bottom: 2px;
   }
   .searchbox .searchbar {
-      height: 34px;
-      padding: 6px 12px;
-      font-size: 14px;
-      line-height: 1.42857143;
-      color: #555;
-      background-color: #fff;
-      background-image: none;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-  }
-
-  @media all and (max-width: 765px) {    
-  .searchbox .searchbar{
-    font-size: 13px;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
     color: #555;
     background-color: #fff;
     background-image: none;
     border: 1px solid #ccc;
     border-radius: 4px;
-    }
   }
 
   .newProduct-box, .editProduct-box {
@@ -236,8 +191,6 @@
     width: 100%;
   }
   .sales {
-    position:;
-    right: 30px;
     height:100%; 
     width:30%;
     float:left;
@@ -281,12 +234,7 @@
     margin: 10px 0;
     transition: all 0.3s ease;
   }
-  @media all and (min-width: 991px) and (min-device-width: 1024px){
-    .basket:hover, .buy:hover, .like:hover{
-      background: #050c30;
-      color: white;
-    }
-  }
+
 
   .likeBtn {
     background: #050c30;
@@ -307,16 +255,83 @@
   .scrolladd {
     position: fixed;
     top: 70px;
-    -webkit-transform: translate(-33px);
-    -ms-transform: translate(-170px);
+    right: 4vw;
     width: 342px;
   }
-  @media all and (max-width: 1200px) {
+
+  @media all and (max-width:767px) {
+    img {
+      margin-top:60px;
+    }
+    .basketPage img {
+      margin-top:140px;
+    }
+    .thumbnail {
+      margin-left: 0px;
+    }
+    .thumbnail .overlay {
+      position: static;
+      overflow: unset;
+      height: auto;
+      background:none;
+    }
+    .thumbnail .overlay .caption {
+      left:0px;
+      line-height: 10px;
+      color: black;
+      top: 95%;
+      transform: translate(0 ,50%);
+      z-index:1;
+    }
+    .paging {
+      position: static;
+      padding-top: 20vh;
+    }
+    .pagination>.page-box>li>a {
+      padding: 6px 8px;
+    }
+  }
+
+  @media all and (max-width: 765px) {    
+  .searchbox .searchbar{
+    font-size: 13px;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    }
+  }
+
+  @media all and (min-width: 991px) and (min-device-width: 1024px){
+    .basket:hover, .buy:hover, .like:hover{
+      background: #050c30;
+      color: white;
+    }
+  }  
+
+  @media all and (max-width: 1199px) {
     .scrolladd {
-      position: fixed;
-      top: 70px;
-      
+      -ms-transform: translate(-1vw);
       width: 282px;
+    }
+  }
+  @media all and (min-width: 1200px) and (max-width: 1299px) {
+    .scrolladd {
+      -ms-transform: translate(-2vw);
+
+    }
+  }
+  @media all and (min-width: 1300px) and (max-width: 1499px) {
+    .scrolladd {
+      -ms-transform: translate(-4vw);
+
+    }
+  }
+  @media all and (min-width: 1500px) {
+    .scrolladd {
+      -ms-transform: translate(-6vw);
+
     }
   }
 
@@ -324,22 +339,20 @@
     #detail .contents {
       height:100%; 
       width:100%;
+      padding-bottom: 100px;
     }
 
     .scrolladd {
       position: static;
       width: 80%;
+      margin-bottom: 200px;
     }
 
   }
 
-@media all 
-and (min-device-width : 768px) 
-and (max-device-width : 1024px)
+@media all and (min-device-width : 768px) and (max-device-width : 1024px)
 and (-webkit-min-device-pixel-ratio: 1) {
   .thumbnail {
       margin-left: 0px;
     }
-
-
 }

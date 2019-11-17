@@ -1,15 +1,11 @@
-#editComments, #newComments {
-  margin-top:100px;
-}
-#editComments .container, #newComments .container {
+  #editComments, #newComments {
+    margin-top:100px;
+  }
+  #editComments .container, #newComments .container {
     width:80%;
     margin: 25px auto;
   }
-  @media all and (min-width: 800px) {
-    #editComments .container, #newComments .container {
-      width:50%;
-    }
-  }
+
   #editComments .container h1, #newComments .container h1 {
     font-size: 40px;
     border-bottom: 6px solid #050c30;
@@ -38,3 +34,9 @@
     cursor: not-allowed;
     border: 2px solid #b3b5b4;
   }
+
+  @media all and (min-width: 800px) {
+    #editComments .container, #newComments .container {
+      width:50%;
+    }
+  }  
