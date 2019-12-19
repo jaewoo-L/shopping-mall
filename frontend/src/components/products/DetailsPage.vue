@@ -6,59 +6,54 @@
       <button v-if="isAdmin" @click="deleteProduct" class="btn btn-default" style="margin-left:5px">삭제</button>
       <hr>
     </div>
-    <div class="contents">
-      <img v-bind:src="product.detailed_image">
-      <hr>
-
-      <button :disabled="!token" @click="createComment" class="btn btn-default">후기 작성</button>
-      <div class="comments">
-        
-          <div v-for="comment in product.comments">
-            <strong>{{comment.author.nickname}}</strong>
-            <p>{{comment.text}}</p>
-                    
-              <button v-if="comment.author.id == token" @click="editComment(comment)" class="btn btn-default">수정</button>
-              <button v-if="comment.author.id == token || isAdmin" @click="deleteComment(comment)" class="btn btn-default">삭제</button>
-          </div>
+    <div class="wrapper">
+      <div class="contents">
+        <img v-bind:src="product.detailed_image">
+        <hr>
+        <button :disabled="!token" @click="createComment" class="btn btn-default">후기 작성</button>
+        <div class="comments">
+            <div v-for="comment in product.comments">
+              <strong>{{comment.author.nickname}}</strong>
+              <p>{{comment.text}}</p>       
+                <button v-if="comment.author.id == token" @click="editComment(comment)" class="btn btn-default">수정</button>
+                <button v-if="comment.author.id == token || isAdmin" @click="deleteComment(comment)" class="btn btn-default">삭제</button>
+            </div>
+        </div>
       </div>
-    </div>
 
-    <div class="sales">
-      <strong class="name">{{product.name}}</strong>
-      <p class="price">KRW {{product.price}}</p>
-      <button v-if="SItemsNum > 0" class="size" @click="salesBar(S)">S</button>
-      <button v-if="MItemsNum > 0" class="size" @click="salesBar(M)">M</button>
-      <button v-if="LItemsNum > 0" class="size" @click="salesBar(L)">L</button>
-      <button v-if="XLItemsNum > 0" class="size" @click="salesBar(XL)">XL</button>
-      <button v-if="FreeItemsNum > 0" class="size" @click="salesBar(Free)">Free</button>
-      
+      <div class="sales">
+        <strong class="name">{{product.name}}</strong>
+        <p class="price">KRW {{product.price}}</p>
+        <button v-if="SItemsNum > 0" class="size" @click="salesBar(S)">S</button>
+        <button v-if="MItemsNum > 0" class="size" @click="salesBar(M)">M</button>
+        <button v-if="LItemsNum > 0" class="size" @click="salesBar(L)">L</button>
+        <button v-if="XLItemsNum > 0" class="size" @click="salesBar(XL)">XL</button>
+        <button v-if="FreeItemsNum > 0" class="size" @click="salesBar(Free)">Free</button>
+        <p class="sale" v-if="SSaleTrue">S구매 수량 : {{mySItemsNum}}  
+        <button @click="upItemsNum(S)" class="num">Up</button>
+        <button @click="downItemsNum(S)" class="num">Down</button></p>
+        <p class="sale" v-if="MSaleTrue">M구매 수량 : {{myMItemsNum}}  
+        <button @click="upItemsNum(M)" class="num">Up</button>
+        <button @click="downItemsNum(M)" class="num">Down</button></p>
 
-      <p class="sale" v-if="SSaleTrue">S구매 수량 : {{mySItemsNum}}  
-      <button @click="upItemsNum(S)" class="num">Up</button>
-      <button @click="downItemsNum(S)" class="num">Down</button></p>
+        <p class="sale" v-if="LSaleTrue">L구매 수량 : {{myLItemsNum}}  
+        <button @click="upItemsNum(L)" class="num">Up</button>
+        <button @click="downItemsNum(L)" class="num">Down</button></p>
+        <p class="sale" v-if="XLSaleTrue">XL구매 수량 : {{myXLItemsNum}}  
+        <button @click="upItemsNum(XL)" class="num">Up</button>
+        <button @click="downItemsNum(XL)" class="num">Down</button></p>
 
-      <p class="sale" v-if="MSaleTrue">M구매 수량 : {{myMItemsNum}}  
-      <button @click="upItemsNum(M)" class="num">Up</button>
-      <button @click="downItemsNum(M)" class="num">Down</button></p>
+        <p class="sale" v-if="FreeSaleTrue">Free구매 수량 : {{myFreeItemsNum}}  
+        <button @click="upItemsNum(Free)" class="num">Up</button>
+        <button @click="downItemsNum(Free)" class="num">Down</button></p>
 
-      <p class="sale" v-if="LSaleTrue">L구매 수량 : {{myLItemsNum}}  
-      <button @click="upItemsNum(L)" class="num">Up</button>
-      <button @click="downItemsNum(L)" class="num">Down</button></p>
+        <p v-if="priceSum !=0" class="sum">총 {{priceSum}}원</p>
 
-      <p class="sale" v-if="XLSaleTrue">XL구매 수량 : {{myXLItemsNum}}  
-      <button @click="upItemsNum(XL)" class="num">Up</button>
-      <button @click="downItemsNum(XL)" class="num">Down</button></p>
-
-      <p class="sale" v-if="FreeSaleTrue">Free구매 수량 : {{myFreeItemsNum}}  
-      <button @click="upItemsNum(Free)" class="num">Up</button>
-      <button @click="downItemsNum(Free)" class="num">Down</button></p>
-
-      <p v-if="priceSum !=0" class="sum">총 {{priceSum}}원</p>
-
-      <button @click="likeProduct" class="like" :class="{likeBtn: likeTrue}">like({{likes.length}})</button>
-      <button @click="basketProduct" class="basket" :class="{likeBtn: basketTrue}">찜하기</button>
-      <button @click="buy" class="buy">구매하기</button>
-    </div>
+        <button @click="likeProduct" class="like" :class="{likeBtn: likeTrue}">like({{likes.length}})</button>
+        <button @click="basketProduct" class="basket" :class="{likeBtn: basketTrue}">찜하기</button>
+        <button @click="buy" class="buy">구매하기</button>
+      </div>
+    </div> 
   </div>
 </template>
 
@@ -332,14 +327,26 @@ export default {
     }, 
     mounted() {
       $(function(){
+        $.salesPosition = function() {
+          var num = $(window).scrollTop();
+          if($('.wrapper').width() >= 920){
+            if(num <= 100) {
+              $('.sales').css({top:0})
+            } else if(num > 100){
+              $('.sales').css({
+                top:(num-120)+'px'
+              })
+            }
+          } else {
+            $('.sales').css({top:0})
+          }
+        }
         $(window).scroll(function(){ 
-               var num = $(this).scrollTop();
-               if( num > 180 ){
-                  $(".sales").addClass("scrolladd");
-               }else{
-                   $(".sales").removeClass("scrolladd");
-               }
-          });
+          $.salesPosition();
+        });
+        $(window).resize(function(){
+          $.salesPosition();
+        })
       });
     },
     created() {
@@ -348,7 +355,6 @@ export default {
         this.product = response.data;
         this.product.price = this.product.price.replace(',','');
         this.likes = response.data.likes;
-        console.log(this.likes);
         this.SItemsNum = response.data.SItems;
         this.MItemsNum = response.data.MItems;
         this.LItemsNum = response.data.LItems;

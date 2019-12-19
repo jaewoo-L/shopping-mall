@@ -81,7 +81,6 @@ export default {
           this.page = response.data.page;
           this.productsNum = response.data.productsNum;
           localStorage.setItem("accsPage", this.current);
-          console.log('this.current=' + this.current);
           this.$store.state.accsPage = this.current;
           this.$router.push('/products/accs?page=' + (Number(this.current)));
       })
@@ -95,7 +94,6 @@ export default {
           this.page = response.data.page;
           this.productsNum = response.data.productsNum;
           localStorage.setItem("accsPage", this.current);
-          console.log('this.current=' + this.current);
           this.$store.state.accsPage = this.current;
           this.$router.push('/products/accs?page=' + (Number(this.current)));
       })
@@ -109,7 +107,6 @@ export default {
           this.page = response.data.page;
           this.productsNum = response.data.productsNum;
           localStorage.setItem("accsPage", this.current);
-          console.log('this.current=' + this.current);
           this.$store.state.accsPage = this.current;
           this.$router.push('/products/accs?page=' + (Number(this.current)));
       })

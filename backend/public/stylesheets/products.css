@@ -180,12 +180,19 @@
   #detail .header {
     width:100%;
   }
-
-  #detail .contents {
+  #detail .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #detail .wrapper .contents {
     height:100%; 
     width:70%;
     float:left;
     padding-bottom: 300px;
+  }
+  #detail .wrapper .sales {
+    position: relative;
+    width:30%;
   }
   img{
     width: 100%;
@@ -310,42 +317,21 @@
     }
   }  
 
-  @media all and (max-width: 1199px) {
-    .scrolladd {
-      -ms-transform: translate(-1vw);
-      width: 282px;
-    }
-  }
-  @media all and (min-width: 1200px) and (max-width: 1299px) {
-    .scrolladd {
-      -ms-transform: translate(-2vw);
-
-    }
-  }
-  @media all and (min-width: 1300px) and (max-width: 1499px) {
-    .scrolladd {
-      -ms-transform: translate(-4vw);
-
-    }
-  }
-  @media all and (min-width: 1500px) {
-    .scrolladd {
-      -ms-transform: translate(-6vw);
-
-    }
-  }
-
   @media all and (max-width: 990px) {
-    #detail .contents {
+    #detail .wrapper {
+      padding-bottom: 200px;
+    }
+    #detail .wrapper .contents {
       height:100%; 
       width:100%;
       padding-bottom: 100px;
+      order:2;
     }
-
-    .scrolladd {
-      position: static;
-      width: 80%;
-      margin-bottom: 200px;
+    #detail .wrapper .sales {
+      width:100%;
+      order:1;
+      padding: 0;
+      margin-bottom:50px; 
     }
 
   }

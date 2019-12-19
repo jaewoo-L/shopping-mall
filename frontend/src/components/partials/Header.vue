@@ -21,7 +21,7 @@
           <li class="active"><a href="/products/accs" @click="accsPageSet">Accs</a></li>
         </ul>
         
-        <ul class="myMenu">
+        <ul class="myMenu right">
           <li v-if="auth && isAdmin" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/purchaseState'" class="navbar-link">주문현황</a></li>
           <li v-if="auth && !isAdmin" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/orders'" class="navbar-link">구매품목</a></li>
           <li v-if="auth" class="navbar-text navbar-right"><a :href="'/' + this.$store.getters.token + '/basket/'" class="navbar-link">찜목록</a></li>
@@ -53,8 +53,33 @@
         return this.$store.getters.nickname;
       }
     },
+    mounted() {
+      $(function(){
+        var $path = $(location).attr('pathname');
+        var $link = $('#header .navbar-default .navbar-nav>.active>a');
+        var $myMenu = $('#header .right li a');
+        $link.click(function(){
+          $link.each(function(){
+              $(this).removeClass('active');
+          })
+          $(this).addClass('active');
+        })
+        if($path == "/products") {
+          $link.eq(0).addClass('active');
+        } else if($path == "/products/tops") {
+          $link.eq(1).addClass('active');
+        } else if($path == "/products/bottoms") {
+          $link.eq(2).addClass('active');
+        } else if($path == "/products/accs") {
+          $link.eq(3).addClass('active');
+        } else if($path == "/login") {
+          $myMenu.eq(1).addClass('active');
+        } else if($path == "/signup") {
+          $myMenu.eq(0).addClass('active');
+        }
+      })
+    },
     methods: {
-
       productsPageSet() {
         localStorage.setItem("productsPage", 1);
         localStorage.removeItem("searchProducts");

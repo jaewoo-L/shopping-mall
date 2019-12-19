@@ -15,15 +15,36 @@
   }
 
   #header .navbar-default .navbar-nav>.active>a {
+    position: relative;
+    color: #777;
     background-color: #fcfcfc;
   }
+  #header .navbar-default .navbar-nav>.active>a.active, #header .right li a.active {
+    color: black;
+  }
+  #header .navbar-default .navbar-nav>.active>a:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 1px;
+    width:0%;
+    background-color: #bab5b5;
+    transition: 0.5s;
+    bottom:13px;
+  }
 
+  #header .navbar-default .navbar-nav>.active>a:hover:before {
+    width:55%;
+  }
   #header .navbar-brand .brand-name {
     font-family: 'Big Shoulders Text', cursive;
     font-size:23px;
     color: #000;
   }
-
+  #header .right li a {
+    text-decoration: none;
+  }
   #footer {
     position: absolute;
     bottom: 0;
@@ -45,5 +66,8 @@
   @media (max-width: 767px) {
     .myMenu {
       padding-left:0px;
+    }
+    #header .navbar-default .navbar-nav>.active>a:before {
+      content: none;
     }
   }  
