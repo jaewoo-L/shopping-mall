@@ -8,7 +8,7 @@
     min-height: 100%;
   }
   #header li { list-style-type : none }
-  
+  #header.sticky {position: fixed;z-index: 1}
   #header .navbar-default {
     background-color: #fcfcfc;
     border-color: #fcfcfc;

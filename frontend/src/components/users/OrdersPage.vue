@@ -1,12 +1,11 @@
 <template>
    <div class="container" id="products">
-        <h5> 구매품목 ({{products.length}}) </h5>
+        <h5> 구매품목 ({{products.length}})</h5>
         <hr>  
-     
         <div v-for="product in products" class="col-sm-4 col-md-3 product" >
           <div class="thumbnail" >
             <a :href="'/products/' + product._id" v-bind:style="{ 'background-image': 'url(' + product.thumbnail + ')' }"> 
-                <img v-bind:src="product.thumbnail" alt="">
+                <img v-bind:src="product.thumbnail" alt="구매 품목">
                 <div class="overlay">
                   <div class="caption">
                     <p>{{product.name}}</p>
@@ -17,7 +16,6 @@
             </a>
           </div>
         </div>
-        
   </div>
 </template>
 

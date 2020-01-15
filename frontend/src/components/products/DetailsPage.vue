@@ -8,7 +8,7 @@
     </div>
     <div class="wrapper">
       <div class="contents">
-        <img v-bind:src="product.detailed_image">
+        <img v-bind:src="product.detailed_image" alt="detail images">
         <hr>
         <button :disabled="!token" @click="createComment" class="btn btn-default">후기 작성</button>
         <div class="comments">
@@ -74,7 +74,6 @@ export default {
         SSaleTrue: false, MSaleTrue: false, LSaleTrue: false, XLSaleTrue: false, FreeSaleTrue: false,
         //DB에 저장된 갯수 담을 변수
         SItemsNum:null, MItemsNum:null, LItemsNum:null, XLItemsNum:null, FreeItemsNum:null
-
       }
   },
   computed: {

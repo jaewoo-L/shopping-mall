@@ -6,7 +6,7 @@
         <div v-for="product in products" class="col-sm-4 col-md-3 product" >
           <div class="thumbnail basketPage" >
             <a :href="'/products/' + product._id" v-bind:style="{ 'background-image': 'url(' + product.thumbnail + ')' }"> 
-                <img v-bind:src="product.thumbnail" alt="">
+                <img v-bind:src="product.thumbnail" alt="찜 목록 상품">
                 <div class="overlay">
                   <div class="caption">
                     <p>{{product.name}}</p>

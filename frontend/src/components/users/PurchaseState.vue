@@ -5,7 +5,7 @@
       <div class="purchaseProducts">
         <div v-for="purchase in purchaseState">
           <div class="purchasebox">
-            <img v-bind:src="purchase.thumbnail" alt="">
+            <img v-bind:src="purchase.thumbnail" alt="소비자 구매 품목">
             <div class="text">
               <p>제품명: {{purchase.productName}}</p>
               <p>주문자: {{purchase.username}}</p>
@@ -64,5 +64,4 @@ export default {
 </script>
 
 <style src="../../../public/stylesheets/user.css">
-
 </style>

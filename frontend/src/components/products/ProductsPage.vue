@@ -13,7 +13,7 @@
         <div v-if="!noMatch" v-for="product in products" class="col-sm-4 col-md-3 product" >
           <div class="thumbnail" >
             <a :href="'/products/' + product._id" v-bind:style="{ 'background-image': 'url(' + product.thumbnail + ')' }"> 
-                <img v-bind:src="product.thumbnail" alt="">
+                <img v-bind:src="product.thumbnail" alt="products">
                 <div class="overlay">
                   <div class="caption">
                     <p>{{product.name}}</p>

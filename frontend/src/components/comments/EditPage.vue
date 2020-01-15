@@ -51,5 +51,4 @@ export default {
 </script>
 
 <style src="../../../public/stylesheets/comments.css">
-  
 </style>

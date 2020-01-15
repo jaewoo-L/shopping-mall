@@ -3,11 +3,9 @@
     <div class="container">
       <h1>Add a New Comment</h1>
       <div class="comment-box">
-
         <textarea v-model="comment" placeholder="후기작성"></textarea>
         <br>
         <button :disabled="!token" @click="createComment" class="btn">Add</button>
-      
         <a :href="'/products/' + product._id">Go Back</a> 
       </div>  
     </div>
