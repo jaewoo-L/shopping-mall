@@ -65,8 +65,6 @@
     font-size: 20px;
     font-family: 'Shadows Into Light', cursive;
   }
-
-  
   @media all and (max-width:501px) {
     .thumbnail {
       margin-left: 0px;

@@ -78,13 +78,13 @@
           $myMenu.eq(0).addClass('active');
         }
 
-        $(window).scroll(function(){
+        $(window).scroll($.throttle(5000,function(){
           if($(window).scrollTop() > 0) {
             $('#header').addClass('sticky')
           } else {
             $('#header').removeClass('sticky')
           }
-        });   
+        }));  
       })
     },
     methods: {

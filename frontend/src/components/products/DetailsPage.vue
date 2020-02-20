@@ -340,12 +340,12 @@ export default {
             $('.sales').css({top:0})
           }
         }
-        $(window).scroll(function(){ 
-          $.salesPosition();
-        });
-        $(window).resize(function(){
+        $(window).scroll(function(){
           $.salesPosition();
         })
+        $(window).resize($.debounce(100, function(){
+          $.salesPosition();
+        }))
       });
     },
     created() {
