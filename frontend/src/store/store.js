@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-
+import router from '../router'
+import axios from 'axios';
 
 Vue.use(Vuex);
 
@@ -11,14 +12,21 @@ export const store = new Vuex.Store({
 		token:null,
 		isAdmin: null,
 		postcode: null,
-    	roadAddress: null,
-    	jibunAddress: null,
-    	extraAddress: null,
-    	productsPage: null,
-    	topsPage: null,
-    	bottomsPage: null,
-    	accsPage: null,
-    	searchProducts: null
+    roadAddress: null,
+    jibunAddress: null,
+    extraAddress: null,
+    products: null,
+    tops: null,
+  	bottoms: null,
+    accs: null,
+    searchProducts: null,
+		noMatch:null,
+		product:null,
+		current:null,
+		pages:null,
+		page:null,
+		productsNum:null,
+		list:[]
 	},
 
 	getters: {
@@ -31,29 +39,50 @@ export const store = new Vuex.Store({
 		isAuthenticated: state => {
 			return state.token !== null
 		},
-		isAdmin: state => { 
+		isAdmin: state => {
 			return state.isAdmin == 'true'
 		},
 		token: state => {
 			return state.token;
 		},
-		productsPage: state => {
-			return state.productsPage;
+		products: state => {
+			return state.products;
 		},
-		topsPage: state => {
-			return state.topsPage;
+		tops: state => {
+			return state.tops;
 		},
-		bottomsPage: state => {
-			return state.bottomsPage;
+		bottoms: state => {
+			return state.bottoms;
 		},
-		accsPage: state => {
-			return state.accsPage;
+		accs: state => {
+			return state.accs;
 		},
 		searchProducts: state => {
 			return state.searchProducts;
+		},
+		list: state => {
+			return {
+							productsNum:state.productsNum,
+							current:state.current,
+							pages:state.pages,
+							page:state.page,
+							product:state.product,
+							noMatch:state.noMatch
+						}
+		},
+		pager: state => {
+			while (state.list.length) {
+        state.list.pop();
+      }
+      if(Number(state.current) < 6) {
+        for(var i= (Number(state.current) % 6 == 0 ? Number(state.current) : Number(state.current) - Number(state.current) % 6 + 1 ), j= i;   i <= (j + 4) && i <= state.pages; i++) state.list.push(i);
+        return state.list;
+      } else {
+        for(var i= (Number(state.current) % 6 == 0 ? Number(state.current) : Number(state.current) - Number(state.current) % 6), j= i; i <= (j + 5) && i <= state.pages; i++) state.list.push(i);
+        return state.list;
+      }
 		}
 	},
-
 	mutations: {
 		clearAuthData (state) {
 	    	state.username = null;
@@ -68,14 +97,14 @@ export const store = new Vuex.Store({
   			state.isAdmin = userData.isAdmin
   		},
   		page(state, page) {
-  			state.productsPage = page.productsPage
-  			state.topsPage = page.topsPage
-  			state.bottomsPage = page.bottomsPage
-  			state.accsPage = page.accsPage
+  			state.products = page.products
+  			state.tops = page.tops
+  			state.bottoms = page.bottoms
+  			state.accs = page.accs
   			state.searchProducts = page.searchProducts
   		}
 	},
- 
+
 	actions: {
 		 tryAutoLogin({commit}) {
 		  const token = localStorage.getItem("access_token")
@@ -84,7 +113,7 @@ export const store = new Vuex.Store({
 	      const isAdmin = localStorage.getItem("isAdmin")
 	      if (!token) {
 	        return
-	      }  
+	      }
 	      commit('authUser',{token: token, username: username, nickname: nickname, isAdmin: isAdmin})
 	    },
 	    logout({commit}) {
@@ -95,17 +124,168 @@ export const store = new Vuex.Store({
 	      localStorage.removeItem("isAdmin")
 	    },
 	    eachPage({commit}) {
-	    	const productsPage = localStorage.getItem("productsPage")
-	    	const topsPage = localStorage.getItem("topsPage")
-	    	const bottomsPage = localStorage.getItem("bottomsPage")
-	    	const accsPage = localStorage.getItem("accsPage")
+	    	const products = localStorage.getItem("products")
+	    	const tops = localStorage.getItem("tops")
+	    	const bottoms = localStorage.getItem("bottoms")
+	    	const accs = localStorage.getItem("accs")
 	    	const searchProducts = localStorage.getItem("searchProducts")
-	    	commit('page',{productsPage: productsPage, topsPage: topsPage, bottomsPage: bottomsPage, accsPage: accsPage, searchProducts: searchProducts})
+	    	commit('page',{products: products, tops: tops, bottoms: bottoms, accs: accs, searchProducts: searchProducts})
 	    },
 	    searchDelete({state}) {
 	    	state.searchProducts = null
 	    	localStorage.removeItem("searchProducts")
 	    },
+			pullList({state},prodObj) {
+				if(prodObj.key=='products/bottoms')state.current = state.bottoms;
+				if(prodObj.key=='products/tops')state.current = state.tops;
+				if(prodObj.key=='products/accs')state.current = state.accs;
+				if(prodObj.key=='products')state.current = state.products;
+				if(prodObj.search){
+					axios.get('/api/'+prodObj.key+'?page=' + (Number(state.current)) + '&search=' + prodObj.search)
+	        .then((response) => {
+							state.product = response.data.products;
+							state.current = response.data.current;
+							state.pages = response.data.pages;
+							state.page = response.data.page;
+							state.productsNum = response.data.productsNum;
+	        })
+				} else {
+					axios.get('/api/'+prodObj.key+'?page=' + (Number(state.current)))
+					.then((response) => {
+							state.product = response.data.products;
+							state.current = response.data.current;
+							state.pages = response.data.pages;
+							state.page = response.data.page;
+							state.productsNum = response.data.productsNum;
+					})
+				}
+			},
+			//pager controller
+			mipageProduct({state},prodObj) {
+				if(prodObj.search) {
+					axios.get('/api/'+prodObj.key+'?page=' + (Number(state.current) - 1) + '&search=' + prodObj.search)
+	        .then((response) => {
+							state.product = response.data.products;
+							state.current = response.data.current;
+							state.pages = response.data.pages;
+							state.page = response.data.page;
+							state.productsNum = response.data.productsNum;
+							if(prodObj.key=='products/bottoms'){localStorage.setItem("bottoms", state.current);state.bottoms = state.current;}
+							if(prodObj.key=='products/tops'){localStorage.setItem("tops", state.current);state.tops = state.current;}
+							if(prodObj.key=='products/accs'){localStorage.setItem("accs", state.current);state.accs = state.current;}
+							if(prodObj.key=='products'){localStorage.setItem("products", state.current);state.products = state.current;}
+	            router.push('/'+prodObj.key+'?page=' + (Number(state.current)) + '&search=' + prodObj.search);
+	        })
+				} else {
+					axios.get('/api/'+prodObj.key+'?page=' + (Number(state.current) - 1))
+					.then((response) => {
+							state.product = response.data.products;
+							state.current = response.data.current;
+							state.pages = response.data.pages;
+							state.page = response.data.page;
+							state.productsNum = response.data.productsNum;
+							if(prodObj.key=='products/bottoms'){localStorage.setItem("bottoms", state.current);state.bottoms = state.current;}
+							if(prodObj.key=='products/tops'){localStorage.setItem("tops", state.current);state.tops = state.current;}
+							if(prodObj.key=='products/accs'){localStorage.setItem("accs", state.current);state.accs = state.current;}
+							if(prodObj.key=='products'){localStorage.setItem("products", state.current);state.products = state.current;}
+							router.push('/'+prodObj.key+'?page=' + (Number(state.current)));
+					})
+				}
+			},
+			numpageProduct({state},prodObj) {
+				if(prodObj.search) {
+					axios.get('/api/'+prodObj.key+'?page=' + prodObj.page + '&search=' + prodObj.search)
+	        .then((response) => {
+							state.product = response.data.products;
+							state.current = response.data.current;
+							state.pages = response.data.pages;
+							state.page = response.data.page;
+							state.productsNum = response.data.productsNum;
+							if(prodObj.key=='products/bottoms'){localStorage.setItem("bottoms", state.current);state.bottoms = state.current;}
+							if(prodObj.key=='products/tops'){localStorage.setItem("tops", state.current);state.tops = state.current;}
+							if(prodObj.key=='products/accs'){localStorage.setItem("accs", state.current);state.accs = state.current;}
+							if(prodObj.key=='products'){localStorage.setItem("products", state.current);state.products = state.current;}
+	            router.push('/'+prodObj.key+'?page=' + (Number(state.current)) + '&search=' + prodObj.search);
+	        })
+				} else {
+					axios.get('/api/'+prodObj.key+'?page=' + prodObj.page)
+					.then((response) => {
+							state.product = response.data.products;
+							state.current = response.data.current;
+							state.pages = response.data.pages;
+							state.page = response.data.page;
+							state.productsNum = response.data.productsNum;
+							if(prodObj.key=='products/bottoms'){localStorage.setItem("bottoms", state.current);state.bottoms = state.current;}
+							if(prodObj.key=='products/tops'){localStorage.setItem("tops", state.current);state.tops = state.current;}
+							if(prodObj.key=='products/accs'){localStorage.setItem("accs", state.current);state.accs = state.current;}
+							if(prodObj.key=='products'){localStorage.setItem("products", state.current);state.products = state.current;}
+							router.push('/'+prodObj.key+'?page=' + (Number(state.current)));
+					})
+				}
+			},
+			pluspageProduct({state},prodObj) {
+				if(prodObj.search) {
+					axios.get('/api/'+prodObj.key+'?page=' + (Number(state.current) + 1) + '&search=' + prodObj.search)
+	        .then((response) => {
+							state.product = response.data.products;
+							state.current = response.data.current;
+							state.pages = response.data.pages;
+							state.page = response.data.page;
+							state.productsNum = response.data.productsNum;
+							if(prodObj.key=='products/bottoms'){localStorage.setItem("bottoms", state.current);state.bottoms = state.current;}
+							if(prodObj.key=='products/tops'){localStorage.setItem("tops", state.current);state.tops = state.current;}
+							if(prodObj.key=='products/accs'){localStorage.setItem("accs", state.current);state.accs = state.current;}
+							if(prodObj.key=='products'){localStorage.setItem("products", state.current);state.products = state.current;}
+	            router.push('/'+prodObj.key+'?page=' + (Number(state.current)) + '&search=' + prodObj.search);
+	        })
+				} else {
+					axios.get('/api/'+prodObj.key+'?page=' + (Number(state.current) + 1))
+					.then((response) => {
+							state.product = response.data.products;
+							state.current = response.data.current;
+							state.pages = response.data.pages;
+							state.page = response.data.page;
+							state.productsNum = response.data.productsNum;
+							if(prodObj.key=='products/bottoms'){localStorage.setItem("bottoms", state.current);state.bottoms = state.current;}
+							if(prodObj.key=='products/tops'){localStorage.setItem("tops", state.current);state.tops = state.current;}
+							if(prodObj.key=='products/accs'){localStorage.setItem("accs", state.current);state.accs = state.current;}
+							if(prodObj.key=='products'){localStorage.setItem("products", state.current);state.products = state.current;}
+							router.push('/'+prodObj.key+'?page=' + (Number(state.current)));
+					})
+				}
+			},
+			searchProduct({state},prodObj) {
+				if(prodObj.search) {
+					axios.get('/api/'+prodObj.key+'?page=' + 1 + '&search=' + prodObj.search)
+          .then((response) => {
+              if(response.data.noMatch) {
+                state.noMatch = response.data.noMatch;
+              }
+              else {
+								state.product = response.data.products;
+								state.current = response.data.current;
+								state.pages = response.data.pages;
+								state.page = response.data.page;
+								state.productsNum = response.data.productsNum;
+                localStorage.setItem("products", 1);
+                localStorage.setItem("searchProducts", prodObj.search);
+                router.push('/'+prodObj.key+'?page=' + 1 +'&search=' + prodObj.search);
+              }
+          })
+				} else {
+					axios.get('/api/'+prodObj.key+'?page=' + 1)
+	        .then((response) => {
+							state.noMatch = false;
+							state.product = response.data.products;
+							state.current = response.data.current;
+							state.pages = response.data.pages;
+							state.page = response.data.page;
+							state.productsNum = response.data.productsNum;
+	            localStorage.setItem("products", 1);
+	            router.push('/'+prodObj.key+'?page=' + 1);
+	        })
+				}
+			},
 	    postcode({state}) {
 	      new daum.Postcode({
 	            oncomplete: function(data) {
@@ -137,7 +317,7 @@ export const store = new Vuex.Store({
 	                state.postcode = data.zonecode;
 	                state.roadAddress = roadAddr;
 	                state.jibunAddress = data.jibunAddress;
-	                
+
 	                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
 	                if(roadAddr !== ''){
 	                    document.getElementById("extraAddress").value = extraRoadAddr;
