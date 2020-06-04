@@ -21,8 +21,11 @@ export const store = new Vuex.Store({
     accs: null,
     searchProducts: null,
 <<<<<<< HEAD
+<<<<<<< HEAD
 		searchUsers:null,
 		management:null,
+=======
+>>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 =======
 >>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 		noMatch:null,
@@ -66,12 +69,15 @@ export const store = new Vuex.Store({
 			return state.searchProducts;
 		},
 <<<<<<< HEAD
+<<<<<<< HEAD
 		searchUsers: state => {
 			return state.searchUsers;
 		},
 		management: state => {
 			return state.management;
 		},
+=======
+>>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 =======
 >>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 		list: state => {
@@ -115,11 +121,14 @@ export const store = new Vuex.Store({
   			state.tops = page.tops
   			state.bottoms = page.bottoms
 <<<<<<< HEAD
+<<<<<<< HEAD
 				state.accs = page.accs
   			state.management = page.management
 				state.searchProducts = page.searchProducts
   			state.searchUsers = page.searchUsers
 =======
+=======
+>>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
   			state.accs = page.accs
   			state.searchProducts = page.searchProducts
 >>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
@@ -149,11 +158,17 @@ export const store = new Vuex.Store({
 	    	const tops = localStorage.getItem("tops")
 	    	const bottoms = localStorage.getItem("bottoms")
 <<<<<<< HEAD
+<<<<<<< HEAD
 				const accs = localStorage.getItem("accs")
 	    	const management = localStorage.getItem("management")
 				const searchProducts = localStorage.getItem("searchProducts")
 				const searchUsers = localStorage.getItem("searchUsers")
 	    	commit('page',{products: products, tops: tops, bottoms: bottoms, accs: accs, management:management, searchProducts: searchProducts,searchUsers:searchUsers})
+=======
+	    	const accs = localStorage.getItem("accs")
+	    	const searchProducts = localStorage.getItem("searchProducts")
+	    	commit('page',{products: products, tops: tops, bottoms: bottoms, accs: accs, searchProducts: searchProducts})
+>>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 =======
 	    	const accs = localStorage.getItem("accs")
 	    	const searchProducts = localStorage.getItem("searchProducts")
@@ -175,10 +190,13 @@ export const store = new Vuex.Store({
 					axios.get('/api/'+prodObj.key+'?page=' + (Number(state.current)) + '&search=' + prodObj.search)
 	        .then((response) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
 						if(response.data.result == 'fail') {
 		          alert('관리자가 아닙니다.')
 		          this.$router.push('/');
 		        } else {
+=======
+>>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 =======
 >>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 							state.product = response.data.products;
@@ -187,7 +205,10 @@ export const store = new Vuex.Store({
 							state.page = response.data.page;
 							state.productsNum = response.data.productsNum;
 <<<<<<< HEAD
+<<<<<<< HEAD
 						}
+=======
+>>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 =======
 >>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 	        })
@@ -200,9 +221,12 @@ export const store = new Vuex.Store({
 							state.page = response.data.page;
 							state.productsNum = response.data.productsNum;
 <<<<<<< HEAD
+<<<<<<< HEAD
 							return new Promise((resolve,reject)=>{
 								resolve();
 							})
+=======
+>>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 =======
 >>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 					})
