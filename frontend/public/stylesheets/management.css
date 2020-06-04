@@ -1,0 +1,147 @@
+*{
+  font-family: 'Noto Sans KR', sans-serif;
+}
+#management {
+  position: relative;
+  margin-top: 100px;
+  padding-bottom:300px;
+}
+.myModal p {
+  font-size:1.5rem;
+}
+.cboth {
+  clear: both;
+  *zoom:1;
+}
+.cboth:after {
+  content:'';
+  display:block;
+  clear:both;
+}
+.list {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 15px;
+  letter-spacing: -0.5px;
+}
+.table-top {
+  width: 1184px;
+  margin: 0 auto;
+  display: table;
+  height: 70px;
+  text-align:center;
+  background-color: #7e7e7e;
+  border: 1px solid #7e7e7e;
+  margin-top: 80px;
+}
+
+.table-top .list{
+  color: #fff;
+  font-weight: 400;
+}
+.table-list {
+  width: 1184px;
+  margin: 0 auto;
+  display: table;
+  height: 55px;
+  background-color: #fff;
+  border: 1px solid #dedede;
+}
+.table-list:hover,.table-top:hover {
+  cursor:pointer;
+}
+.table-list .list {
+  color: #555;
+  font-weight: 300;
+}
+.pl-10{
+  padding-left:10px;
+}
+.w190 {
+  width: 190px;
+  border-right: 1px solid #dedede;
+}
+.w430 {
+  width: 430px;
+  border-right: 1px solid #dedede;
+}
+.w150 {width: 150px;border-right: 1px solid #dedede;}
+.w50 {
+  width: 50px;
+  text-align:center;
+  border-right: 1px solid #dedede;
+}
+.paging {
+  position: absolute;
+  bottom: 250px;
+  width:100%;
+  text-align:center;
+  padding-top:40px;
+  height:40px;
+}
+ul{
+  text-align:left;
+  list-style:none;
+}
+
+.page-box {
+  float: left;
+}
+.pagination>.page-box>li>.active{
+  background-color: #efeaea;
+}
+.pagination>.page-box>li>a {
+  position: relative;
+  padding: 6px 12px;
+  margin-left: -1px;
+  line-height: 1.42857143;
+  color: #337ab7;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  display:inline;
+}
+.pagination>.page-box>li>.disabled {
+  cursor: not-allowed;
+}
+.searchbox {
+  float: right!important;
+  margin-top: -35px;
+}
+.searchbox .fas {
+  font-family: "Font Awesome 5 Free";
+}
+.searchbox .btn {
+  margin-bottom: 5px;
+}
+.searchbox .searchbar {
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+@media all and (max-width:767px) {
+  .paging {
+    position: static;
+    padding-top: 20vh;
+  }
+  .pagination>.page-box>li>a {
+    padding: 6px 8px;
+  }
+}
+@media all and (max-width: 765px) {
+.searchbox .searchbar{
+  font-size: 13px;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  }
+}

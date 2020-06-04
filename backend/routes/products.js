@@ -76,7 +76,7 @@ router.get('/', function(req,res){
 	              	res.json(sendObj);
 				}
 				});
-		});	
+		});
 	}
 });
 
@@ -110,7 +110,7 @@ router.get('/tops', function(req,res){
 	            res.json(sendObj);
 			}
 		});
-	});	
+	});
 });
 
 
@@ -142,7 +142,7 @@ router.get('/bottoms', function(req,res){
 	            res.json(sendObj);
 			}
 		});
-	});	
+	});
 });
 
 //INDEX Display a list of accs products
@@ -173,11 +173,11 @@ router.get('/accs', function(req,res){
 	            res.json(sendObj);
 			}
 		});
-	});	
+	});
 });
 
 //CREATE Add new products to DB
-router.post('/', upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detail', maxCount: 1}]), function(req,res){	
+router.post('/', upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detail', maxCount: 1}]), function(req,res){
 			var newProduct = new Product({
 					name: req.body.name,
 					price: req.body.price,
@@ -212,7 +212,7 @@ router.post('/', upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detail'
 							});
 						}
 					})
-					
+
 				}
 			});
 });
@@ -225,14 +225,14 @@ router.get('/:id', function(req,res){
 		}else{
 			res.json(foundProduct);
 		}
-	}); 
+	});
 });
 
 
 //EDIT Product ROUTE
 router.get("/:id/edit" ,function(req,res){
 	Product.findById(req.params.id, function(err, foundProduct) {
-		res.json(foundProduct);		
+		res.json(foundProduct);
 	});
 });
 
@@ -292,7 +292,7 @@ router.put("/:id", upload.fields([{name: 'thumbnail', maxCount: 1},{name: 'detai
 						});
 					}
 				})
-				
+
 			}
 	});
 });
@@ -340,15 +340,15 @@ router.post("/:id/like", function(req,res){
 		}
 		var foundLikeUser = foundProduct.likes.some(function(like) {
 				return like.equals(req.body.userid);
-			
+
 		});
 		if(foundLikeUser) {
 			//already likded, removing like
 			foundProduct.likes.pull(req.body.userid);
-		}else { 
+		}else {
 			foundProduct.likes.push(req.body.userid);
 		}
-		
+
 		foundProduct.save(function(err) {
 			if(err) {
 				console.log(err);

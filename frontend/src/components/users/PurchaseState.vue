@@ -3,7 +3,7 @@
       <h5>PurchaseState</h5>
       <hr>
       <div class="purchaseProducts">
-        <div v-for="purchase in purchaseState">
+        <div v-for="(purchase,idx) in nowpurchaseState" :key="idx">
           <div class="purchasebox">
             <img v-bind:src="purchase.thumbnail" alt="소비자 구매 품목">
             <div class="text">
@@ -17,7 +17,7 @@
                 <span v-if="purchase.XLItems > 0">XL: {{purchase.XLItems}}</span>
                 <span v-if="purchase.FreeItems > 0">Free: {{purchase.FreeItems}}</span></p>
               <p>금액: {{purchase.purchasePrice}}</p>
-              <button @click="deleteProduct(purchase._id)" class="btn btn-default">삭제</button>
+              <button @click="deleteProduct(purchase._id,idx)" class="btn btn-default">삭제</button>
             </div>
             <hr>
           </div>
@@ -33,8 +33,13 @@ export default {
       purchaseState:[]
     }
   },
+  computed: {
+    nowpurchaseState() {
+      return this.purchaseState;
+    }
+  },
   methods: {
-    deleteProduct(purchaseStateId) {
+    deleteProduct(purchaseStateId,idx) {
       var RandVal = Math.floor(Math.random()*(1000-1+1)) + 1;
       if(confirm('정말 삭제하시겠습니까?(배송을 완료하였습니까?)') == true) {
         this.$http.delete('/api/login/' + this.$route.params.id +'/purchaseState/' + purchaseStateId)
@@ -43,7 +48,7 @@ export default {
             alert('다시 시도해주십시오.');
           } else if(response.data.result == 'success') {
             alert('삭제 성공했습니다.');
-            this.$router.push({name:'purchaseState',query:{num:RandVal}});
+            this.purchaseState.splice(idx,1);
           }
         })
       }

@@ -190,7 +190,7 @@ router.post("/:id/basket", function(req,res){
 		if(foundBasketUser) {
 			//already have, removing product
 			foundUser.basket.pull(req.params.id);
-		}else { 
+		}else {
 			foundUser.basket.push(req.params.id);
 		}
 		foundUser.save(function(err) {
@@ -256,12 +256,12 @@ router.post("/:id/purchaseState", function(req, res) {
 					res.json({result: 'fail'})
 				} else {
 					foundUser.purchaseState.push(newpurchaseProduct._id);
-					foundUser.save();	
+					foundUser.save();
 					res.json({result:'success'});
 				}
 			})
 		}
-		
+
 	})
 })
 
@@ -275,7 +275,7 @@ router.delete('/:id/purchaseState/:productid', function(req, res) {
 				if(foundUser.purchaseState[i]._id == req.params.productid) {
 					foundUser.purchaseState.splice(i,1);
 					foundUser.save();
-				} 
+				}
 			}
 			res.json({result:'success'});
 		}
@@ -331,7 +331,7 @@ router.delete("/:id/myPage/comments", function(req, res) {
 						j -= 1;
 					}
 				}
-				docs[i].save();	
+				docs[i].save();
 			}
 			res.json({result: 'success'});
 		}
@@ -350,7 +350,7 @@ router.delete("/:id/myPage" ,function(req,res){
 						j -= 1;
 					}
 				}
-				docs[i].save();	
+				docs[i].save();
 			}
 			for(var i=0; i<docs.length; i ++) {
 				for(var j=0; j<docs[i].likes.length; j++) {
@@ -371,5 +371,91 @@ router.delete("/:id/myPage" ,function(req,res){
 		}
 	})
 });
+// router.get("/:id/management", function(req, res) {
+// 	if(req.params.id != process.env.ADMIN) {
+// 		res.json({result: 'fail'})
+// 	} else {
+// 		User.find().exec(function(err, foundUser) {
+// 			let userData = foundUser;
+// 			for(let [idx,user] of userData.entries()) {
+// 				if(user._id==process.env.ADMIN) {
+// 					userData.splice(idx,1);
+// 				}
+// 				if(user.orders)user.orders=undefined;
+// 				if(user.basket)user.basket=undefined;
+// 				if(user.purchaseState)user.purchaseState=undefined;
+// 			}
+// 			res.json(userData);
+// 		});
+// 	}
+// })
 
+router.get("/:id/management", function(req, res) {
+	let sendObj = {};
+	let perPage =20;
+	let allUsersNum = null;
+	let pageQuery = parseInt(req.query.page);
+	let pageNum = pageQuery ? pageQuery : 1;
+
+	if(req.params.id != process.env.ADMIN) {
+		res.json({result: 'fail'})
+	} else {
+		if(req.query.search) {
+			const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+			User.find({username: regex}).sort({date:-1}).skip((pageNum*perPage)-perPage).limit(perPage).exec(function(err, searchUsers){
+	           	User.count({username: regex}).exec(function(err, count) {
+		           if(err){
+		               console.log(err);
+		           } else {
+		              if(searchUsers.length < 1) {
+		                res.json({noMatch: '검색내용과 일치하는 상품이 없습니다.'});
+		              } else {
+										let userData = searchUsers;
+										for(let [idx,user] of userData.entries()) {
+											if(user._id==process.env.ADMIN) {
+												userData.splice(idx,1);
+											}
+											if(user.orders)user.orders=undefined;
+											if(user.basket)user.basket=undefined;
+											if(user.purchaseState)user.purchaseState=undefined;
+										}
+		              	sendObj.current = pageNum;
+		              	sendObj.pages = Math.ceil(count/perPage);
+		              	sendObj.page = 'users';
+		           			sendObj.users = userData;
+		              	res.json(sendObj);
+		              }
+		           }
+	        	});
+	      	});
+		} else {
+			User.find({}).sort({date:-1}).skip((pageNum*perPage)-perPage).limit(perPage).exec(function(err, allUsers){
+				User.count().exec(function(err, count) {
+					if(err){
+						console.log(err);
+					}else{
+						let userData = allUsers;
+						for(let [idx,user] of userData.entries()) {
+							if(user._id==process.env.ADMIN) {
+								userData.splice(idx,1);
+							}
+							if(user.orders)user.orders=undefined;
+							if(user.basket)user.basket=undefined;
+							if(user.purchaseState)user.purchaseState=undefined;
+						}
+						sendObj.current = pageNum;
+		        sendObj.pages = Math.ceil(count/perPage);
+		        sendObj.page = 'users';
+		        sendObj.users = userData;
+		        res.json(sendObj);
+					}
+					});
+			});
+		}
+	}
+})
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 module.exports = router;

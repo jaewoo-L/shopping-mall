@@ -10,6 +10,7 @@
         <p><strong>상세주소: </strong>{{myInfo.detailAddress}}</p>
         <p><strong>핸드폰:</strong> {{myInfo.phone_first}}-{{myInfo.phone_middle}}-{{myInfo.phone_last}}</p>
       </div>
+      <button v-if="auth && isAdmin" @click="management" class="btn btn-default editUser">회원관리</button>
       <button @click="editUser" class="btn btn-default editUser">개인정보 변경</button>
       <button @click="deleteComments" class="btn btn-default deleteComments">작성 댓글 모두 삭제</button>
       <button @click="deleteUser" class="btn btn-default deleteUser">회원탈퇴</button>
@@ -24,7 +25,18 @@ export default {
       myInfo: {}
     }
   },
+  computed: {
+    auth(){
+      return this.$store.getters.isAuthenticated;
+    },
+    isAdmin() {
+      return this.$store.getters.isAdmin;
+    }
+  },
   methods: {
+    management() {
+      this.$router.push('/management');
+    },
     editUser() {
       this.$router.push('/' + this.$route.params.id + '/myPage/edit')
     },
@@ -41,7 +53,7 @@ export default {
         .catch(error => {
           alert(error)
         })
-      }  
+      }
     },
     deleteUser() {
       if(confirm('정말 탈퇴 하시겠습니까?') == true) {
@@ -58,7 +70,7 @@ export default {
         .catch(error => {
           alert(error)
         })
-      }  
+      }
     }
   },
   created() {

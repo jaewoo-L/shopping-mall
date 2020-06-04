@@ -20,6 +20,7 @@ import Orders from './components/users/OrdersPage'
 import PurchaseState from './components/users/PurchaseState'
 import MyPage from './components/users/MyPage'
 import EditUser from './components/users/EditUserPage'
+import Management from './components/users/Management'
 import NewComments from './components/comments/NewPage'
 import EditComments from './components/comments/EditPage'
 import {store} from './store/store'
@@ -71,7 +72,7 @@ export default new Router({
        default: Bottoms
       },
     },
-    //Accs Products 
+    //Accs Products
     {
       path: '/products/accs',
       name: 'accs',
@@ -80,7 +81,7 @@ export default new Router({
        'footer': Footer,
        default: Accs
       },
-    },  
+    },
 
     //Create New Product
     {
@@ -112,7 +113,7 @@ export default new Router({
         default: EditProduct
       }
     },
-    
+
     //Login
     {
       path: '/login',
@@ -121,7 +122,7 @@ export default new Router({
         'header': Header,
         default: Login
       }
-  
+
     },
     //Logout
     {
@@ -131,7 +132,7 @@ export default new Router({
         'header': Header,
         default: Logout
       }
-  
+
     },
     //Sign Up
     {
@@ -141,7 +142,7 @@ export default new Router({
         'header': Header,
         default: SignUp
       }
-  
+
     },
     //forgot page
     {
@@ -151,7 +152,7 @@ export default new Router({
         'header': Header,
         default: Forgot
       }
-  
+
     },
     //reset page
     {
@@ -161,10 +162,10 @@ export default new Router({
         'header': Header,
         default: Reset
       }
-      
-  
+
+
     },
-    
+
     //shopping Basket
     {
       path: '/:id/basket',
@@ -173,7 +174,17 @@ export default new Router({
         'header': Header,
         'footer': Footer,
         default: Basket
-      }  
+      }
+    },
+    //Management
+    {
+      path:'/management',
+      name:'management',
+      components: {
+        'header':Header,
+        'footer':Footer,
+        default:Management
+      }
     },
     //Order Inquiry
     {

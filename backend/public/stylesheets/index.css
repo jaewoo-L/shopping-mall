@@ -1,4 +1,6 @@
-
+  *{
+    font-family: 'Noto Sans KR', sans-serif;
+  }
   #main{
     margin:0;
     padding:0;
@@ -78,8 +80,8 @@
       background-size: contain;
     }
   }
-  @media all 
-  and (min-device-width : 768px) 
+  @media all
+  and (min-device-width : 768px)
   and (max-device-width : 1024px)
   and (-webkit-min-device-pixel-ratio: 1) {
     .thumbnail {

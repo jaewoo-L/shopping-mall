@@ -1,11 +1,11 @@
 <template>
    <div class="container" id="products">
         <h5> 찜목록 ({{products.length}}) </h5>
-        <hr>  
-     
-        <div v-for="product in products" class="col-sm-4 col-md-3 product" >
+        <hr>
+
+        <div v-for="(product,idx) in nowProducts" :key="idx" class="col-sm-4 col-md-3 product" >
           <div class="thumbnail basketPage" >
-            <a :href="'/products/' + product._id" v-bind:style="{ 'background-image': 'url(' + product.thumbnail + ')' }"> 
+            <a :href="'/products/' + product._id" v-bind:style="{ 'background-image': 'url(' + product.thumbnail + ')' }">
                 <img v-bind:src="product.thumbnail" alt="찜 목록 상품">
                 <div class="overlay">
                   <div class="caption">
@@ -25,6 +25,11 @@ export default {
   data: function () {
     return {
       products: []
+    }
+  },
+  computed:{
+    nowProducts() {
+      return this.products;
     }
   },
   created() {
