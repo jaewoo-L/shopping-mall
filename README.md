@@ -29,9 +29,11 @@ Following items are core backend technologies used in this project:
 ![모달](https://user-images.githubusercontent.com/55423807/83841022-f2b34c80-a73a-11ea-9473-a359596cfa2b.PNG)
 
 ### 구매 List
+- 회원들의 주문목록을 확인하고 처리합니다.
 ![주문목록](https://user-images.githubusercontent.com/55423807/83841016-ef1fc580-a73a-11ea-9524-3569e76ba000.PNG)
 
 ### 제품등록 
+- 관리자와 사용자를 구분하여 나타납니다.
 ![Inked제품등록_LI](https://user-images.githubusercontent.com/55423807/83841737-673abb00-a73c-11ea-8406-d03aa0debf10.jpg)
 
 ### 수정,삭제
