@@ -15,3 +15,6 @@ Following items are core backend technologies used in this project:
 - Node.js
 - Express
 - MongooseDB
+
+
+![Inked회원관리_내림_LI](https://user-images.githubusercontent.com/55423807/83840955-c7306200-a73a-11ea-9f2f-867f96897876.jpg)
