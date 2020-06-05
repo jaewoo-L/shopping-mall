@@ -20,14 +20,6 @@ export const store = new Vuex.Store({
   	bottoms: null,
     accs: null,
     searchProducts: null,
-<<<<<<< HEAD
-<<<<<<< HEAD
-		searchUsers:null,
-		management:null,
-=======
->>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
-=======
->>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 		noMatch:null,
 		product:null,
 		current:null,
@@ -68,18 +60,12 @@ export const store = new Vuex.Store({
 		searchProducts: state => {
 			return state.searchProducts;
 		},
-<<<<<<< HEAD
-<<<<<<< HEAD
 		searchUsers: state => {
 			return state.searchUsers;
 		},
 		management: state => {
 			return state.management;
 		},
-=======
->>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
-=======
->>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 		list: state => {
 			return {
 							productsNum:state.productsNum,
@@ -120,18 +106,12 @@ export const store = new Vuex.Store({
   			state.products = page.products
   			state.tops = page.tops
   			state.bottoms = page.bottoms
-<<<<<<< HEAD
-<<<<<<< HEAD
 				state.accs = page.accs
   			state.management = page.management
 				state.searchProducts = page.searchProducts
   			state.searchUsers = page.searchUsers
-=======
-=======
->>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
   			state.accs = page.accs
   			state.searchProducts = page.searchProducts
->>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
   		}
 	},
 
@@ -157,23 +137,11 @@ export const store = new Vuex.Store({
 	    	const products = localStorage.getItem("products")
 	    	const tops = localStorage.getItem("tops")
 	    	const bottoms = localStorage.getItem("bottoms")
-<<<<<<< HEAD
-<<<<<<< HEAD
 				const accs = localStorage.getItem("accs")
 	    	const management = localStorage.getItem("management")
 				const searchProducts = localStorage.getItem("searchProducts")
 				const searchUsers = localStorage.getItem("searchUsers")
 	    	commit('page',{products: products, tops: tops, bottoms: bottoms, accs: accs, management:management, searchProducts: searchProducts,searchUsers:searchUsers})
-=======
-	    	const accs = localStorage.getItem("accs")
-	    	const searchProducts = localStorage.getItem("searchProducts")
-	    	commit('page',{products: products, tops: tops, bottoms: bottoms, accs: accs, searchProducts: searchProducts})
->>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
-=======
-	    	const accs = localStorage.getItem("accs")
-	    	const searchProducts = localStorage.getItem("searchProducts")
-	    	commit('page',{products: products, tops: tops, bottoms: bottoms, accs: accs, searchProducts: searchProducts})
->>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 	    },
 	    searchDelete({state}) {
 				state.searchProducts = null
@@ -189,28 +157,16 @@ export const store = new Vuex.Store({
 				if(prodObj.search){
 					axios.get('/api/'+prodObj.key+'?page=' + (Number(state.current)) + '&search=' + prodObj.search)
 	        .then((response) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
 						if(response.data.result == 'fail') {
 		          alert('관리자가 아닙니다.')
 		          this.$router.push('/');
 		        } else {
-=======
->>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
-=======
->>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 							state.product = response.data.products;
 							state.current = response.data.current;
 							state.pages = response.data.pages;
 							state.page = response.data.page;
 							state.productsNum = response.data.productsNum;
-<<<<<<< HEAD
-<<<<<<< HEAD
 						}
-=======
->>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
-=======
->>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 	        })
 				} else {
 					axios.get('/api/'+prodObj.key+'?page=' + (Number(state.current)))
@@ -220,15 +176,9 @@ export const store = new Vuex.Store({
 							state.pages = response.data.pages;
 							state.page = response.data.page;
 							state.productsNum = response.data.productsNum;
-<<<<<<< HEAD
-<<<<<<< HEAD
 							return new Promise((resolve,reject)=>{
 								resolve();
 							})
-=======
->>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
-=======
->>>>>>> 19699c4f20baa1989577d9047093cb68a6d3772c
 					})
 				}
 			},
@@ -389,6 +339,7 @@ export const store = new Vuex.Store({
 	                state.postcode = data.zonecode;
 	                state.roadAddress = roadAddr;
 	                state.jibunAddress = data.jibunAddress;
+									if(data.jibunAddress=='') state.jibunAddress = roadAddr;
 
 	                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
 	                if(roadAddr !== ''){

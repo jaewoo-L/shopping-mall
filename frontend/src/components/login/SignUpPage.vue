@@ -5,35 +5,35 @@
         <div class="text-box" :class="{invalid: $v.username.$error}">
           <label for="username">ID : </label>
           <input
-                    @blur="$v.username.$touch()" 
-                    v-model="username" 
+                    @blur="$v.username.$touch()"
+                    v-model="username"
                     id="username"
-                    name="username" 
+                    name="username"
                     placeholder="E-mail"> <button class="doubleCheck" @click="doubleCheck" >중복확인</button>
           <p v-if="$v.username.$error">E-mail 형식을 확인하세요.</p>
         </div>
 
         <div class="text-box" :class="{invalid: $v.password.$error}">
           <label for="password">비밀번호 : </label>
-          <input 
+          <input
                           id="password"
-                          name="password" 
+                          name="password"
                           type="password"
-                          @blur="$v.password.$touch()" 
-                          v-model="password" 
+                          @blur="$v.password.$touch()"
+                          v-model="password"
                           maxlength="15"
-                          placeholder="Password"> 
-          <p v-if="$v.password.$error">최소 6자 이상 최대 15자 이하로 작성하세요.</p>                    
-        </div>                
+                          placeholder="Password">
+          <p v-if="$v.password.$error">최소 6자 이상 최대 15자 이하로 작성하세요.</p>
+        </div>
 
         <div class="text-box" :class="{invalid: $v.confirmPassword.$error}">
           <label for="confirm-password">비밀번호확인 : </label>
-          <input 
+          <input
                               id="confirm-password"
-                              name="confirmPassword" 
-                              type="password"  
-                              @blur="$v.confirmPassword.$touch()" 
-                              v-model="confirmPassword" 
+                              name="confirmPassword"
+                              type="password"
+                              @blur="$v.confirmPassword.$touch()"
+                              v-model="confirmPassword"
                               maxlength="15"
                               placeholder="ConfirmPassword">
           <p v-if="$v.confirmPassword.$error">패스워드가 일치하지 않습니다.</p>
@@ -42,30 +42,30 @@
         <div class="text-box" :class="{invalid: $v.nickname.$error}">
           <label for="nickname">닉네임 : </label>
           <input
-                    @blur="$v.nickname.$touch()" 
-                    v-model="nickname" 
+                    @blur="$v.nickname.$touch()"
+                    v-model="nickname"
                     id="nickname"
-                    name="nickname" 
+                    name="nickname"
                     placeholder="nickName">
           <p v-if="$v.nickname.$error">닉네임을 입력하세요</p>
         </div>
 
         <div class="text-box">
           <label for="lastName">성 : </label>
-          <input 
-                    v-model="lastName" 
+          <input
+                    v-model="lastName"
                     id="lastName"
-                    name="lastName" 
-                    placeholder="성(性)">
+                    name="lastName"
+                    placeholder="lastName">
         </div>
 
         <div class="text-box">
           <label for="firstName">이름 : </label>
-          <input 
-                    v-model="firstName" 
+          <input
+                    v-model="firstName"
                     id="firstName"
-                    name="firstName" 
-                    placeholder="이름">
+                    name="firstName"
+                    placeholder="firstName">
         </div>
 
         <div class="text-box">
@@ -79,22 +79,22 @@
                       type="radio"
                       id="female"
                       value="여자"
-                      v-model="gender"> Female  
+                      v-model="gender"> Female
         </div>
 
         <div class="text-box" :class="{invalid: $v.age.$error}">
           <label for="age">나이 : </label>
-          <input 
+          <input
                     @input="$v.age.$touch()"
-                    v-model.number="age" 
+                    v-model.number="age"
                     id="age"
-                    name="age" 
+                    name="age"
                     maxlength="2"
                     placeholder="20">
-          <p v-if="$v.age.$error">숫자를 입력하세요.</p>             
+          <p v-if="$v.age.$error">숫자를 입력하세요.</p>
         </div>
 
-        
+
         <div class="text-box">
           <label for="postcode">주소 : </label>
           <input type="text" id="postcode" class="post-num" placeholder="우편번호">
@@ -109,39 +109,39 @@
         </div>
           <span id="guide" style="color:#999;display:none"></span>
         <div class="text-box">
-          <input 
+          <input
                   @input="$v.detailAddress.$touch()"
                   v-model="detailAddress"
-                  type="text" 
+                  type="text"
                   class="addressFinder"
-                  id="detailAddress" 
+                  id="detailAddress"
                   placeholder="상세주소">
         </div>
         <div class="text-box">
           <input type="text" class="addressFinder" id="extraAddress" placeholder="참고항목">
         </div>
-       
+
 
         <div class="text-box">
           <label>핸드폰 : </label>
           <input
-                        @input="$v.phone_first.$touch()" 
-                        v-model="phone_first" 
+                        @input="$v.phone_first.$touch()"
+                        v-model="phone_first"
                         name="phone_first"
                         maxlength="3"
-                        class="phone" 
+                        class="phone"
                         placeholder="010"> - <input
-                                                  @input="$v.phone_middle.$touch()" 
-                                                  v-model="phone_middle" 
-                                                  name="phone_middle" 
+                                                  @input="$v.phone_middle.$touch()"
+                                                  v-model="phone_middle"
+                                                  name="phone_middle"
                                                   maxlength="4"
                                                   class="phone"
                                                   placeholder="3333"> - <input
-                                                                              @input="$v.phone_last.$touch()" 
-                                                                              v-model="phone_last" 
+                                                                              @input="$v.phone_last.$touch()"
+                                                                              v-model="phone_last"
                                                                               name="phone_last"
                                                                               maxlength="4"
-                                                                              class="phone" 
+                                                                              class="phone"
                                                                               placeholder="8888">
         </div>
 
@@ -149,7 +149,7 @@
               <button class="btn" @click="signUp" :disabled="$v.$invalid">회원가입</button>
         </div>
     </div>
-    
+
   </div>
 </template>
 
@@ -178,7 +178,7 @@ export default {
   methods: {
     signUp: function (event) {
       if(this.doubleCheckVariable){
-          this.$http.post('/api/login/signUp', { 
+          this.$http.post('/api/login/signUp', {
             username: this.username,
             password: this.password,
             nickname: this.nickname,
@@ -210,7 +210,7 @@ export default {
       } else {
           alert('E-mail 중복확인이 필요합니다.');
       }
-      
+
     },
 
     doubleCheck: function() {
@@ -279,5 +279,5 @@ export default {
 </script>
 
 <style src="../../../public/stylesheets/login.css">
-  
+
 </style>
