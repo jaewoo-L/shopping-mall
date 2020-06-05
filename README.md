@@ -26,6 +26,8 @@ Following items are core backend technologies used in this project:
 ![회원검색](https://user-images.githubusercontent.com/55423807/83841024-f3e47980-a73a-11ea-8c8d-ab29c5ea55e2.PNG)
 
 - 회원리스트를 클릭하여 상세 정보를 확인 할 수 있습니다.  
+
+
 ![모달](https://user-images.githubusercontent.com/55423807/83841022-f2b34c80-a73a-11ea-9473-a359596cfa2b.PNG)
 
 ### 구매 List
