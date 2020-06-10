@@ -2,11 +2,19 @@
    <div id="purchaseState" class="container">
       <h5>PurchaseState</h5>
       <hr>
+      <button type="button" name="button" @click="lookUp(1,'months')">1개월</button>
+      <button type="button" name="button" @click="lookUp(3,'months')">3개월</button>
+      <button type="button" name="button" @click="lookUp(6,'months')">6개월</button>
+      <select name="year" @change="selectLookUp($event)">
+  	    <option value="">년도선택</option>
+        <option v-for="year in yearArr" :value="year">{{year}}</option>
+  	   </select>
       <div class="purchaseProducts">
         <div v-for="(purchase,idx) in nowpurchaseState" :key="idx">
           <div class="purchasebox">
             <img v-bind:src="purchase.thumbnail" alt="소비자 구매 품목">
             <div class="text">
+              <button type="button" name="button" @click="delivery(purchase.purchaseCode,purchase.delivery)">{{purchase.delivery}}</button>
               <p>제품명: {{purchase.productName}}</p>
               <p>주문자: {{purchase.username}}</p>
               <p>주소: {{purchase.roadAddress}}({{purchase.postcode}})</p>
@@ -17,6 +25,9 @@
                 <span v-if="purchase.XLItems > 0">XL: {{purchase.XLItems}}</span>
                 <span v-if="purchase.FreeItems > 0">Free: {{purchase.FreeItems}}</span></p>
               <p>금액: {{purchase.purchasePrice}}</p>
+              <p>구매날짜 :{{purchase.purchaseDate}}</p>
+              <p>주문번호:{{purchase.purchaseCode}}</p>
+
               <button @click="deleteProduct(purchase._id,idx)" class="btn btn-default">삭제</button>
             </div>
             <hr>
@@ -30,7 +41,8 @@
 export default {
   data: function () {
     return {
-      purchaseState:[]
+      purchaseState:[],
+      yearArr:[2020,2019,2018]
     }
   },
   computed: {
@@ -39,6 +51,38 @@ export default {
     }
   },
   methods: {
+    delivery(code,state){
+      let idx = this.purchaseState.findIndex(i=>i.purchaseCode==code);
+      let text;
+      if(this.purchaseState[idx].delivery=="배송 완료") {
+        alert('배송을 이미 완료했습니다.');
+        return;
+      }
+      if(this.purchaseState[idx].delivery=="배송 준비중") {
+        text="배송을 시작 하시겠습니까?"
+      }
+      if(this.purchaseState[idx].delivery=="배송중") {
+        text="배송을 완료 하시겠습니까?"
+      }
+      if(confirm(text) == true) {
+        this.$http.post('/api/login/'+ this.$store.getters.token + '/purchaseState/delivery', {purchaseCode:code, state:state})
+        .then((response)=> {
+          this.purchaseState[idx].delivery = response.data;
+        })
+      }
+    },
+    selectLookUp(event) {
+      this.$http.post('/api/login/'+ this.$store.getters.token + '/purchaseState/lookUp',{year:event.target.value, type:'years'})
+      .then((response)=> {
+        this.purchaseState = response.data;
+      })
+    },
+    lookUp(num,type) {
+      this.$http.post('/api/login/'+ this.$store.getters.token + '/purchaseState/lookUp',{num:num, type:type})
+      .then((response)=> {
+        this.purchaseState = response.data;
+      })
+    },
     deleteProduct(purchaseStateId,idx) {
       var RandVal = Math.floor(Math.random()*(1000-1+1)) + 1;
       if(confirm('정말 삭제하시겠습니까?(배송을 완료하였습니까?)') == true) {

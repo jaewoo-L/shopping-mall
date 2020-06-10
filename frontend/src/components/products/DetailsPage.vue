@@ -14,7 +14,7 @@
         <div class="comments">
             <div v-for="comment in product.comments">
               <strong>{{comment.author.nickname}}</strong>
-              <p>{{comment.text}}</p>       
+              <p>{{comment.text}}</p>
                 <button v-if="comment.author.id == token" @click="editComment(comment)" class="btn btn-default">수정</button>
                 <button v-if="comment.author.id == token || isAdmin" @click="deleteComment(comment)" class="btn btn-default">삭제</button>
             </div>
@@ -29,21 +29,21 @@
         <button v-if="LItemsNum > 0" class="size" @click="salesBar(L)">L</button>
         <button v-if="XLItemsNum > 0" class="size" @click="salesBar(XL)">XL</button>
         <button v-if="FreeItemsNum > 0" class="size" @click="salesBar(Free)">Free</button>
-        <p class="sale" v-if="SSaleTrue">S구매 수량 : {{mySItemsNum}}  
+        <p class="sale" v-if="SSaleTrue">S구매 수량 : {{mySItemsNum}}
         <button @click="upItemsNum(S)" class="num">Up</button>
         <button @click="downItemsNum(S)" class="num">Down</button></p>
-        <p class="sale" v-if="MSaleTrue">M구매 수량 : {{myMItemsNum}}  
+        <p class="sale" v-if="MSaleTrue">M구매 수량 : {{myMItemsNum}}
         <button @click="upItemsNum(M)" class="num">Up</button>
         <button @click="downItemsNum(M)" class="num">Down</button></p>
 
-        <p class="sale" v-if="LSaleTrue">L구매 수량 : {{myLItemsNum}}  
+        <p class="sale" v-if="LSaleTrue">L구매 수량 : {{myLItemsNum}}
         <button @click="upItemsNum(L)" class="num">Up</button>
         <button @click="downItemsNum(L)" class="num">Down</button></p>
-        <p class="sale" v-if="XLSaleTrue">XL구매 수량 : {{myXLItemsNum}}  
+        <p class="sale" v-if="XLSaleTrue">XL구매 수량 : {{myXLItemsNum}}
         <button @click="upItemsNum(XL)" class="num">Up</button>
         <button @click="downItemsNum(XL)" class="num">Down</button></p>
 
-        <p class="sale" v-if="FreeSaleTrue">Free구매 수량 : {{myFreeItemsNum}}  
+        <p class="sale" v-if="FreeSaleTrue">Free구매 수량 : {{myFreeItemsNum}}
         <button @click="upItemsNum(Free)" class="num">Up</button>
         <button @click="downItemsNum(Free)" class="num">Down</button></p>
 
@@ -52,8 +52,9 @@
         <button @click="likeProduct" class="like" :class="{likeBtn: likeTrue}">like({{likes.length}})</button>
         <button @click="basketProduct" class="basket" :class="{likeBtn: basketTrue}">찜하기</button>
         <button @click="buy" class="buy">구매하기</button>
+        <button @click="practice" class="buy">연습</button>
       </div>
-    </div> 
+    </div>
   </div>
 </template>
 
@@ -87,7 +88,7 @@ export default {
         return (Number(this.product.price) * (this.mySItemsNum + this.myMItemsNum + this.myLItemsNum + this.myXLItemsNum + this.myFreeItemsNum)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       },
       beforeBuy() {
-        let select = this.mySItemsNum != 0 || this.myMItemsNum != 0 || this.myLItemsNum != 0 || this.myXLItemsNum != 0 || this.myFreeItemsNum != 0 ? true : false; 
+        let select = this.mySItemsNum != 0 || this.myMItemsNum != 0 || this.myLItemsNum != 0 || this.myXLItemsNum != 0 || this.myFreeItemsNum != 0 ? true : false;
         return select;
       },
       isDisabled() {
@@ -139,7 +140,7 @@ export default {
                }
             }
             alert("찜목록에서 삭제합니다.");
-            this.basketTrue = false; 
+            this.basketTrue = false;
           })
         }
       },
@@ -164,6 +165,10 @@ export default {
         .catch(error => {
           alert(error)
         })
+      },
+      practice(){
+        this.$http.post('/api/login/' + this.$route.params.id + '/ordersp', {userid: this.$store.getters.token})
+        .then((response)=> {console.log(response.data)})
       },
       buy() {
         if(!this.token) {
@@ -194,6 +199,9 @@ export default {
                 LItems:this.myLItemsNum,
                 XLItems:this.myXLItemsNum,
                 FreeItems:this.myFreeItemsNum,
+                purchaseDate: response.data.date,
+                purchaseCode: response.data.orderCode,
+                delivery: response.data.delivery
               })
               .then((response) => {
                 this.$http.put('/api/products/' + this.$route.params.id + '/buy', {
@@ -209,11 +217,11 @@ export default {
                 })
                 .catch(error => {
                     alert(error);
-                }) 
+                })
               })
             });
-          } 
-        }       
+          }
+        }
       },
       upItemsNum(size) {
       if(size == 's') {
@@ -251,7 +259,7 @@ export default {
           alert('최대 수량을 초과하였습니다.')
         }
       }
-      
+
     },
     downItemsNum(size) {
       if(size == 's') {
@@ -289,7 +297,7 @@ export default {
           alert('최소 수량입니다.')
         }
       }
-      
+
     },
     salesBar(size) {
       if(size == 's') {
@@ -323,7 +331,7 @@ export default {
         }
       }
     }
-    }, 
+    },
     mounted() {
       $(function(){
         $.salesPosition = function() {

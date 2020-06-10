@@ -20,9 +20,16 @@ var userSchema  = new mongoose.Schema({
 	resetPasswordToken: String,
 	resetPasswordExpires: Date,
 	orders: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "Product"
-	}],
+		product:{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Product"
+		},
+		orderCode:String,
+		delivery:String,
+		date: {
+		    type: String
+		}
+}],
 	basket: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Product"

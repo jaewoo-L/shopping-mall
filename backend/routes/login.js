@@ -7,7 +7,10 @@ var passport = require('passport');
 const crypto = require('crypto');
 var async = require('async');
 var nodemailer = require('nodemailer');
+var moment = require('moment');
 require('dotenv').config();
+require('moment-timezone');
+moment.tz.setDefault("Asia/Seoul");
 
 router.get('/signUp', function(req, res) {
 	User.find().where('username').exec(function(err, foundUsername) {
@@ -203,19 +206,60 @@ router.post("/:id/basket", function(req,res){
 });
 
 router.get('/:id/orders', function(req, res) {
-	User.findById(req.params.id).where('orders').populate('orders').exec(function(err, foundUserOrders) {
+	User.findById(req.params.id).where('orders').populate('orders.product').exec(function(err, foundUserOrders) {
 		res.json(foundUserOrders);
 	});
 });
-
+router.post("/:id/orders/lookUp", function(req,res){
+	User.findById(req.params.id).where('orders').populate('orders.product').exec(function(err, foundUser) {
+		let data = moment();
+		let orderArray = [];
+		let orderTime;
+		let userOders = foundUser.orders;
+		for(let [idx,user] of userOders.entries()) {
+			//문자열을 다시 moment객체로 만들기.
+			orderTime = moment(user.date,'YYYY-MM-DD HH:mm:ss')
+			if(req.body.year) {
+				let year = moment(req.body.year,'YYYY')
+				if(year.diff(orderTime,req.body.type)==0) {
+					orderArray.push(user)
+				}
+			} else {
+				if(data.diff(orderTime,req.body.type)<=req.body.num) {
+					orderArray.push(user)
+				}
+			}
+		}
+		res.json(orderArray);
+	});
+});
+router.post("/:id/ordersp", function(req,res){
+	PurchaseState.find().where('purchaseCode').equals('7eCim3WUsC1FWOoGAPfa').exec(function(err, foundProduct) {
+		console.log(foundProduct);
+	})
+	// let randomCode = randomNum(20);
+	let randomCode = randomString(20);
+	let ob={};
+	ob.num=1;
+	res.json(randomCode);
+	console.log(randomCode);
+})
 router.post("/:id/orders", function(req,res){
 	User.findById(req.body.userid, function(err, foundUser) {
-		foundUser.orders.push(req.params.id);
+		let data = moment().format('YYYY-MM-DD HH:mm:ss');
+		let randomCode = randomString(20);
+		let ob={}
+		ob.product=req.params.id;
+		ob.date = data;
+		ob.delivery = '배송 준비중';
+		ob.orderCode = randomCode;
+		//delivery속성추가해서 저장하자 앞으로.
+		foundUser.orders.push(ob);
 		foundUser.save(function(err) {
 			if(err) {
 				coonsole.log(err);
 			}
-			res.json(foundUser.orders);
+			res.json(ob);
 		});
 	});
 });
@@ -240,6 +284,9 @@ router.post("/:id/purchaseState", function(req, res) {
 		purchasePrice:req.body.purchasePrice,
 		productName:req.body.productName,
 		thumbnail:req.body.thumbnail,
+		purchaseDate:req.body.purchaseDate,
+		purchaseCode: req.body.purchaseCode,
+		delivery: req.body.delivery,
 		SItems:req.body.SItems,
 		MItems:req.body.MItems,
 		LItems:req.body.LItems,
@@ -262,6 +309,60 @@ router.post("/:id/purchaseState", function(req, res) {
 			})
 		}
 
+	})
+})
+
+router.post("/:id/purchaseState/lookUp", function(req, res) {
+	User.findById(req.params.id).populate('purchaseState').exec(function(err, foundProducts) {
+		let data = moment();
+		let productArray = [];
+		let orderTime;
+		let purchaseState = foundProducts.purchaseState;
+		for(let [idx,product] of purchaseState.entries()) {
+			//문자열을 다시 moment객체로 만들기.
+			orderTime = moment(product.purchaseDate,'YYYY-MM-DD HH:mm:ss')
+			if(req.body.year) {
+				let year = moment(req.body.year,'YYYY')
+				if(year.diff(orderTime,req.body.type)==0) {
+					productArray.push(product)
+				}
+			} else {
+				if(data.diff(orderTime,req.body.type)<=req.body.num) {
+					productArray.push(product)
+				}
+			}
+		}
+		res.json(productArray);
+	})
+})
+
+router.post("/:id/purchaseState/delivery", function(req, res) {
+	let code = req.body.purchaseCode;
+	let state;
+	if(req.body.state =="배송 준비중")state="배송중";
+	else if(req.body.state =="배송중")state="배송 완료";
+
+	User.find().where('orders.orderCode').equals(code).populate('orders.product').exec(function(err, find) {
+		let findIdx=find[0].orders.findIndex(i=>i.orderCode==code);
+		find[0].orders[findIdx].delivery=state;
+		find[0].save(function(err) {
+			if(err) {
+				console.log(err);
+				res.json({result: 'fail'});
+			} else {
+				PurchaseState.find().where('purchaseCode').equals(code).exec(function(err, foundProduct) {
+					foundProduct[0].delivery=state;
+					foundProduct[0].save(function(err){
+						if(err){
+							console.log(err);
+							res.json({result:'fail'});
+						} else {
+							res.json(state)
+						}
+					})
+				})
+			}
+		})
 	})
 })
 
@@ -458,4 +559,14 @@ router.get("/:id/management", function(req, res) {
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
+function randomString(leng) {
+	let chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+	let string_length = leng;
+	let randomstring = '';
+	for (let i=0; i<string_length; i++) {
+	let rnum = Math.floor(Math.random() * chars.length);
+	randomstring += chars.substring(rnum,rnum+1);
+	}
+	return randomstring;
+}
 module.exports = router;
