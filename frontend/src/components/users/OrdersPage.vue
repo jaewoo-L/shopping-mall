@@ -1,30 +1,43 @@
 <template>
    <div class="container" id="products">
-        <h5> 구매품목 ({{orderArray.length}})</h5>
+        <h5> 배송조회 ({{orderArray.length}})</h5>
         <hr>
-        <button type="button" name="button" @click="lookUp(1,'months')">1개월</button>
-        <button type="button" name="button" @click="lookUp(3,'months')">3개월</button>
-        <button type="button" name="button" @click="lookUp(6,'months')">6개월</button>
-        <select name="year" @change="selectLookUp($event)">
-    	    <option value="">년도선택</option>
-    	    <option v-for="year in yearArr" :value="year">{{year}}</option>
-    	   </select>
-        <div v-for="order in orderArr" class="col-sm-4 col-md-3 product" >
-          <div class="thumbnail" >
-            <a :href="'/products/' + order.product._id" v-bind:style="{ 'background-image': 'url(' + order.product.thumbnail + ')' }">
-                <img v-bind:src="order.product.thumbnail" alt="구매 품목">
-                <div class="overlay">
-                  <div class="caption">
-                    <p>{{order.product.name}}</p>
-                    <p>{{order.product.brand}}</p>
-                    <p>{{order.product.price}}￦</p>
-                  </div>
-                </div>
-            </a>
+        <div class="lookUp">
+          <button type="button" name="button" @click="lookUp(1,'months')">1개월</button>
+          <button type="button" name="button" @click="lookUp(3,'months')">3개월</button>
+          <button type="button" name="button" @click="lookUp(6,'months')">6개월</button>
+          <select name="year" @change="selectLookUp($event)">
+      	    <option value="">년도선택</option>
+      	    <option v-for="year in yearArr" :value="year">{{year}}</option>
+      	  </select>
+        </div>
+        <div class="">
+          <div class="table-top">
+            <div class="list w190">주문일/구매번호</div>
+            <div class="list w430">상품정보</div>
+            <div class="list w150">상태</div>
           </div>
-          <p>{{order.date}}</p>
-          <p>배송:{{order.delivery}}</p>
-          <p>주문번호:{{order.orderCode}}</p>
+          <div v-for="order in orderArr" class="table-list product" >
+            <div class="list w190 txt-cn">
+              <p>{{order.date}}</p>
+              <p>({{order.orderCode}})</p>
+            </div>
+            <div class="list w430 rel" >
+              <a :href="'/products/' + order.product._id" v-bind:style="{ 'background-image': 'url(' + order.product.thumbnail + ')' }">
+                  <img v-bind:src="order.product.thumbnail" alt="구매 품목" class="size">
+              </a>
+                <div class="caption">
+                  <a :href="'/products/' + order.product._id" v-bind:style="{ 'background-image': 'url(' + order.product.thumbnail + ')' }">
+                    <p class="brand">{{order.product.brand}}</p>
+                    <p class="name">{{order.product.name}}</p>
+                    <p class="price">{{order.product.price}}￦</p>
+                  </a>
+                </div>
+            </div>
+            <div class="list w150 txt-cn">
+              <p>{{order.delivery}}</p>
+            </div>
+          </div>
         </div>
   </div>
 </template>

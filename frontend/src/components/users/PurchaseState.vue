@@ -1,36 +1,44 @@
 <template>
    <div id="purchaseState" class="container">
-      <h5>PurchaseState</h5>
+      <h5>주문현황</h5>
       <hr>
-      <button type="button" name="button" @click="lookUp(1,'months')">1개월</button>
-      <button type="button" name="button" @click="lookUp(3,'months')">3개월</button>
-      <button type="button" name="button" @click="lookUp(6,'months')">6개월</button>
-      <select name="year" @change="selectLookUp($event)">
-  	    <option value="">년도선택</option>
-        <option v-for="year in yearArr" :value="year">{{year}}</option>
-  	   </select>
+      <div class="lookUp">
+        <button type="button" name="button" @click="lookUp(1,'months')">1개월</button>
+        <button type="button" name="button" @click="lookUp(3,'months')">3개월</button>
+        <button type="button" name="button" @click="lookUp(6,'months')">6개월</button>
+        <select name="year" @change="selectLookUp($event)">
+    	    <option value="">년도선택</option>
+          <option v-for="year in yearArr" :value="year">{{year}}</option>
+    	  </select>
+      </div>
       <div class="purchaseProducts">
-        <div v-for="(purchase,idx) in nowpurchaseState" :key="idx">
-          <div class="purchasebox">
-            <img v-bind:src="purchase.thumbnail" alt="소비자 구매 품목">
-            <div class="text">
-              <button type="button" name="button" @click="delivery(purchase.purchaseCode,purchase.delivery)">{{purchase.delivery}}</button>
-              <p>제품명: {{purchase.productName}}</p>
-              <p>주문자: {{purchase.username}}</p>
-              <p>주소: {{purchase.roadAddress}}({{purchase.postcode}})</p>
-              <p>- {{purchase.detailAddress}}</p>
-              <p><span v-if="purchase.SItems > 0">S: {{purchase.SItems}}</span>
+        <div class="table-top">
+          <div class="list w190">주문일/구매번호</div>
+          <div class="list w430">주문정보</div>
+          <div class="list w150">상태</div>
+        </div>
+        <div v-for="(purchase,idx) in nowpurchaseState" :key="idx" class="table-list product">
+          <div class="list w190 txt-cn">
+            <p>{{purchase.purchaseDate}}</p>
+            <p>({{purchase.purchaseCode}})</p>
+          </div>
+          <div class="list w430 rel">
+            <img v-bind:src="purchase.thumbnail" class="size" alt="소비자 구매 품목">
+            <div class="caption">
+              <p class="brand">{{purchase.username}}</p>
+              <p class="brand">{{purchase.productName}}, <span v-if="purchase.SItems > 0">S: {{purchase.SItems}}</span>
                 <span v-if="purchase.MItems > 0">M: {{purchase.MItems}}</span>
                 <span v-if="purchase.LItems > 0">L: {{purchase.LItems}}</span>
                 <span v-if="purchase.XLItems > 0">XL: {{purchase.XLItems}}</span>
                 <span v-if="purchase.FreeItems > 0">Free: {{purchase.FreeItems}}</span></p>
-              <p>금액: {{purchase.purchasePrice}}</p>
-              <p>구매날짜 :{{purchase.purchaseDate}}</p>
-              <p>주문번호:{{purchase.purchaseCode}}</p>
-
-              <button @click="deleteProduct(purchase._id,idx)" class="btn btn-default">삭제</button>
+              <p class="name">{{purchase.roadAddress}}({{purchase.postcode}})</p>
+              <p class="name">{{purchase.detailAddress}}</p>
+              <p class="price">{{purchase.purchasePrice}}￦</p>
             </div>
-            <hr>
+          </div>
+          <div class="list w150 txt-cn">
+              <button type="button" name="button" class="btn btn-default w-50" @click="delivery(purchase.purchaseCode,purchase.delivery)">{{purchase.delivery}}</button><br><br>
+              <button @click="deleteProduct(purchase._id,idx)" class="btn btn-danger w-50">삭제</button>
           </div>
         </div>
       </div>

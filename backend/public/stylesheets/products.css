@@ -265,9 +265,63 @@
     right: 4vw;
     width: 342px;
   }
-
+  .lookUp button {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 5px 8px 5px 8px;
+  }
+  .lookUp button:focus {
+    outline:0;
+  }
+  .lookUp select {
+    display: inline-block;
+    float: right;
+    padding: 5px 8px 5px 8px;
+  }
+  .txt-cn {
+    text-align: center;
+  }
+  .rel {
+    position:relative;
+  }
+  .list .size {
+    width: 22%;
+    padding: 10px 0 10px 10px;
+  }
+  .list .caption {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0%,-50%);
+    width: 55%;
+  }
+  .list .caption .brand {
+    color: #999;
+    font-size: 12px;
+    line-height: 10px;
+  }
+  .list .caption .name {
+    max-height: 40px;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: left;
+    color: #666;
+    margin-right: 10px;
+  }
+  .list .caption .price {
+    padding-top:4px;
+    border-top: 1px solid #dedede;
+    font-size: 15px;
+    font-weight: bold;
+    word-spacing: -4px;
+    color: #333;
+  }
+  .list .caption a {
+    text-decoration: none;
+  }
   @media all and (max-width:767px) {
-    img {
+    .thumbnail img {
       margin-top:60px;
     }
     .basketPage img {

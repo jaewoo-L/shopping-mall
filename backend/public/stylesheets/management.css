@@ -21,11 +21,10 @@
 .list {
   display: table-cell;
   vertical-align: middle;
-  font-size: 15px;
   letter-spacing: -0.5px;
 }
 .table-top {
-  width: 1184px;
+  width: 1140px;
   margin: 0 auto;
   display: table;
   height: 70px;
@@ -37,21 +36,23 @@
 
 .table-top .list{
   color: #fff;
+  font-size: 15px;
   font-weight: 400;
 }
 .table-list {
-  width: 1184px;
+  width: 1140px;
   margin: 0 auto;
   display: table;
   height: 55px;
   background-color: #fff;
   border: 1px solid #dedede;
 }
-.table-list:hover,.table-top:hover {
+#management .table-list:hover, #management .table-top:hover {
   cursor:pointer;
 }
 .table-list .list {
   color: #555;
+  font-size: 13px;
   font-weight: 300;
 }
 .pl-10{
@@ -71,7 +72,7 @@
   text-align:center;
   border-right: 1px solid #dedede;
 }
-.paging {
+/* .paging {
   position: absolute;
   bottom: 250px;
   width:100%;
@@ -144,4 +145,34 @@ ul{
   border: 1px solid #ccc;
   border-radius: 4px;
   }
+} */
+
+/* @media (min-width: 768px) {
+  .table-top, .table-list {
+    width: 750px;
+  }
+  #products .table-list {
+    height:130px;
+  }
+  #products .w190 {
+    width:160px;
+  }
 }
+@media (min-width: 992px) {
+  .table-top, .table-list {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px){
+  .table-top, .table-list {
+    width: 1170px;
+  }
+}
+@media all and (max-width:767px) {
+  #products .table-top, #products .table-list {
+    width:100%;
+  }
+  #products .table-top .list:first-of-type, #products .table-top .list:last-of-type, #products .table-list .list:first-of-type, #products .table-list .list:last-of-type {
+    display:none;
+  }
+} */
