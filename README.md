@@ -29,16 +29,17 @@ Following items are core backend technologies used in this project:
 
 ![회원검색](https://user-images.githubusercontent.com/55423807/83841024-f3e47980-a73a-11ea-8c8d-ab29c5ea55e2.PNG)
 
-- 회원리스트를 클릭하여 상세 정보를 확인 할 수 있습니다.  
+- 회원리스트를 클릭하여 상세 정보를 확인할 수 있습니다.  
 
 
 ![모달](https://user-images.githubusercontent.com/55423807/83841022-f2b34c80-a73a-11ea-9473-a359596cfa2b.PNG)
 
 ### 구매 List
-- 회원들의 주문목록을 확인하고 처리합니다.  
+- 회원들의 주문목록을 확인하고 처리할 수 있습니다. 그리고 년도 별, 특정기간 단위로 조회가 가능합니다.
 
 
-![주문목록](https://user-images.githubusercontent.com/55423807/83841016-ef1fc580-a73a-11ea-9524-3569e76ba000.PNG)
+![주문현황](https://user-images.githubusercontent.com/55423807/84471308-0b35e080-acc0-11ea-8540-ac48521c444d.PNG)
+![주문현황2019](https://user-images.githubusercontent.com/55423807/84471312-0cffa400-acc0-11ea-840a-d33a7a25edb4.PNG)
 
 ### 제품등록 
 - 관리자와 사용자를 구분하여 나타납니다.  
