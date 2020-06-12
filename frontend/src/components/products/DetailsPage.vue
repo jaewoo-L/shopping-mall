@@ -12,7 +12,7 @@
         <hr>
         <button :disabled="!token" @click="createComment" class="btn btn-default">후기 작성</button>
         <div class="comments">
-            <div v-for="comment in product.comments">
+            <div v-for="comment in comments">
               <strong>{{comment.author.nickname}}</strong>
               <p>{{comment.text}}</p>
                 <button v-if="comment.author.id == token" @click="editComment(comment)" class="btn btn-default">수정</button>
@@ -52,7 +52,6 @@
         <button @click="likeProduct" class="like" :class="{likeBtn: likeTrue}">like({{likes.length}})</button>
         <button @click="basketProduct" class="basket" :class="{likeBtn: basketTrue}">찜하기</button>
         <button @click="buy" class="buy">구매하기</button>
-        <button @click="practice" class="buy">연습</button>
       </div>
     </div>
   </div>
@@ -83,6 +82,9 @@ export default {
       },
       token() {
         return this.$store.getters.token;
+      },
+      comments() {
+        return this.product.comments;
       },
       priceSum() {
         return (Number(this.product.price) * (this.mySItemsNum + this.myMItemsNum + this.myLItemsNum + this.myXLItemsNum + this.myFreeItemsNum)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -155,20 +157,16 @@ export default {
         let id = this.$route.params.id;
         this.$http.delete('/api/products/'+ this.$route.params.id + '/comments/' + comment._id)
         .then((response) => {
-          if(response.data.result == 'success') {
-            alert('삭제 성공했습니다.');
-            this.$router.push('/products');
-          } else if(response.data.result == 'fail') {
+          if(response.data.result == 'fail') {
             alert('삭제 실패했습니다.')
+          } else {
+            alert('삭제 성공했습니다.');
+            this.product.comments = response.data;
           }
         })
         .catch(error => {
           alert(error)
         })
-      },
-      practice(){
-        this.$http.post('/api/login/' + this.$route.params.id + '/ordersp', {userid: this.$store.getters.token})
-        .then((response)=> {console.log(response.data)})
       },
       buy() {
         if(!this.token) {

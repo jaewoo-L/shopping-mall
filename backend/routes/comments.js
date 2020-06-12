@@ -1,4 +1,4 @@
-var express = require('express'); 
+var express = require('express');
 var router = express.Router({mergeParams: true});
 var Product = require('../models/products');
 var Comment = require('../models/comments');
@@ -11,7 +11,7 @@ router.get('/new', function(req,res){
 		if(err){
 			console.log(err);
 		}else{
-			res.json(product);		
+			res.json(product);
 		}
 	});
 });
@@ -47,7 +47,7 @@ router.get('/:comment_id/edit', function(req,res){
 		}else{
 			res.json(foundComment);
 		}
-	});		
+	});
 });
 
 router.put('/:comment_id', function(req, res){
@@ -65,7 +65,25 @@ router.delete('/:comment_id', function(req,res){
 		if(err){
 			res.json({result: 'fail'})
 		}else{
-			res.json({result: 'success'})
+			Product.findById(req.params.id, function(err, product){
+				if(err) {
+					console.log(err)
+				} else {
+					for(let [idx,comment] of product.comments.entries()) {
+						if(comment == req.params.comment_id) {
+							product.comments.splice(idx,1);
+						}
+					}
+					product.save();
+					Product.findById(req.params.id).populate('comments').exec(function(err, product){
+						if(err){
+							console.log(err);
+						}else{
+							res.json(product.comments)
+						}
+					});
+				}
+			})
 		}
 	});
 });

@@ -37,8 +37,8 @@
             </div>
           </div>
           <div class="list w150 txt-cn">
-              <button type="button" name="button" class="btn btn-default w-50" @click="delivery(purchase.purchaseCode,purchase.delivery)">{{purchase.delivery}}</button><br><br>
-              <button @click="deleteProduct(purchase._id,idx)" class="btn btn-danger w-50">삭제</button>
+              <button type="button" name="button" class="btn btn-default w-50" @click="delivery(purchase.purchaseCode,purchase.delivery)" :disabled="purchase.delivery == '배송 완료'">{{purchase.delivery}}</button><br><br>
+              <button @click="deleteProduct(purchase._id,idx)" :disabled="purchase.delivery != '배송 완료'" class="btn btn-danger w-50">삭제</button>
           </div>
         </div>
       </div>
@@ -62,10 +62,6 @@ export default {
     delivery(code,state){
       let idx = this.purchaseState.findIndex(i=>i.purchaseCode==code);
       let text;
-      if(this.purchaseState[idx].delivery=="배송 완료") {
-        alert('배송을 이미 완료했습니다.');
-        return;
-      }
       if(this.purchaseState[idx].delivery=="배송 준비중") {
         text="배송을 시작 하시겠습니까?"
       }
@@ -92,7 +88,6 @@ export default {
       })
     },
     deleteProduct(purchaseStateId,idx) {
-      var RandVal = Math.floor(Math.random()*(1000-1+1)) + 1;
       if(confirm('정말 삭제하시겠습니까?(배송을 완료하였습니까?)') == true) {
         this.$http.delete('/api/login/' + this.$route.params.id +'/purchaseState/' + purchaseStateId)
         .then((response) => {

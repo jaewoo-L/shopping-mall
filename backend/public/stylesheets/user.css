@@ -37,26 +37,12 @@
   .purchaseProducts {
     margin-bottom: 200px;
   }
-
-  .purchasebox img {
-    width:200px;
-    margin: 0 150px;
-  }
-  .purchasebox .text {
-    float: right;
-    width: 50%;
-    font-size: 14px;
-    font-weight: 600;
-    color: balck;
-    line-height: 18px;
-
-  }
-  #purchaseState .list .size {
+  .purchaseProducts .list .size {
     width:29%
   }
- #purchaseState .table-list {
-   height:200px;
- }
+  .purchaseProducts .table-list {
+     height:200px;
+  }
   @media all and (min-width: 800px) {
     .myPage-box {
       width:50%;
@@ -67,31 +53,5 @@
     .editUser , .deleteUser, .deleteComments {
       width: 100%;
       margin-bottom: 10px;
-    }
-  }
-
-  @media all and (max-width: 1200px) {
-    .purchasebox img {
-      margin: 0;
-    }
-  }
-
-  @media all and (max-width: 633px) {
-    .purchaseProducts {
-      margin-bottom: 400px;
-    }
-
-    .purchasebox img {
-      margin-top:60px;
-      width: 100%;
-    }
-    .purchasebox .text {
-      font-size:15px;
-      font-weight:600;
-      width: 100%;
-      text-align: center;
-    }
-    .purchasebox .text .btn {
-      width:50%;
     }
   }

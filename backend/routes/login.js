@@ -217,7 +217,7 @@ router.post("/:id/orders/lookUp", function(req,res){
 		let orderTime;
 		let userOders = foundUser.orders;
 		for(let [idx,user] of userOders.entries()) {
-			//문자열을 다시 moment객체로 만들기.
+			//문자열을 moment객체로 만들기.
 			orderTime = moment(user.date,'YYYY-MM-DD HH:mm:ss')
 			if(req.body.year) {
 				let year = moment(req.body.year,'YYYY')
@@ -233,17 +233,7 @@ router.post("/:id/orders/lookUp", function(req,res){
 		res.json(orderArray);
 	});
 });
-router.post("/:id/ordersp", function(req,res){
-	PurchaseState.find().where('purchaseCode').equals('7eCim3WUsC1FWOoGAPfa').exec(function(err, foundProduct) {
-		console.log(foundProduct);
-	})
-	// let randomCode = randomNum(20);
-	let randomCode = randomString(20);
-	let ob={};
-	ob.num=1;
-	res.json(randomCode);
-	console.log(randomCode);
-})
+
 router.post("/:id/orders", function(req,res){
 	User.findById(req.body.userid, function(err, foundUser) {
 		let data = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -253,7 +243,6 @@ router.post("/:id/orders", function(req,res){
 		ob.date = data;
 		ob.delivery = '배송 준비중';
 		ob.orderCode = randomCode;
-		//delivery속성추가해서 저장하자 앞으로.
 		foundUser.orders.push(ob);
 		foundUser.save(function(err) {
 			if(err) {
@@ -319,7 +308,6 @@ router.post("/:id/purchaseState/lookUp", function(req, res) {
 		let orderTime;
 		let purchaseState = foundProducts.purchaseState;
 		for(let [idx,product] of purchaseState.entries()) {
-			//문자열을 다시 moment객체로 만들기.
 			orderTime = moment(product.purchaseDate,'YYYY-MM-DD HH:mm:ss')
 			if(req.body.year) {
 				let year = moment(req.body.year,'YYYY')
@@ -367,18 +355,24 @@ router.post("/:id/purchaseState/delivery", function(req, res) {
 })
 
 router.delete('/:id/purchaseState/:productid', function(req, res) {
-	User.findById(req.params.id, function(err, foundUser) {
-		if(err) {
-			console.log(err);
-			res.json({result:'fail'});
-		} else {
-			for(var i=0; i < foundUser.purchaseState.length; i++) {
-				if(foundUser.purchaseState[i]._id == req.params.productid) {
-					foundUser.purchaseState.splice(i,1);
-					foundUser.save();
+	PurchaseState.findByIdAndRemove(req.params.productid, function(err){
+		if(err){
+			res.json({result: 'fail'})
+		}else{
+			User.findById(req.params.id, function(err, foundUser) {
+				if(err) {
+					console.log(err);
+					res.json({result:'fail'});
+				} else {
+					for(var i=0; i < foundUser.purchaseState.length; i++) {
+						if(foundUser.purchaseState[i]._id == req.params.productid) {
+							foundUser.purchaseState.splice(i,1);
+							foundUser.save();
+						}
+					}
+					res.json({result:'success'});
 				}
-			}
-			res.json({result:'success'});
+			})
 		}
 	})
 })
@@ -472,24 +466,6 @@ router.delete("/:id/myPage" ,function(req,res){
 		}
 	})
 });
-// router.get("/:id/management", function(req, res) {
-// 	if(req.params.id != process.env.ADMIN) {
-// 		res.json({result: 'fail'})
-// 	} else {
-// 		User.find().exec(function(err, foundUser) {
-// 			let userData = foundUser;
-// 			for(let [idx,user] of userData.entries()) {
-// 				if(user._id==process.env.ADMIN) {
-// 					userData.splice(idx,1);
-// 				}
-// 				if(user.orders)user.orders=undefined;
-// 				if(user.basket)user.basket=undefined;
-// 				if(user.purchaseState)user.purchaseState=undefined;
-// 			}
-// 			res.json(userData);
-// 		});
-// 	}
-// })
 
 router.get("/:id/management", function(req, res) {
 	let sendObj = {};
