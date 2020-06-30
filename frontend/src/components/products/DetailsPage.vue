@@ -10,13 +10,21 @@
       <div class="contents">
         <img v-bind:src="product.detailed_image" alt="detail images">
         <hr>
-        <button :disabled="!token" @click="createComment" class="btn btn-default">후기 작성</button>
+        <div class="comment-box">
+          <textarea v-model="myComment" placeholder=" 후기작성...(20자 이상)"></textarea>
+          <button :disabled="!token || myComment.length < 20" @click="createComment" class="btn btn-default">Add</button>
+        </div>
         <div class="comments">
-            <div v-for="comment in comments">
+            <div v-for="(comment,idx) in comments" class="comment">
               <strong>{{comment.author.nickname}}</strong>
-              <p>{{comment.text}}</p>
-                <button v-if="comment.author.id == token" @click="editComment(comment)" class="btn btn-default">수정</button>
-                <button v-if="comment.author.id == token || isAdmin" @click="deleteComment(comment)" class="btn btn-default">삭제</button>
+              <span>{{comment.date}}</span>
+              <p v-if="!comment.editarea">{{comment.text}}</p>
+                <button v-if="comment.author.id == token && !comment.editarea" @click="comment.editarea=true" class="btn btn-default">수정</button>
+                <button v-if="(comment.author.id == token || isAdmin) && !comment.editarea" @click="deleteComment(comment)" class="btn btn-default">삭제</button>
+                <div v-if="comment.editarea" class="comment-box">
+                  <textarea v-if="comment.editarea" v-model="comment.text"></textarea>
+                  <button :disabled="!token || comment.text.length < 20" @click="editComment(comment)" class="btn btn-default">수정</button>
+                </div>
             </div>
         </div>
       </div>
@@ -69,6 +77,8 @@ export default {
         basket: [],
         likeTrue: null,
         basketTrue: null,
+        myComment:'',
+        edit:'',
         S:'s', M:'m', L:'l', XL:'xl', Free:'free',
         mySItemsNum: 0, myMItemsNum: 0, myLItemsNum: 0, myXLItemsNum: 0, myFreeItemsNum: 0,
         SSaleTrue: false, MSaleTrue: false, LSaleTrue: false, XLSaleTrue: false, FreeSaleTrue: false,
@@ -147,12 +157,33 @@ export default {
         }
       },
       createComment() {
-        this.$router.push('/products/' + this.$route.params.id + '/comments/new');
-      },
-      editComment(comment) {
-        this.$router.push('/products/' + this.$route.params.id + '/comments/' + comment._id +'/edit')
-      },
-
+    		this.$http.post('/api/products/' + this.$route.params.id + '/comments', {
+    			comment: this.myComment,
+    			nickname: this.$store.getters.nickname,
+    			id: this.$store.getters.token
+    		})
+    		.then((response) => {
+    			this.product.comments = response.data;
+          alert('후기작성 완료.');
+          this.myComment='';
+    		})
+    	},
+      editComment: function(comment) {
+        comment.editarea= false;
+	      this.$http.put('/api/products/'+ this.$route.params.id + '/comments/' + comment._id, {
+	      	comment: comment
+	      })
+	      .then((response) => {
+	        if(response.data.result) {
+	          alert('수정 실패');
+	        } else {
+            this.product.comments = response.data;
+	        }
+	      })
+	      .catch(error => {
+	          alert(error)
+	        })
+	    },
       deleteComment(comment) {
         let id = this.$route.params.id;
         this.$http.delete('/api/products/'+ this.$route.params.id + '/comments/' + comment._id)

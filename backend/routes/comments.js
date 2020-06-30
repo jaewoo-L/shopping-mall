@@ -3,6 +3,9 @@ var router = express.Router({mergeParams: true});
 var Product = require('../models/products');
 var Comment = require('../models/comments');
 var middleware = require('../middleware');
+var moment = require('moment');
+require('moment-timezone');
+moment.tz.setDefault("Asia/Seoul");
 
 router.get('/new', function(req,res){
 	//여기서 경로명을 단축함으로써 생기는 문제는 findById에서 req.params.id 즉 id값을 읽어오지 못하는 문제가 발생한다.
@@ -17,7 +20,8 @@ router.get('/new', function(req,res){
 });
 
 router.post('/', function(req,res){
-	Product.findById(req.params.id, function(err, product){
+	let date = moment().format('YYYY-MM-DD HH:mm:ss');
+	Product.findById(req.params.id).populate('comments likes').exec(function(err, product){
 		if(err){
 			console.log(err);
 		}else{
@@ -28,12 +32,14 @@ router.post('/', function(req,res){
 				}else{
 					comment.author.nickname = req.body.nickname;
 					comment.author.id = req.body.id;
+					comment.date = date;
 					//save comment
 					comment.save();
 					//save comment in the product
 					product.comments.unshift(comment);
+					console.log(comment);
 					product.save();
-					res.json({result: '후기작성 완료.'});
+					res.json(product.comments);
 				}
 			});
 		}
@@ -51,11 +57,15 @@ router.get('/:comment_id/edit', function(req,res){
 });
 
 router.put('/:comment_id', function(req, res){
+	let date = moment().format('YYYY-MM-DD HH:mm:ss');
+	req.body.comment.date = date;
 	Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, editComment){
 		if(err){
 			res.json({result: 'fail'})
 		}else{
-			res.json(editComment)
+			Product.findById(req.params.id).populate('comments likes').exec(function(err, product){
+				res.json(product.comments);
+			})
 		}
 	});
 });

@@ -241,13 +241,10 @@
     margin: 10px 0;
     transition: all 0.3s ease;
   }
-
-
   .likeBtn {
     background: #050c30;
     color: white;
   }
-
   .comments {
     border: 1px solid #c4bebe;
     margin-top:10px;
@@ -258,7 +255,40 @@
     padding-right: 15px;
     word-break:break-all;
   }
-
+  .comments .comment {
+    position:relative;
+    padding:1% 0;
+  }
+  .comments .comment span {
+    position:absolute;
+    right:0;
+    color:#b3b5b4;
+  }
+  .comments .comment p {
+    padding:1% 0;
+  }
+  .comment-box {
+    position:relative;
+    padding-top:1%;
+  }
+  .comment-box textarea {
+    width: 87%;
+    height: 50px;
+    resize:none;
+    border-color:#c4bebe;
+  }
+  .comment-box textarea:focus {
+    outline:0;
+  }
+  .comment-box .btn {
+    position: absolute;
+    height: 50px;
+    margin-left: 1%;
+  }
+  .comment-box .btn:disabled {
+    cursor: not-allowed;
+    border: 2px solid #b3b5b4;
+  }
   .scrolladd {
     position: fixed;
     top: 70px;

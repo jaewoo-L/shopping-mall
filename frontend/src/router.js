@@ -21,11 +21,7 @@ import PurchaseState from './components/users/PurchaseState'
 import MyPage from './components/users/MyPage'
 import EditUser from './components/users/EditUserPage'
 import Management from './components/users/Management'
-import NewComments from './components/comments/NewPage'
-import EditComments from './components/comments/EditPage'
 import {store} from './store/store'
-
-
 Vue.use(Router)
 
 export default new Router({
@@ -222,25 +218,6 @@ export default new Router({
       components: {
         'header': Header,
         default: EditUser
-      }
-    },
-
-    //Create Comments
-    {
-      path: '/products/:id/comments/new',
-      name: 'newComments',
-      components: {
-        'header': Header,
-        default: NewComments
-      }
-    },
-    //Edit Comments
-    {
-      path: '/products/:id/comments/:comments_id/edit',
-      name: 'editComments',
-      components: {
-        'header': Header,
-        default: EditComments
       }
     }
   ]

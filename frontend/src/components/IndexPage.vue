@@ -31,7 +31,7 @@
                 </a>
               </div>
               <div class="caption">
-                <p class="en">19fw light down parka beige</p>  
+                <p class="en">19fw light down parka beige</p>
                 <p>우수한 복원력과 보온성을 갖춘 다운파카로 한겨울에도 착용 가능한 제품</p>
               </div>
             </div>
@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="info-2">
         <div class="title">
           <h3>
@@ -75,7 +75,7 @@
             </div>
           </div>
         </div>
-        
+
         <hr>
         <div class="container">
         <div class="row">
@@ -102,7 +102,7 @@
               <div class="img-box">
                 <a href="/products/5dbede5ab5c2d400179c12a7">
                   <img style="width:90%;" src="https://res.cloudinary.com/du8m0pgtu/image/upload/v1572160677/12_ryco1g.jpg" alt="19fw watch pocket sweatshirts grey">
-                </a>  
+                </a>
               </div>
             </div>
           </div>
@@ -154,7 +154,7 @@
 <script>
 export default {
   created () {
-    
+
   },
   data () {
     return {
