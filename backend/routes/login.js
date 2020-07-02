@@ -535,13 +535,21 @@ router.get("/:id/management", function(req, res) {
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
+var randomStringArr=[];
 function randomString(leng) {
+	let isTrue = true;
 	let chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 	let string_length = leng;
 	let randomstring = '';
-	for (let i=0; i<string_length; i++) {
-	let rnum = Math.floor(Math.random() * chars.length);
-	randomstring += chars.substring(rnum,rnum+1);
+	while(isTrue){
+		for (let i=0; i<string_length; i++) {
+			let rnum = Math.floor(Math.random() * chars.length);
+			randomstring += chars.substring(rnum,rnum+1);
+		}
+		if(randomStringArr.filter(ranStr=>ranStr == randomstring).length != 1) {
+			randomStringArr.push(randomstring);
+			isTrue = false;
+		}
 	}
 	return randomstring;
 }
